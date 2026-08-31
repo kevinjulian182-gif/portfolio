@@ -1,0 +1,7 @@
+# Panel de administración — solo local.
+# La autenticación es del lado del cliente (ADMIN_PASS vive en js/admin.js),
+# así que publicarlo expondría la clave a cualquier visitante.
+# El panel escribe solo en localStorage del navegador: funciona igual en local.
+admin.html
+js/admin.js
+css/admin.css

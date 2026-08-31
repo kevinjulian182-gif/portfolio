@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark" data-lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Kevin Navarrete — Diseñador Gráfico & UX/UI con +5 años de experiencia en identidad visual, interfaces digitales y e-learning. Bogotá, Colombia." />
+  <meta name="keywords" content="Kevin Navarrete, diseñador gráfico, UX/UI designer, Figma, branding, portafolio, Bogotá, Colombia" />
+  <meta name="author" content="Kevin Julian Navarrete Rodríguez" />
+  <meta property="og:title" content="Kevin Navarrete — Diseñador Gráfico & UX/UI" />
+  <meta property="og:description" content="Portafolio profesional de diseño gráfico, UX/UI y experiencia de usuario. Más de 5 años creando marcas e interfaces digitales." />
+  <meta property="og:type" content="website" />
+  <title>Kevin Navarrete — Diseñador Gráfico & UX/UI</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <!-- Estilos del portafolio -->
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+
+  <!-- ===== NAVIGATION ===== -->
+  <header id="site-header">
+    <nav>
+      <a href="#hero" class="nav-logo">KN<span>.</span></a>
+      <ul class="nav-links">
+        <li><a href="#proyectos" data-i18n="nav.projects">Proyectos</a></li>
+        <li><a href="#sobre-mi" data-i18n="nav.about">Sobre mí</a></li>
+        <li><a href="#cv" data-i18n="nav.cv">CV</a></li>
+        <li><a href="#contacto" data-i18n="nav.contact">Contacto</a></li>
+      </ul>
+      <div class="nav-controls">
+        <button class="btn-icon" id="lang-toggle" aria-label="Change language">EN</button>
+        <button class="btn-icon" id="theme-toggle" aria-label="Toggle theme">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+        </button>
+        <button class="hamburger" id="hamburger" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ===== MOBILE MENU ===== -->
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="#proyectos" data-i18n="nav.projects">Proyectos</a>
+    <a href="#sobre-mi" data-i18n="nav.about">Sobre mí</a>
+    <a href="#cv" data-i18n="nav.cv">CV</a>
+    <a href="#contacto" data-i18n="nav.contact">Contacto</a>
+  </div>
+
+  <!-- ===== HERO ===== -->
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-content">
+      <div class="hero-tag">
+        <span class="hero-tag-line"></span>
+        <span class="label" data-i18n="hero.available">Disponible para proyectos</span>
+      </div>
+      <h1 class="hero-headline display" data-i18n-html="hero.headline">
+        Diseño que<br><em>comunica,</em><br>experiencias<br>que perduran.
+      </h1>
+      <p class="hero-sub" data-i18n="hero.sub">
+        Diseñador Gráfico &amp; UX/UI con +5 años de experiencia. Creo identidades visuales, interfaces digitales y experiencias de aprendizaje que comunican con precisión y estilo.
+      </p>
+      <div class="hero-ctas">
+        <a href="#proyectos" class="btn-primary" data-i18n="hero.cta1">Ver proyectos →</a>
+        <a href="#contacto" class="btn-outline" data-i18n="hero.cta2">Hablemos</a>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-num">5+</div>
+        <div class="hero-stat-label" data-i18n="hero.stat1">Años exp.</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">8+</div>
+        <div class="hero-stat-label" data-i18n="hero.stat2">Empresas</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">100%</div>
+        <div class="hero-stat-label" data-i18n="hero.stat3">Dedicación</div>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <div class="scroll-line"></div>
+      <span data-i18n="hero.scroll">Scroll</span>
+    </div>
+  </section>
+
+  <!-- ===== PROJECTS ===== -->
+  <section id="proyectos">
+    <div class="container">
+      <div class="divider reveal">
+        <div class="divider-line"></div>
+        <span class="label" data-i18n="projects.label">Trabajo selecto</span>
+        <div class="divider-line"></div>
+      </div>
+
+      <div class="section-header reveal">
+        <h2 data-i18n-html="projects.title">Proyectos <em>destacados</em></h2>
+        <p data-i18n="projects.sub">Una selección de trabajos que reflejan mi proceso y visión de diseño.</p>
+      </div>
+
+      <div class="filters reveal reveal-delay-1">
+        <button class="filter-btn active" data-filter="all" data-i18n="projects.all">Todos</button>
+        <button class="filter-btn" data-filter="branding">Branding</button>
+        <button class="filter-btn" data-filter="uxui">UX/UI</button>
+      </div>
+
+      <div class="projects-grid" id="projects-grid">
+        <!-- Generated by JS from projects data -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PROJECT MODAL ===== -->
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal" id="modal">
+      <div class="modal-header">
+        <div>
+          <div class="project-cat" id="modal-cat"></div>
+        </div>
+        <button class="modal-close" id="modal-close">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+      <div class="modal-image">
+        <button class="modal-img-nav prev hidden" id="img-prev">&#8592;</button>
+        <div class="modal-image-inner" id="modal-icon"></div>
+        <button class="modal-img-nav next hidden" id="img-next">&#8594;</button>
+      </div>
+      <div class="modal-img-counter" id="img-counter"></div>
+      <div class="modal-gallery" id="modal-gallery"></div>
+      <div class="modal-body">
+        <h2 id="modal-title"></h2>
+        <div class="modal-tags" id="modal-tags"></div>
+        <p class="modal-desc" id="modal-desc"></p>
+        <div class="modal-meta">
+          <div class="modal-meta-item">
+            <label data-i18n="modal.client">Cliente</label>
+            <span id="modal-client"></span>
+          </div>
+          <div class="modal-meta-item">
+            <label data-i18n="modal.year">Año</label>
+            <span id="modal-year"></span>
+          </div>
+          <div class="modal-meta-item">
+            <label data-i18n="modal.role">Rol</label>
+            <span id="modal-role"></span>
+          </div>
+        </div>
+        <!-- Figma prototype link — only shown for UX/UI projects with figmaUrl -->
+        <div class="modal-figma" id="modal-figma" style="display:none;">
+          <span class="modal-figma-label">Prototipo interactivo</span>
+          <a href="#" id="modal-figma-link" target="_blank" rel="noopener" class="modal-figma-link">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M5 5.5A3.5 3.5 0 018.5 2H12v7H8.5A3.5 3.5 0 015 5.5zM12 2h3.5a3.5 3.5 0 110 7H12V2zM12 12.5a3.5 3.5 0 117 0 3.5 3.5 0 01-7 0zM5 19.5A3.5 3.5 0 018.5 16H12v3.5a3.5 3.5 0 01-7 0zM5 12.5A3.5 3.5 0 018.5 9H12v7H8.5A3.5 3.5 0 015 12.5z"/>
+            </svg>
+            Ver prototipo en Figma ↗
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== ABOUT ===== -->
+  <section id="sobre-mi">
+    <div class="container">
+      <div class="about-grid">
+        <div class="reveal">
+          <div class="about-portrait">
+            <img
+              src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80&fit=crop&crop=face"
+              alt="Kevin Navarrete — Diseñador Gráfico & UX/UI"
+              style="width:100%;height:100%;object-fit:cover;object-position:center top;position:absolute;inset:0;"
+            />
+          </div>
+        </div>
+        <div class="reveal reveal-delay-1">
+          <span class="label" data-i18n="about.label">Sobre mí</span>
+          <div style="height:1rem"></div>
+          <h2 class="about-text" style="font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,3.2rem);font-weight:300;line-height:1.15;margin-bottom:1.5rem;">
+            <span data-i18n-html="about.title">Diseño con<br><em style="font-style:italic;color:var(--gold);">propósito</em><br>y alma.</span>
+          </h2>
+          <p style="color:var(--text-muted);line-height:1.8;margin-bottom:1rem;" data-i18n="about.p1">
+            Soy Kevin Navarrete, diseñador gráfico y UX/UI con más de 5 años de experiencia creando identidades visuales, interfaces digitales y materiales e-learning que conectan marcas con sus audiencias.
+          </p>
+          <p style="color:var(--text-muted);line-height:1.8;margin-bottom:1rem;" data-i18n="about.p2">
+            He colaborado con empresas como BlueCaribu, Logyca, Lookers y H2A, liderando desde la conceptualización de sistemas de marca hasta el desarrollo técnico de interfaces con HTML, CSS y Figma. Integro la inteligencia artificial como herramienta estratégica en mi flujo de trabajo.
+          </p>
+          <p style="color:var(--text-muted);line-height:1.8;margin-bottom:2.5rem;" data-i18n="about.p3">
+            Me mueve el reto de transformar contenidos complejos en experiencias visuales claras, atractivas y funcionales. Cada proyecto es una oportunidad de impactar positivamente a las personas.
+          </p>
+
+          <div class="skills-section">
+            <h3 class="serif" data-i18n="about.skills">Habilidades</h3>
+            <div class="skills-grid" id="skills-grid"></div>
+
+            <h3 class="serif" style="margin-top:2rem;margin-bottom:1rem;" data-i18n="about.tools">Herramientas</h3>
+            <div class="tools-grid" id="tools-grid"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CV ===== -->
+  <section id="cv" style="background:var(--bg2);">
+    <div class="container">
+      <div class="divider reveal">
+        <div class="divider-line"></div>
+        <span class="label" data-i18n="cv.label">Trayectoria</span>
+        <div class="divider-line"></div>
+      </div>
+
+      <div class="section-header reveal">
+        <h2 data-i18n-html="cv.title">Experiencia &amp; <em>Formación</em></h2>
+        <p data-i18n="cv.sub">Mi recorrido profesional y académico en diseño y comunicación visual.</p>
+      </div>
+
+      <div class="cv-grid">
+        <div class="reveal">
+          <h3 class="serif" data-i18n="cv.experience">Experiencia</h3>
+          <div class="timeline" id="timeline-exp"></div>
+        </div>
+        <div class="reveal reveal-delay-1">
+          <h3 class="serif" data-i18n="cv.education">Formación</h3>
+          <div class="timeline" id="timeline-edu"></div>
+        </div>
+      </div>
+
+      <!-- CERTIFICACIONES -->
+      <div class="certs-section reveal">
+        <h3 class="serif" data-i18n="cv.certs">Certificaciones</h3>
+        <div class="certs-grid" id="certs-grid"></div>
+      </div>
+
+      <div style="text-align:center;margin-top:4rem;" class="reveal">
+        <a href="#" class="cv-download" id="cv-download-btn" data-i18n="cv.download">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M12 15V3m0 12l-4-4m4 4l4-4M2 17l.621 2.485A2 2 0 004.561 21h14.878a2 2 0 001.94-1.515L22 17"/>
+          </svg>
+          Descargar CV en PDF
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CONTACT ===== -->
+  <section id="contacto">
+    <div class="container">
+      <div class="contact-grid">
+        <div class="reveal">
+          <span class="label" data-i18n="contact.label">Contacto</span>
+          <div style="height:1rem"></div>
+          <h2 class="contact-info" style="font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,3.2rem);font-weight:300;line-height:1.1;margin-bottom:1.5rem;">
+            <span data-i18n-html="contact.title">Trabajemos<br>juntos en algo<br><em style="font-style:italic;color:var(--gold);">memorable.</em></span>
+          </h2>
+          <p style="color:var(--text-muted);line-height:1.8;margin-bottom:2rem;" data-i18n="contact.sub">
+            ¿Tienes un proyecto en mente? Me encantaría escucharte. Estoy disponible para proyectos freelance, colaboraciones y consultoría.
+          </p>
+          <div class="contact-links">
+            <a href="mailto:kevinjulian182@gmail.com" class="contact-link">
+              <span class="contact-link-icon">@</span>
+              <span class="contact-link-label" data-i18n="contact.email">Email</span>
+              <span class="contact-link-value">kevinjulian182@gmail.com</span>
+            </a>
+            <a href="tel:+573138089302" class="contact-link">
+              <span class="contact-link-icon">◎</span>
+              <span class="contact-link-label">Teléfono</span>
+              <span class="contact-link-value">+57 313 808 9302</span>
+            </a>
+            <a href="https://www.behance.net/kevinnavarrete1" target="_blank" class="contact-link">
+              <span class="contact-link-icon">◈</span>
+              <span class="contact-link-label">Behance</span>
+              <span class="contact-link-value">behance.net/kevinnavarrete1</span>
+            </a>
+            <a href="https://www.linkedin.com/in/kevin-navarrrete/" target="_blank" class="contact-link">
+              <span class="contact-link-icon">⊞</span>
+              <span class="contact-link-label">LinkedIn</span>
+              <span class="contact-link-value">Kevin Julian Navarrete</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="reveal reveal-delay-1">
+          <form class="contact-form" id="contact-form" novalidate>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="name" data-i18n="contact.name">Nombre</label>
+                <input type="text" id="name" name="name" required placeholder="Tu nombre" />
+              </div>
+              <div class="form-group">
+                <label for="email" data-i18n="contact.email_label">Correo</label>
+                <input type="email" id="email" name="email" required placeholder="tu@email.com" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="subject" data-i18n="contact.subject">Servicio de interés</label>
+              <select id="subject" name="subject">
+                <option value="" data-i18n="contact.select">Selecciona un servicio</option>
+                <option value="branding" data-i18n="contact.opt1">Branding / Identidad visual</option>
+                <option value="uxui" data-i18n="contact.opt2">Diseño UX/UI</option>
+                <option value="editorial" data-i18n="contact.opt3">Diseño editorial</option>
+                <option value="social" data-i18n="contact.opt4">Marketing digital / Social</option>
+                <option value="other" data-i18n="contact.opt5">Otro</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="message" data-i18n="contact.message">Mensaje</label>
+              <textarea id="message" name="message" rows="5" placeholder="Cuéntame sobre tu proyecto..."></textarea>
+            </div>
+            <div class="form-success" id="form-success" data-i18n="contact.success">
+              ✓ Mensaje enviado. Te contactaré pronto.
+            </div>
+            <button type="submit" class="btn-primary" style="align-self:flex-start;" data-i18n="contact.send">
+              Enviar mensaje →
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <span class="footer-copy">© 2025 Kevin Julian Navarrete Rodríguez · <a href="https://www.linkedin.com/in/kevin-navarrrete/" target="_blank" style="color:var(--gold);opacity:0.7;">LinkedIn</a> · <a href="https://www.behance.net/kevinnavarrete1" target="_blank" style="color:var(--gold);opacity:0.7;">Behance</a></span>
+        <div class="footer-links">
+          <a href="#proyectos" data-i18n="nav.projects">Proyectos</a>
+          <a href="#sobre-mi" data-i18n="nav.about">Sobre mí</a>
+          <a href="#contacto" data-i18n="nav.contact">Contacto</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== WHATSAPP BOTÓN FLOTANTE ===== -->
+  <!-- Cambia el número: 573138089302 = +57 313 808 9302 (sin + ni espacios) -->
+  <a href="https://wa.me/573138089302?text=Hola%20Kevin%2C%20vi%20tu%20portafolio%20y%20me%20gustar%C3%ADa%20hablar%20contigo%20sobre%20un%20proyecto."
+     target="_blank" rel="noopener" class="whatsapp-btn" aria-label="Chatear por WhatsApp">
+    <span class="whatsapp-tooltip">¡Hablemos por WhatsApp!</span>
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+  </a>
+
+  <!-- Datos del portafolio (compartido con admin) -->
+  <script src="js/data.js"></script>
+  <!-- Lógica del portafolio -->
+  <script src="js/main.js"></script>
+</body>
+</html>

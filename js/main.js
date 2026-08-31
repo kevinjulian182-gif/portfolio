@@ -162,6 +162,8 @@ function renderProjects(filter = 'all') {
     });
     grid.appendChild(card);
   });
+
+  observarTarjetas();
 }
 
 function renderSkills() {
@@ -197,6 +199,87 @@ function renderCerts() {
       <div class="cert-name">${c.name}</div>
       <div class="cert-year">${c.year}</div>
     </div>`).join('');
+}
+
+
+/* ══════════════════════════════════════════════════════════════
+   MOVIMIENTO
+══════════════════════════════════════════════════════════════ */
+
+const SIN_MOVIMIENTO = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* La portada no entra hasta que las fuentes están listas: con Fraunces
+   cargando, el titular cambiaría de forma a mitad de la animación. */
+function initEntradaPortada() {
+  const arrancar = () => document.documentElement.classList.add('fuentes-listas');
+  if (SIN_MOVIMIENTO) { arrancar(); return; }
+
+  if (document.fonts && document.fonts.ready) {
+    // El tope evita que una red lenta deje la portada en blanco.
+    Promise.race([
+      document.fonts.ready,
+      new Promise(r => setTimeout(r, 1200)),
+    ]).then(arrancar);
+  } else {
+    arrancar();
+  }
+}
+
+/* Escalona la entrada según el orden de lectura. El índice va en una
+   variable CSS y el retardo lo calcula la hoja de estilos. */
+function escalonar(elementos, tope) {
+  elementos.forEach((el, i) => el.style.setProperty('--i', Math.min(i, tope || 6)));
+}
+
+function initRevelado() {
+  const objetivos = [...document.querySelectorAll('.reveal, .project-card')];
+  escalonar([...document.querySelectorAll('.reveal')], 4);
+
+  if (SIN_MOVIMIENTO || !('IntersectionObserver' in window)) {
+    objetivos.forEach(el => el.classList.add('visible'));
+    return;
+  }
+
+  const obs = new IntersectionObserver((entradas, o) => {
+    entradas.forEach(e => {
+      if (!e.isIntersecting) return;
+      e.target.classList.add('visible');
+      o.unobserve(e.target);        // una vez revelado, deja de observarse
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+
+  objetivos.forEach(el => obs.observe(el));
+}
+
+/* Las tarjetas se pintan por JS, así que hay que engancharlas cada vez
+   que se vuelven a generar (al filtrar o al cambiar de idioma). */
+function observarTarjetas() {
+  const tarjetas = [...document.querySelectorAll('.project-card')];
+  escalonar(tarjetas, 5);
+
+  tarjetas.forEach(t => {
+    const img = t.querySelector('.project-thumb-img');
+    if (img) {
+      if (img.complete && img.naturalWidth) img.classList.add('cargada');
+      else img.addEventListener('load', () => img.classList.add('cargada'), { once: true });
+      img.addEventListener('error', () => img.classList.add('cargada'), { once: true });
+    }
+  });
+
+  if (SIN_MOVIMIENTO || !('IntersectionObserver' in window)) {
+    tarjetas.forEach(t => t.classList.add('visible'));
+    return;
+  }
+
+  const obs = new IntersectionObserver((entradas, o) => {
+    entradas.forEach(e => {
+      if (!e.isIntersecting) return;
+      e.target.classList.add('visible');
+      o.unobserve(e.target);
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -5% 0px' });
+
+  tarjetas.forEach(t => obs.observe(t));
 }
 
 /* ── Ajustes del sitio ─────────────────────────────────────────
@@ -236,10 +319,7 @@ function applyTranslations() {
 
 /* ── Scroll reveal ───────────────────────────────────────── */
 function initReveal() {
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-  }, { threshold: 0.1 });
-  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+  initRevelado();
 }
 
 function initSkillBars() {
@@ -269,7 +349,6 @@ document.getElementById('lang-toggle').addEventListener('click', () => {
   currentLang = currentLang === 'es' ? 'en' : 'es';
   document.documentElement.setAttribute('lang', currentLang);
   applyTranslations();
-  applySiteSettings();
 });
 
 document.getElementById('hamburger').addEventListener('click', e => {
@@ -332,5 +411,7 @@ renderTimeline('timeline-exp', getExperience());
 renderTimeline('timeline-edu', getEducation());
 renderCerts();
 applyTranslations();
+applySiteSettings();
 initReveal();
 initSkillBars();
+initEntradaPortada();

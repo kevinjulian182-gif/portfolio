@@ -13,8 +13,14 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1;1,9..144,300..700,0..100,0..1&family=Instrument+Sans:ital,wdth,wght@0,75..100,400..700;1,75..100,400..700&display=swap" rel="stylesheet" />
 
+  <script>
+    /* Se marca aquí, antes de pintar, para que no haya un parpadeo entre
+       el contenido visible y el estado inicial de la animación. Sin JS
+       la clase nunca se añade y todo se ve, que es lo correcto. */
+    document.documentElement.classList.add('js-motion');
+  </script>
   <!-- Estilos del portafolio -->
   <link rel="stylesheet" href="css/styles.css" />
 </head>
@@ -62,7 +68,7 @@
         <span class="label" data-i18n="hero.available">Bogotá, Colombia &middot; disponible para proyectos</span>
       </p>
 
-      <h1 class="hero-headline">Kevin Navarrete</h1>
+      <h1 class="hero-headline"><span class="linea">Kevin Navarrete</span></h1>
 
       <p class="hero-role" data-i18n="hero.role">Diseñador gráfico y UX/UI</p>
 

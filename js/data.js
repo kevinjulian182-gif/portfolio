@@ -45,6 +45,15 @@ const PROJECTS = [
     client: "Pineda Martínez Odontología",
     year: "2025",
     role: "Diseñador de marca",
+    caseStudy: {
+      challenge: "Una clínica odontológica sin sistema de marca: cada pieza —redes, papelería, señalética— se resolvía por separado, sin criterio común de logotipo, color ni tipografía. El encargo fue construir ese criterio y dejarlo documentado para que el equipo pudiera aplicarlo sin un diseñador de por medio.",
+      challengeEn: "A dental clinic with no brand system: every piece — social, stationery, signage — was solved separately, with no shared criteria for logo, colour or type. The brief was to build that criteria and document it so the team could apply it without a designer in the loop.",
+      process: "Partí del logotipo y desde ahí derivé el sistema completo: paleta, jerarquía tipográfica e iconografía. Probé cada decisión contra las aplicaciones reales —redes sociales y papelería— antes de darla por buena, y recogí el resultado en un manual con usos correctos e incorrectos. Producción en Illustrator y Photoshop.",
+      processEn: "I started from the logo and derived the whole system from it: palette, type hierarchy and iconography. Every decision was tested against the real applications — social media and stationery — before being accepted, and the result was collected in a manual with correct and incorrect usage. Produced in Illustrator and Photoshop.",
+      outcome: "La clínica quedó con un manual completo y aplicaciones listas para producción: las piezas nuevas se generan a partir de reglas escritas y no del criterio de quien las haga ese día.",
+      outcomeEn: "The clinic ended up with a complete manual and production-ready applications: new pieces come from written rules rather than from whoever happens to make them that day.",
+      draft: true
+    },
     behanceUrl: "https://www.behance.net/gallery/219375339/Manual-de-Marca-Pineda-Martinez-Odontologia",
     col: "col-8"
   },
@@ -132,6 +141,15 @@ const PROJECTS = [
     client: "Logyca",
     year: "2022",
     role: "Diseñador Gráfico",
+    caseStudy: {
+      challenge: "Sostener una presencia digital coherente en varios canales a la vez —redes sociales, email marketing y landing pages— bajo estándares corporativos estrictos y con un ritmo de producción alto.",
+      challengeEn: "Sustaining a coherent digital presence across several channels at once — social media, email marketing and landing pages — under strict corporate standards and at a high production rate.",
+      process: "Asumí la creación y el despliegue de la identidad visual para esos canales. Trabajé cada pieza dentro del marco corporativo y coordiné los formatos entre social, email y landing, de modo que la marca se leyera igual en todos los puntos de contacto.",
+      processEn: "I took on the creation and rollout of the visual identity for those channels, working each piece within the corporate framework and coordinating formats across social, email and landing pages so the brand read the same at every touchpoint.",
+      outcome: "La marca ganó consistencia en todos sus puntos de contacto digitales, con piezas que cumplen el estándar corporativo sin quedarse en lo genérico.",
+      outcomeEn: "The brand gained consistency across every digital touchpoint, with pieces that meet the corporate standard without settling for the generic.",
+      draft: true
+    },
     behanceUrl: "https://www.behance.net/gallery/192692797/Material-de-Diseno-en-Logyca",
     col: "col-4"
   },
@@ -160,6 +178,15 @@ const PROJECTS = [
     client: "Colegio Virtual",
     year: "2022",
     role: "UX/UI Designer",
+    caseStudy: {
+      challenge: "La plataforma web del colegio había ido creciendo por acumulación: los contenidos estaban donde la institución los fue colocando, no donde los buscaban las familias y los estudiantes.",
+      challengeEn: "The school web platform had grown by accumulation: content sat where the institution had placed it over time, not where families and students were looking for it.",
+      process: "Empecé con un análisis de experiencia para localizar los puntos de dolor concretos, no los supuestos. Con eso propuse una arquitectura de información nueva y la llevé a prototipo de alta fidelidad en Figma, revisando en paralelo la accesibilidad del sitio.",
+      processEn: "I started with an experience analysis to locate the actual pain points rather than the assumed ones. From there I proposed a new information architecture and took it to a high-fidelity Figma prototype, reviewing site accessibility along the way.",
+      outcome: "El rediseño reordenó la navegación alrededor de las tareas reales de quien usa el sitio, y dejó un prototipo completo como base para la implementación.",
+      outcomeEn: "The redesign reorganised navigation around what people actually come to the site to do, and left a complete prototype as the basis for implementation.",
+      draft: true
+    },
     behanceUrl: "https://www.behance.net/gallery/141231141/Rediseno-Pagina-Web-Colegio-Virtual",
     figmaUrl: "https://www.figma.com/proto/example-colegio",
     col: "col-6"
@@ -456,6 +483,14 @@ const CERTIFICATIONS = [
 ];
 
 /* TRANSLATIONS */
+/* Ajustes del sitio que no son ni proyecto ni texto: rutas de archivos.
+   Van aquí para que se puedan cambiar desde el panel. */
+const SITE = {
+  portrait: "",
+  portraitAlt: "Kevin Navarrete",
+  cvUrl: ""
+};
+
 const i18n = {
   es: {
     "nav.projects": "Proyectos",
@@ -574,6 +609,8 @@ function getTools()         { try { const s = localStorage.getItem('kn_tools'); 
 function getExperience()    { try { const s = localStorage.getItem('kn_experience');    return s ? JSON.parse(s) : EXPERIENCE;    } catch(e){ return EXPERIENCE; } }
 function getEducation()     { try { const s = localStorage.getItem('kn_education');     return s ? JSON.parse(s) : EDUCATION;     } catch(e){ return EDUCATION; } }
 function getCertifications(){ try { const s = localStorage.getItem('kn_certs');         return s ? JSON.parse(s) : CERTIFICATIONS;} catch(e){ return CERTIFICATIONS; } }
+function getI18n()          { try { const s = localStorage.getItem('kn_i18n');          return s ? JSON.parse(s) : i18n;           } catch(e){ return i18n; } }
+function getSite()          { try { const s = localStorage.getItem('kn_site');          return Object.assign({}, SITE, s ? JSON.parse(s) : {}); } catch(e){ return SITE; } }
 
 function saveSection(key, value) {
   localStorage.setItem('kn_' + key, JSON.stringify(value));

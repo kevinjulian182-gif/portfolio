@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin — Portafolio Kevin Navarrete</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=Cormorant+Garamond:wght@300;400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/admin.css" />
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════════════
+       LOGIN SCREEN
+  ═══════════════════════════════════════════════════════ -->
+  <div id="login-screen">
+    <div class="login-box">
+      <div class="login-logo">KN<span>.</span></div>
+      <h1 class="login-title">Panel de administración</h1>
+      <p class="login-sub">Acceso restringido</p>
+      <form id="login-form">
+        <div class="field-group">
+          <label>Usuario</label>
+          <input type="text" id="login-user" autocomplete="username" placeholder="usuario" />
+        </div>
+        <div class="field-group">
+          <label>Contraseña</label>
+          <input type="password" id="login-pass" autocomplete="current-password" placeholder="••••••••" />
+        </div>
+        <div class="login-error" id="login-error">Usuario o contraseña incorrectos</div>
+        <button type="submit" class="btn-gold">Ingresar →</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════
+       ADMIN PANEL
+  ═══════════════════════════════════════════════════════ -->
+  <div id="admin-panel" style="display:none;">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-logo">KN<span>.</span></div>
+      <nav class="sidebar-nav">
+        <button class="nav-item active" data-tab="projects">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+          Proyectos
+        </button>
+        <button class="nav-item" data-tab="skills">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          Habilidades
+        </button>
+        <button class="nav-item" data-tab="experience">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg>
+          Experiencia
+        </button>
+        <button class="nav-item" data-tab="education">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+          Formación & Certs
+        </button>
+        <button class="nav-item" data-tab="textos">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
+          Textos del sitio
+        </button>
+        <button class="nav-item" data-tab="conexion">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
+          Conexión
+        </button>
+        <button class="nav-item" data-tab="export">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Publicar
+        </button>
+      </nav>
+      <div class="sidebar-footer">
+        <a href="index.html" target="_blank" class="sidebar-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Ver portafolio
+        </a>
+        <button class="sidebar-link danger" id="btn-logout">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          Cerrar sesión
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main content -->
+    <main class="admin-main">
+
+      <!-- ── TOAST ── -->
+      <div class="toast" id="toast">✓ Cambios guardados</div>
+
+      <!-- ══════════════ TAB: PROYECTOS ══════════════ -->
+      <div class="tab-panel active" id="tab-projects">
+        <div class="panel-header">
+          <div>
+            <h2>Proyectos</h2>
+            <p>Agrega, edita o elimina proyectos del portafolio.</p>
+          </div>
+          <button class="btn-gold" id="btn-new-project">+ Nuevo proyecto</button>
+        </div>
+
+        <div class="projects-list" id="projects-list"></div>
+      </div>
+
+      <!-- ══════════════ TAB: HABILIDADES ══════════════ -->
+      <div class="tab-panel" id="tab-skills">
+        <div class="panel-header">
+          <div><h2>Habilidades & Herramientas</h2><p>Edita los niveles de habilidades y la lista de herramientas.</p></div>
+          <button class="btn-gold" id="btn-save-skills">Guardar cambios</button>
+        </div>
+
+        <div class="card">
+          <h3 class="card-title">Habilidades (barras de progreso)</h3>
+          <div id="skills-editor"></div>
+          <button class="btn-outline mt-1" id="btn-add-skill">+ Agregar habilidad</button>
+        </div>
+
+        <div class="card mt-2">
+          <h3 class="card-title">Herramientas</h3>
+          <p class="hint">Una herramienta por línea</p>
+          <textarea id="tools-editor" rows="8" class="textarea-full"></textarea>
+        </div>
+      </div>
+
+      <!-- ══════════════ TAB: EXPERIENCIA ══════════════ -->
+      <div class="tab-panel" id="tab-experience">
+        <div class="panel-header">
+          <div><h2>Experiencia laboral</h2><p>Gestiona tu historial de trabajo.</p></div>
+          <div class="btn-row">
+            <button class="btn-outline" id="btn-add-exp">+ Agregar</button>
+            <button class="btn-gold" id="btn-save-exp">Guardar cambios</button>
+          </div>
+        </div>
+        <div id="experience-editor"></div>
+      </div>
+
+      <!-- ══════════════ TAB: EDUCACIÓN & CERTS ══════════════ -->
+      <div class="tab-panel" id="tab-education">
+        <div class="panel-header">
+          <div><h2>Formación & Certificaciones</h2><p>Edita tu educación y certificaciones.</p></div>
+          <div class="btn-row">
+            <button class="btn-gold" id="btn-save-edu">Guardar todos</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header-row">
+            <h3 class="card-title">Formación académica</h3>
+            <button class="btn-outline sm" id="btn-add-edu">+ Agregar</button>
+          </div>
+          <div id="education-editor"></div>
+        </div>
+
+        <div class="card mt-2">
+          <div class="card-header-row">
+            <h3 class="card-title">Certificaciones</h3>
+            <button class="btn-outline sm" id="btn-add-cert">+ Agregar</button>
+          </div>
+          <div id="certs-editor"></div>
+        </div>
+      </div>
+
+
+      <!-- ══════════════ TAB: TEXTOS DEL SITIO ══════════════ -->
+      <div class="tab-panel" id="tab-textos">
+        <div class="panel-header">
+          <div>
+            <h2>Textos del sitio</h2>
+            <p>Todo lo que no es un proyecto: el encabezado, "Sobre mí", el contacto y el menú. Cada texto en español y en inglés.</p>
+          </div>
+          <div class="btn-row">
+            <button class="btn-gold" id="btn-save-textos">Guardar textos</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header-row">
+            <h3 class="card-title">Buscar</h3>
+            <input type="search" id="textos-filtro" class="input-inline" placeholder="Filtrar por texto o clave..." />
+          </div>
+          <p class="hint">Las claves con <code>&lt;br&gt;</code> o <code>&lt;em&gt;</code> admiten esas etiquetas: <code>&lt;em&gt;</code> pinta la palabra con el color de acento.</p>
+        </div>
+
+
+        <div class="card mt-2">
+          <div class="card-header-row"><h3 class="card-title">Retrato y CV</h3></div>
+          <p class="hint mb-05">La foto de la sección "Sobre mí" y el PDF del CV. Se guardan con el botón de arriba.</p>
+          <div class="form-grid">
+            <div class="field-group col-2">
+              <label for="site-portrait">Ruta del retrato</label>
+              <input type="text" id="site-portrait" placeholder="img/kevin.jpg" />
+              <div class="zona-subida">
+                <input type="file" id="site-portrait-file" accept="image/jpeg,image/png,image/webp" hidden />
+                <button type="button" class="btn-outline sm" id="btn-subir-retrato">Subir foto</button>
+                <span class="hint" id="retrato-estado">Si lo dejas vacío se muestra el marco con la nota.</span>
+              </div>
+            </div>
+            <div class="field-group col-2">
+              <label for="site-cv">Enlace al CV en PDF</label>
+              <input type="text" id="site-cv" placeholder="cv/CV_Kevin_Navarrete.pdf" />
+              <p class="hint">Sin esto, el botón "Descargar CV" no lleva a ninguna parte.</p>
+            </div>
+          </div>
+        </div>
+
+        <div id="textos-editor"></div>
+      </div>
+
+      <!-- ══════════════ TAB: CONEXIÓN ══════════════ -->
+      <div class="tab-panel" id="tab-conexion">
+        <div class="panel-header">
+          <div>
+            <h2>Conexión con GitHub</h2>
+            <p>Sin esto el panel guarda solo en este navegador. Con el token, publica de verdad.</p>
+          </div>
+          <div class="btn-row">
+            <button class="btn-outline" id="btn-probar-conexion">Probar conexión</button>
+            <button class="btn-gold" id="btn-guardar-conexion">Guardar</button>
+          </div>
+        </div>
+
+        <div class="card aviso-seguridad">
+          <h3 class="card-title">Lee esto una vez</h3>
+          <p>El usuario y la contraseña de este panel <strong>no son seguridad</strong>: están escritos en el código y cualquiera puede leerlos. Lo único que protege tu portafolio es el token — sin un token válido nadie puede guardar nada, aunque entre aquí.</p>
+          <p>El token se guarda solo en <strong>este navegador</strong> y únicamente viaja a <code>api.github.com</code>. En un equipo prestado, usa "Olvidar token" al terminar.</p>
+        </div>
+
+        <div class="card">
+          <div class="card-header-row"><h3 class="card-title">Cómo crear el token</h3></div>
+          <ol class="lista-pasos">
+            <li>Entra en <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">github.com/settings/personal-access-tokens/new</a> (token <em>fine-grained</em>).</li>
+            <li>En <strong>Repository access</strong> elige <strong>Only select repositories</strong> y marca únicamente <code>portfolio</code>.</li>
+            <li>En <strong>Permissions &rarr; Repository permissions</strong>, pon <strong>Contents</strong> en <strong>Read and write</strong>. No hace falta nada más.</li>
+            <li>Elige una caducidad (90 días es razonable) y genera el token.</li>
+            <li>Cópialo y pégalo abajo. GitHub solo te lo enseña una vez.</li>
+          </ol>
+          <p class="hint">Acotado así, si el token se filtrara solo daría acceso de escritura a este repositorio, a nada más de tu cuenta.</p>
+        </div>
+
+        <div class="card">
+          <div class="card-header-row"><h3 class="card-title">Datos de conexión</h3></div>
+          <div class="form-grid">
+            <div class="field-group">
+              <label for="gh-owner">Usuario de GitHub</label>
+              <input type="text" id="gh-owner" autocomplete="off" />
+            </div>
+            <div class="field-group">
+              <label for="gh-repo">Repositorio</label>
+              <input type="text" id="gh-repo" autocomplete="off" />
+            </div>
+            <div class="field-group">
+              <label for="gh-branch">Rama</label>
+              <input type="text" id="gh-branch" autocomplete="off" />
+            </div>
+            <div class="field-group">
+              <label for="gh-token">Token</label>
+              <input type="password" id="gh-token" placeholder="github_pat_..." autocomplete="off" spellcheck="false" />
+            </div>
+            <div class="field-group col-2">
+              <div class="btn-row">
+                <button type="button" class="btn-outline sm" id="btn-ver-token">Mostrar token</button>
+                <button type="button" class="btn-outline sm danger" id="btn-olvidar-token">Olvidar token</button>
+              </div>
+            </div>
+          </div>
+          <p class="estado-conexion" id="estado-conexion">Sin comprobar.</p>
+        </div>
+      </div>
+
+      <!-- ══════════════ TAB: PUBLICAR ══════════════ -->
+      <div class="tab-panel" id="tab-export">
+        <div class="panel-header">
+          <div>
+            <h2>Publicar</h2>
+            <p>Tus cambios viven en este navegador hasta que los publiques. Al publicar se escriben en el repositorio y el sitio se reconstruye solo en un minuto.</p>
+          </div>
+          <div class="btn-row">
+            <button class="btn-gold" id="btn-publicar">Publicar cambios</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header-row"><h3 class="card-title">Estado</h3></div>
+          <div id="publicar-estado" class="publicar-estado">Comprobando…</div>
+          <div class="btn-row mt-1">
+            <button class="btn-outline sm" id="btn-ver-sitio">Ver el sitio publicado</button>
+            <button class="btn-outline sm danger" id="btn-descartar">Descartar cambios locales</button>
+          </div>
+          <p class="hint mt-05">Descartar borra lo que hay en este navegador y vuelve a mostrar lo que está publicado. No toca el repositorio.</p>
+        </div>
+
+        <div class="card mt-2">
+          <div class="card-header-row">
+            <h3 class="card-title">Copia manual</h3>
+            <div class="btn-row">
+              <button class="btn-outline sm" id="btn-generate-data">Generar data.js</button>
+              <button class="btn-outline sm" id="btn-copy-data" disabled>Copiar</button>
+              <button class="btn-outline sm" id="btn-download-data" disabled>Descargar</button>
+            </div>
+          </div>
+          <p class="hint">Por si prefieres subirlo tú, o como respaldo antes de publicar.</p>
+          <p class="export-status" id="export-status">Sin generar.</p>
+          <textarea id="export-output" readonly spellcheck="false"
+            style="width:100%;min-height:240px;margin-top:1rem;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:12px;line-height:1.5;padding:1rem;border-radius:4px;border:1px solid rgba(201,169,110,.25);background:rgba(0,0,0,.25);color:inherit;resize:vertical;"
+            placeholder="// El contenido de data.js aparecerá aquí..."></textarea>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════
+       PROJECT MODAL (add / edit)
+  ═══════════════════════════════════════════════════════ -->
+  <div class="modal-overlay" id="project-modal-overlay">
+    <div class="modal-box" id="project-modal">
+      <div class="modal-box-header">
+        <h3 id="modal-box-title">Nuevo proyecto</h3>
+        <button class="modal-box-close" id="modal-box-close">✕</button>
+      </div>
+      <div class="modal-box-body">
+        <div class="form-grid">
+
+          <div class="field-group col-2">
+            <label>Título (ES) *</label>
+            <input type="text" id="pf-title" placeholder="Nombre del proyecto" />
+          </div>
+          <div class="field-group col-2">
+            <label>Título (EN)</label>
+            <input type="text" id="pf-titleEn" placeholder="Project name" />
+          </div>
+
+          <div class="field-group">
+            <label>Categoría *</label>
+            <select id="pf-category">
+              <option value="branding">Branding</option>
+              <option value="uxui">UX/UI</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label>Tamaño en grid</label>
+            <select id="pf-col">
+              <option value="col-4">Pequeño (col-4)</option>
+              <option value="col-6" selected>Mediano (col-6)</option>
+              <option value="col-8">Grande (col-8)</option>
+              <option value="col-12">Completo (col-12)</option>
+            </select>
+          </div>
+
+          <div class="field-group">
+            <label>Cliente</label>
+            <input type="text" id="pf-client" />
+          </div>
+          <div class="field-group">
+            <label>Año</label>
+            <input type="text" id="pf-year" placeholder="2025" />
+          </div>
+          <div class="field-group col-2">
+            <label>Rol</label>
+            <input type="text" id="pf-role" />
+          </div>
+
+          <div class="field-group col-2">
+            <label>Descripción (ES) *</label>
+            <textarea id="pf-desc" rows="4"></textarea>
+          </div>
+          <div class="field-group col-2">
+            <label>Descripción (EN)</label>
+            <textarea id="pf-descEn" rows="4"></textarea>
+          </div>
+
+          <div class="field-group col-2">
+            <label>Tags <span class="hint">(separados por coma)</span></label>
+            <input type="text" id="pf-tags" placeholder="Figma, UX Research, Prototipado" />
+          </div>
+
+          <div class="field-group col-2">
+            <label>URL de Behance</label>
+            <input type="url" id="pf-behanceUrl" placeholder="https://www.behance.net/gallery/..." />
+          </div>
+          <div class="field-group col-2">
+            <label>URL de prototipo Figma <span class="hint">(solo proyectos UX/UI)</span></label>
+            <input type="url" id="pf-figmaUrl" placeholder="https://www.figma.com/proto/..." />
+          </div>
+
+
+          <div class="field-group col-2 separador-campo">
+            <label>Caso de estudio</label>
+            <p class="hint mb-05">Opcional, pero es lo que convierte una galería en un argumento. Si lo dejas vacío, la ficha no muestra esta sección.</p>
+          </div>
+
+          <div class="field-group">
+            <label for="pf-cs-challenge">El reto (ES)</label>
+            <textarea id="pf-cs-challenge" rows="3" placeholder="¿Qué problema había antes de que llegaras?"></textarea>
+          </div>
+          <div class="field-group">
+            <label for="pf-cs-challengeEn">The challenge (EN)</label>
+            <textarea id="pf-cs-challengeEn" rows="3"></textarea>
+          </div>
+
+          <div class="field-group">
+            <label for="pf-cs-process">Proceso (ES)</label>
+            <textarea id="pf-cs-process" rows="3" placeholder="¿Cómo lo abordaste? Decisiones, no tareas."></textarea>
+          </div>
+          <div class="field-group">
+            <label for="pf-cs-processEn">Process (EN)</label>
+            <textarea id="pf-cs-processEn" rows="3"></textarea>
+          </div>
+
+          <div class="field-group">
+            <label for="pf-cs-outcome">Resultado (ES)</label>
+            <textarea id="pf-cs-outcome" rows="3" placeholder="¿En qué quedó? Concreto, sin adjetivos."></textarea>
+          </div>
+          <div class="field-group">
+            <label for="pf-cs-outcomeEn">Outcome (EN)</label>
+            <textarea id="pf-cs-outcomeEn" rows="3"></textarea>
+          </div>
+
+          <div class="field-group col-2">
+            <label class="check-inline">
+              <input type="checkbox" id="pf-cs-draft" />
+              <span>Marcar como borrador (la ficha mostrará un aviso de "pendiente de revisar")</span>
+            </label>
+          </div>
+
+          <div class="field-group col-2">
+            <label>Imágenes del proyecto</label>
+            <p class="hint mb-05">Una URL por línea. La primera imagen es la portada.</p>
+            <div class="zona-subida" id="zona-subida">
+              <input type="file" id="pf-file" accept="image/jpeg,image/png,image/webp,image/gif,image/svg+xml" multiple hidden />
+              <button type="button" class="btn-outline sm" id="btn-subir-imagen">Subir imágenes desde el equipo</button>
+              <span class="hint" id="subida-estado">Se guardan en <code>img/</code> del repositorio y se añaden abajo.</span>
+            </div>
+
+            <textarea id="pf-images" rows="8" placeholder="https://ejemplo.com/imagen1.jpg&#10;https://ejemplo.com/imagen2.jpg"></textarea>
+          </div>
+
+          <!-- Image preview -->
+          <div class="field-group col-2">
+            <label>Vista previa de imágenes</label>
+            <div class="img-preview-grid" id="img-preview-grid"></div>
+            <button type="button" class="btn-outline sm mt-05" id="btn-preview-images">Previsualizar</button>
+          </div>
+
+        </div>
+      </div>
+      <div class="modal-box-footer">
+        <button class="btn-outline" id="btn-cancel-project">Cancelar</button>
+        <button class="btn-gold" id="btn-save-project">Guardar proyecto</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════
+       CONFIRM DELETE DIALOG
+  ═══════════════════════════════════════════════════════ -->
+  <div class="modal-overlay" id="confirm-overlay">
+    <div class="confirm-box">
+      <h3>¿Eliminar este elemento?</h3>
+      <p>Esta acción no se puede deshacer.</p>
+      <div class="btn-row">
+        <button class="btn-outline" id="confirm-cancel">Cancelar</button>
+        <button class="btn-danger" id="confirm-ok">Eliminar</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/github.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

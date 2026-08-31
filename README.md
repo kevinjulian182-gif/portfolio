@@ -12,12 +12,17 @@
 
 ```
 portfolio/
-├── index.html          ← Estructura HTML del sitio
+├── index.html          ← El portafolio
+├── admin.html          ← Panel para editarlo
 ├── css/
-│   └── styles.css      ← Todos los estilos (variables, layout, componentes)
+│   ├── styles.css      ← Estilos del portafolio
+│   └── admin.css       ← Estilos del panel
 ├── js/
-│   ├── data.js         ← Datos (proyectos, skills, CV) + traducciones
-│   └── main.js         ← Lógica del sitio (render, i18n, galería, tema)
+│   ├── data.js         ← Datos: proyectos, textos, CV, ajustes
+│   ├── main.js         ← Lógica del portafolio
+│   ├── admin.js        ← Lógica del panel
+│   └── github.js       ← Publicación vía API de GitHub
+├── img/                ← Imágenes subidas desde el panel
 └── README.md
 ```
 
@@ -32,6 +37,8 @@ portfolio/
 - ✅ Botón "Ver prototipo en Figma" en proyectos UX/UI
 - ✅ Sección de certificaciones
 - ✅ Timeline de experiencia y formación completo
+- ✅ Casos de estudio por proyecto (reto / proceso / resultado)
+- ✅ Panel de administración que publica solo
 - ✅ Formulario de contacto (listo para Formspree)
 - ✅ Botón flotante de WhatsApp
 - ✅ 100% responsive · mobile-first
@@ -39,39 +46,28 @@ portfolio/
 
 ---
 
-## Cómo personalizar
+## Cómo editar el portafolio
 
-### Agregar / editar proyectos
-Edita el array `PROJECTS` en `js/data.js`:
-```js
-{
-  id: 13,
-  title: "Nombre del proyecto",
-  category: "branding",          // branding | uxui
-  thumb: "https://url-portada.jpg",
-  images: ["url1.jpg", "url2.jpg", ...],  // hasta 10 imágenes
-  figmaUrl: "https://figma.com/proto/...", // solo proyectos UX/UI
-  // ...
-}
-```
+Todo se edita desde el panel: **https://kevinjulian182-gif.github.io/portfolio/admin.html**
 
-### Cambiar foto de perfil
-En `index.html`, busca `<img ... alt="Kevin Navarrete"` y reemplaza el `src`.
+La primera vez hay que conectarlo con GitHub (una sola vez por navegador):
 
-### Activar link de Figma
-En `js/data.js`, en cada proyecto UX/UI, reemplaza el `figmaUrl` placeholder por tu URL real de Figma Share.
+1. Crea un token *fine-grained* en
+   [github.com/settings/personal-access-tokens/new](https://github.com/settings/personal-access-tokens/new)
+2. **Repository access** → *Only select repositories* → `portfolio`
+3. **Permissions → Repository permissions → Contents** → *Read and write*
+4. Copia el token y pégalo en el panel, pestaña **Conexión** → *Probar conexión* → *Guardar*
 
-### Conectar formulario de contacto
-Regístrate en [formspree.io](https://formspree.io), obtén tu endpoint y en `js/main.js` reemplaza el handler del formulario.
+A partir de ahí: editas, pulsas **Publicar**, y el sitio se actualiza solo en un minuto.
 
-### Activar descarga de CV
-En `js/main.js` busca `cv-download-btn` y reemplaza con:
-```js
-window.open('cv/CV_Kevin_Navarrete.pdf', '_blank');
-```
-Sube tu PDF a la carpeta `/cv/` del repositorio.
+Se puede editar desde el móvil: el panel es responsive y el token se guarda por navegador.
 
----
+> El usuario y la contraseña del panel no son seguridad — están en el código.
+> Lo que protege el portafolio es el token: sin él no se puede guardar nada.
+
+### Editar a mano (alternativa)
+Todos los datos viven en `js/data.js`. Si prefieres tocarlo directamente, edita los
+arrays `PROJECTS`, `SKILLS`, `EXPERIENCE`… o los objetos `i18n` y `SITE`, y haz push.
 
 ## Despliegue en GitHub Pages
 

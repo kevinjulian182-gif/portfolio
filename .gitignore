@@ -1,7 +1,7 @@
-# Panel de administración — solo local.
-# La autenticación es del lado del cliente (ADMIN_PASS vive en js/admin.js),
-# así que publicarlo expondría la clave a cualquier visitante.
-# El panel escribe solo en localStorage del navegador: funciona igual en local.
-admin.html
-js/admin.js
-css/admin.css
+# Nada que ocultar aquí por ahora.
+#
+# El panel (admin.html, js/admin.js, js/github.js, css/admin.css) SÍ se
+# publica: guarda usando la API de GitHub con un token que introduce el
+# usuario, así que sin token no se puede modificar nada aunque se entre.
+# El usuario y la contraseña del panel no son un secreto — son un timbre,
+# no una cerradura. No pongas ahí una contraseña que uses en otro sitio.

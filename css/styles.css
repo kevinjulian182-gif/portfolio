@@ -1016,3 +1016,56 @@ footer {
   body { background: #fff; color: #000; }
   .reveal { opacity: 1; transform: none; }
 }
+
+/* ===== CASO DE ESTUDIO ===== */
+/* Va dentro de la ficha, entre la descripción y los metadatos. */
+/* display:grid gana sobre el display:none que el navegador da a [hidden],
+   asi que hay que reponerlo explicitamente. */
+.case-study[hidden] { display: none; }
+
+.case-study {
+  display: grid;
+  gap: var(--space-3);
+  padding-top: var(--space-3);
+  margin-bottom: var(--space-3);
+  border-top: 1px solid var(--rule);
+}
+
+.case-draft {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  padding: 0.375rem 0.625rem;
+  justify-self: start;
+}
+
+.case-block {
+  display: grid;
+  grid-template-columns: 8rem minmax(0, 1fr);
+  gap: var(--space-2);
+  align-items: start;
+}
+
+.case-label {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--ink-muted);
+  padding-top: 0.3rem;
+}
+
+.case-text {
+  color: var(--ink);
+  line-height: 1.75;
+  max-width: 58ch;
+}
+
+@media (max-width: 640px) {
+  .case-block { grid-template-columns: minmax(0, 1fr); gap: 0.375rem; }
+  .case-label { padding-top: 0; }
+}

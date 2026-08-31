@@ -7,32 +7,68 @@ Portafolio profesional de Kevin Julian Navarrete Rodríguez, Diseñador Gráfico
 ```
 portfolio/
 ├── index.html       ← Portafolio público
-├── admin.html       ← Panel de administración (login requerido)
+├── admin.html       ← Panel de administración (se publica; ver seguridad)
 ├── css/
-│   ├── styles.css   ← Estilos del portafolio (dark/light, editorial luxury)
-│   └── admin.css    ← Estilos del panel admin
+│   ├── styles.css   ← Estilos del portafolio (editorial impresa, claro/oscuro)
+│   └── admin.css    ← Estilos del panel
 ├── js/
-│   ├── data.js      ← Datos compartidos + helpers localStorage (FUENTE DE VERDAD)
-│   ├── main.js      ← Lógica del portafolio (lee de localStorage vía data.js)
-│   └── admin.js     ← Lógica del panel admin (escribe en localStorage)
+│   ├── data.js      ← FUENTE DE VERDAD: datos + i18n + SITE + getters
+│   ├── main.js      ← Lógica del portafolio
+│   ├── admin.js     ← Lógica del panel
+│   └── github.js    ← Publicación vía API de GitHub
+├── img/             ← Imágenes subidas desde el panel
 └── README.md
 ```
 
 ## Arquitectura de datos
-- `js/data.js` contiene los arrays DEFAULT (PROJECTS, SKILLS, TOOLS, EXPERIENCE, EDUCATION, CERTIFICATIONS) y los helpers `getProjects()`, `saveSection()`, etc.
-- El portafolio (`main.js`) llama a `getProjects()` que lee `localStorage` primero, defaults después.
-- El admin (`admin.js`) escribe con `saveSection('projects', data)` → `localStorage.setItem('kn_projects', ...)`
-- Las claves de localStorage son: `kn_projects`, `kn_skills`, `kn_tools`, `kn_experience`, `kn_education`, `kn_certs`
+- `js/data.js` contiene los DEFAULTS (`PROJECTS`, `SKILLS`, `TOOLS`, `EXPERIENCE`,
+  `EDUCATION`, `CERTIFICATIONS`, `i18n`, `SITE`) y los getters
+  `getProjects()`, `getI18n()`, `getSite()`, etc.
+- Cada getter lee primero `localStorage` y cae a los defaults del archivo.
+  Claves: `kn_projects`, `kn_skills`, `kn_tools`, `kn_experience`, `kn_education`,
+  `kn_certs`, `kn_i18n`, `kn_site`.
+- El panel escribe en `localStorage` (borrador local) y al **Publicar** regenera
+  `js/data.js` entero y lo sube al repositorio. Tras publicar borra las claves
+  locales, para que el panel vuelva a leer lo publicado y no arrastre divergencias.
 
-## Credenciales del admin
-> El panel (`admin.html`, `js/admin.js`, `css/admin.css`) está en `.gitignore`: la
-> autenticación es del lado del cliente, así que publicarlo expondría la clave a
-> cualquier visitante. Vive solo en local.
+### El ciclo completo
+```
+editar en el panel  →  localStorage (solo este navegador)
+       ↓ Publicar
+regenera js/data.js  →  PUT a la API de GitHub  →  commit en main
+       ↓
+GitHub Pages reconstruye (~1 min)  →  el cambio es visible para todos
+```
 
-- URL: `/admin.html`
-- Usuario: `kevin`
-- Contraseña: `studio2025`
-- Definidas en líneas 7-8 de `js/admin.js`
+### Cómo se regenera data.js
+`buildDataJsFromSource()` descarga el `js/data.js` actual y **sustituye solo los
+bloques `const`** que el panel gestiona, dejando intactos los comentarios y los
+getters. `EXPORT_SECTIONS` lista cada bloque con su terminador, porque los arrays
+cierran con `];` y `i18n`/`SITE` cierran con `};`. Si añades un bloque nuevo a
+`data.js` y quieres que el panel lo publique, hay que registrarlo ahí.
+
+Si la descarga falla (por ejemplo abriendo el panel con `file://`), cae a
+`buildDataJsFromMemory()`, que reconstruye el archivo entero: sigue siendo válido
+pero pierde los comentarios.
+
+## Seguridad del panel (léelo antes de cambiar nada)
+
+El panel **se publica** junto al sitio, en `/admin.html`.
+
+- `ADMIN_USER` / `ADMIN_PASS` (`js/admin.js`) **no son seguridad**: están en un
+  archivo público que cualquiera puede leer. Son un timbre, no una cerradura.
+  Nunca pongas ahí una contraseña que uses en otro sitio.
+- Lo que de verdad protege el portafolio es el **token de GitHub**. Sin un token
+  con permiso de escritura, entrar al panel no permite modificar nada: la API
+  rechaza la petición. El sitio es estático, no hay backend que engañar.
+- El token lo introduce el usuario en la pestaña **Conexión** y se guarda en
+  `localStorage` de ese navegador. Solo viaja a `api.github.com`.
+- Se recomienda un token **fine-grained** limitado a este repositorio y con
+  `Contents: Read and write` como único permiso: si se filtrara, no daría acceso
+  a nada más de la cuenta.
+- `admin.html` lleva `<meta name="robots" content="noindex, nofollow">`.
+
+Credenciales actuales del timbre: `kevin` / `panel-kn`.
 
 ## Diseño / estética
 - Dirección: **editorial impresa**. Papel y tinta, filetes (1px) en vez de cajas y sombras,
@@ -64,18 +100,21 @@ Si renombras esas clases en el CSS, el modal y el menú móvil dejan de aparecer
 lanzar ningún error en consola.
 
 ## Funcionalidades implementadas
-- 12 proyectos reales de Behance con galería de 10 imágenes c/u
-- Flechas de navegación en galería (teclado ← → también funciona)
-- Filtros por categoría: Branding / UX/UI
-- Modal de proyecto con botón "Ver en Behance" y sección de prototipo Figma
-- Toggle dark/light mode
-- Toggle ES/EN (bilingüe completo)
-- Timeline de 8 empleos con descripciones completas del CV real
-- Sección de certificaciones (7 certs)
-- Formulario de contacto (simulado, listo para Formspree)
-- Botón flotante de WhatsApp (+57 313 808 9302)
-- Admin panel: CRUD proyectos, habilidades, herramientas, experiencia, formación, certs
-- Login con sesión en sessionStorage
+**Portafolio**
+- 12 proyectos con galería y ficha detallada
+- Casos de estudio (reto / proceso / resultado) por proyecto, bilingües y opcionales
+- Filtros por categoría, galería con teclado, modo claro/oscuro, ES/EN
+- Trayectoria, certificaciones, formulario de contacto, WhatsApp
+
+**Panel (`/admin.html`)**
+- Proyectos: crear, editar, eliminar, reordenar, con caso de estudio
+- Subida de imágenes desde el equipo directamente a `img/` del repositorio
+- Habilidades, herramientas, experiencia, formación y certificaciones
+- **Textos del sitio**: edita el objeto `i18n` completo, ES/EN en paralelo, con buscador
+- **Retrato y CV**: rutas editables (`SITE`), con subida de la foto
+- **Conexión**: configuración y prueba del token
+- **Publicar**: escribe `js/data.js` en el repositorio y dispara la reconstrucción
+- Copia manual de `data.js` (copiar/descargar) como respaldo
 
 ## Contacto real del cliente
 - Email: kevinjulian182@gmail.com
@@ -85,9 +124,10 @@ lanzar ningún error en consola.
 - GitHub: kevinjulian182-gif
 
 ## Pendientes / próximas mejoras sugeridas
-- **Reemplazar el retrato**: había una foto de banco de imágenes de otra persona; ahora hay un bloque vacío esperando `img/kevin.jpg`
+- **Subir el retrato** desde el panel (Textos del sitio → Retrato y CV). Hasta entonces se ve el marco con la nota.
 - Agregar URLs reales de prototipos Figma en cada proyecto UX/UI
 - Conectar formulario de contacto a Formspree
-- Activar descarga de CV PDF real
+- **Subir el CV en PDF** y poner su ruta en Textos del sitio → Retrato y CV
 - **Reemplazar las imágenes de galería de Unsplash**: en la mayoría de proyectos solo la portada es obra real; las otras 9 son fotos de stock
-- Considerar convertir 2-3 proyectos en casos de estudio (reto, rol, proceso, resultado): es lo que separa un portafolio bueno de uno contratable
+- **Revisar los 3 casos de estudio en borrador** (Pineda Martínez, Colegio Virtual, Logyca): son reconstrucciones a partir de las descripciones, no relatos verificados. Salen marcados como borrador en la ficha hasta que quites la marca.
+- Escribir casos de estudio para el resto de proyectos

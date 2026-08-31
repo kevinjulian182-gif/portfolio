@@ -27,6 +27,37 @@ function setGalleryImage(idx) {
   });
 }
 
+/* ── Caso de estudio ───────────────────────────────────────────
+   Reto, proceso y resultado. Es lo que separa mostrar una imagen
+   de explicar una decision, asi que va antes de los metadatos. */
+function renderCaseStudy(p, lang) {
+  const box = document.getElementById('modal-case');
+  const cs  = p.caseStudy;
+  const pick = (k) => (lang === 'en' && cs[k + 'En']) ? cs[k + 'En'] : cs[k];
+
+  if (!cs || !(cs.challenge || cs.process || cs.outcome)) {
+    box.hidden = true;
+    box.innerHTML = '';
+    return;
+  }
+
+  const t = lang === 'en'
+    ? { challenge: 'The challenge', process: 'Process', outcome: 'Outcome', draft: 'Draft — pending review' }
+    : { challenge: 'El reto',       process: 'Proceso', outcome: 'Resultado', draft: 'Borrador — pendiente de revisar' };
+
+  const bloque = (k) => pick(k)
+    ? `<div class="case-block">
+         <h4 class="case-label">${t[k]}</h4>
+         <p class="case-text">${pick(k)}</p>
+       </div>`
+    : '';
+
+  box.innerHTML =
+    (cs.draft ? `<p class="case-draft">${t.draft}</p>` : '') +
+    bloque('challenge') + bloque('process') + bloque('outcome');
+  box.hidden = false;
+}
+
 function openModal(p) {
   const lang = currentLang;
   document.getElementById('modal-cat').textContent   = p.categoryLabel;
@@ -58,6 +89,7 @@ function openModal(p) {
   }
 
   document.getElementById('modal-desc').textContent    = lang === 'en' && p.descriptionEn ? p.descriptionEn : p.description;
+  renderCaseStudy(p, lang);
   document.getElementById('modal-client').textContent  = p.client;
   document.getElementById('modal-year').textContent    = p.year;
   document.getElementById('modal-role').textContent    = p.role;
@@ -167,8 +199,29 @@ function renderCerts() {
     </div>`).join('');
 }
 
+/* ── Ajustes del sitio ─────────────────────────────────────────
+   Retrato y CV salen de los datos, no del HTML, para que se
+   puedan cambiar desde el panel sin tocar código. */
+function applySiteSettings() {
+  const s = getSite();
+
+  const marco = document.querySelector('.about-portrait');
+  if (marco && s.portrait) {
+    marco.innerHTML =
+      '<img src="' + s.portrait + '" alt="' + (s.portraitAlt || 'Kevin Navarrete') + '" ' +
+      'style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;" />';
+  }
+
+  const cv = document.getElementById('cv-download-btn');
+  if (cv && s.cvUrl) {
+    cv.href = s.cvUrl;
+    cv.setAttribute('target', '_blank');
+    cv.setAttribute('rel', 'noopener');
+  }
+}
+
 function applyTranslations() {
-  const t = i18n[currentLang];
+  const t = getI18n()[currentLang] || i18n[currentLang];
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.getAttribute('data-i18n');
     if (t[key]) el.textContent = t[key];
@@ -216,6 +269,7 @@ document.getElementById('lang-toggle').addEventListener('click', () => {
   currentLang = currentLang === 'es' ? 'en' : 'es';
   document.documentElement.setAttribute('lang', currentLang);
   applyTranslations();
+  applySiteSettings();
 });
 
 document.getElementById('hamburger').addEventListener('click', e => {

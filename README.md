@@ -16,7 +16,8 @@ portfolio/
 ├── css/
 │   └── styles.css      ← Todos los estilos (variables, layout, componentes)
 ├── js/
-│   └── main.js         ← Lógica, datos y funciones (proyectos, i18n, galería...)
+│   ├── data.js         ← Datos (proyectos, skills, CV) + traducciones
+│   └── main.js         ← Lógica del sitio (render, i18n, galería, tema)
 └── README.md
 ```
 
@@ -24,7 +25,7 @@ portfolio/
 
 ## Características
 
-- ✅ Diseño editorial de lujo — dark/light mode
+- ✅ Diseño editorial impresa — modo claro (por defecto) y oscuro
 - ✅ Bilingüe ES/EN con toggle instantáneo
 - ✅ 12 proyectos reales de Behance con galería de imágenes
 - ✅ Flechas de navegación + miniaturas en cada proyecto
@@ -41,7 +42,7 @@ portfolio/
 ## Cómo personalizar
 
 ### Agregar / editar proyectos
-Edita el array `PROJECTS` en `js/main.js`:
+Edita el array `PROJECTS` en `js/data.js`:
 ```js
 {
   id: 13,
@@ -58,7 +59,7 @@ Edita el array `PROJECTS` en `js/main.js`:
 En `index.html`, busca `<img ... alt="Kevin Navarrete"` y reemplaza el `src`.
 
 ### Activar link de Figma
-En `js/main.js`, en cada proyecto UX/UI, reemplaza el `figmaUrl` placeholder por tu URL real de Figma Share.
+En `js/data.js`, en cada proyecto UX/UI, reemplaza el `figmaUrl` placeholder por tu URL real de Figma Share.
 
 ### Conectar formulario de contacto
 Regístrate en [formspree.io](https://formspree.io), obtén tu endpoint y en `js/main.js` reemplaza el handler del formulario.

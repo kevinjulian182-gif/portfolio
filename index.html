@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" data-theme="dark" data-lang="es">
+<html lang="es" data-theme="light" data-lang="es">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -13,7 +13,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&display=swap" rel="stylesheet" />
 
   <!-- Estilos del portafolio -->
   <link rel="stylesheet" href="css/styles.css" />
@@ -22,7 +22,7 @@
   <!-- ===== NAVIGATION ===== -->
   <header id="site-header">
     <nav>
-      <a href="#hero" class="nav-logo">KN<span>.</span></a>
+      <a href="#hero" class="nav-logo">Kevin Navarrete<span>.</span></a>
       <ul class="nav-links">
         <li><a href="#proyectos" data-i18n="nav.projects">Proyectos</a></li>
         <li><a href="#sobre-mi" data-i18n="nav.about">Sobre mí</a></li>
@@ -56,41 +56,34 @@
 
   <!-- ===== HERO ===== -->
   <section id="hero">
-    <div class="hero-bg"></div>
-    <div class="hero-grid"></div>
     <div class="hero-content">
-      <div class="hero-tag">
-        <span class="hero-tag-line"></span>
-        <span class="label" data-i18n="hero.available">Disponible para proyectos</span>
-      </div>
-      <h1 class="hero-headline display" data-i18n-html="hero.headline">
-        Diseño que<br><em>comunica,</em><br>experiencias<br>que perduran.
-      </h1>
-      <p class="hero-sub" data-i18n="hero.sub">
-        Diseñador Gráfico &amp; UX/UI con +5 años de experiencia. Creo identidades visuales, interfaces digitales y experiencias de aprendizaje que comunican con precisión y estilo.
+      <p class="hero-tag">
+        <span class="hero-tag-line" aria-hidden="true"></span>
+        <span class="label" data-i18n="hero.available">Bogotá, Colombia &middot; disponible para proyectos</span>
       </p>
+
+      <h1 class="hero-headline">Kevin Navarrete</h1>
+
+      <p class="hero-role" data-i18n="hero.role">Diseñador gráfico y UX/UI</p>
+
+      <p class="hero-sub" data-i18n="hero.sub">
+        Trabajo el sistema completo: del manual de marca al prototipo funcional.
+        Cinco años construyendo identidades, interfaces y contenidos e-learning
+        para equipos como BlueCaribu, Logyca, Lookers y H2A.
+      </p>
+
+      <ul class="hero-disciplines">
+        <li class="hero-discipline">Branding</li>
+        <li class="hero-discipline">UX/UI</li>
+        <li class="hero-discipline">Editorial</li>
+        <li class="hero-discipline">E-learning</li>
+        <li class="hero-discipline">Motion</li>
+      </ul>
+
       <div class="hero-ctas">
-        <a href="#proyectos" class="btn-primary" data-i18n="hero.cta1">Ver proyectos →</a>
+        <a href="#proyectos" class="btn-primary" data-i18n="hero.cta1">Ver proyectos &rarr;</a>
         <a href="#contacto" class="btn-outline" data-i18n="hero.cta2">Hablemos</a>
       </div>
-    </div>
-    <div class="hero-stats">
-      <div class="hero-stat">
-        <div class="hero-stat-num">5+</div>
-        <div class="hero-stat-label" data-i18n="hero.stat1">Años exp.</div>
-      </div>
-      <div class="hero-stat">
-        <div class="hero-stat-num">8+</div>
-        <div class="hero-stat-label" data-i18n="hero.stat2">Empresas</div>
-      </div>
-      <div class="hero-stat">
-        <div class="hero-stat-num">100%</div>
-        <div class="hero-stat-label" data-i18n="hero.stat3">Dedicación</div>
-      </div>
-    </div>
-    <div class="hero-scroll">
-      <div class="scroll-line"></div>
-      <span data-i18n="hero.scroll">Scroll</span>
     </div>
   </section>
 
@@ -98,9 +91,7 @@
   <section id="proyectos">
     <div class="container">
       <div class="divider reveal">
-        <div class="divider-line"></div>
-        <span class="label" data-i18n="projects.label">Trabajo selecto</span>
-        <div class="divider-line"></div>
+        <span class="label" data-num="01" data-i18n="projects.label">Trabajo selecto</span>
       </div>
 
       <div class="section-header reveal">
@@ -177,27 +168,29 @@
     <div class="container">
       <div class="about-grid">
         <div class="reveal">
+          <!-- RETRATO: sustituye el bloque de abajo por tu foto real.
+               <img src="img/kevin.jpg" alt="Kevin Navarrete" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" />
+               Antes había aquí una foto de banco de imágenes de otra persona. -->
           <div class="about-portrait">
-            <img
-              src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80&fit=crop&crop=face"
-              alt="Kevin Navarrete — Diseñador Gráfico & UX/UI"
-              style="width:100%;height:100%;object-fit:cover;object-position:center top;position:absolute;inset:0;"
-            />
+            <div class="about-portrait-empty">
+              <span class="label">Retrato</span>
+              <p style="font-size:0.875rem;max-width:24ch;">Sustituye este bloque por tu fotografía en <code>img/kevin.jpg</code>.</p>
+            </div>
           </div>
         </div>
         <div class="reveal reveal-delay-1">
-          <span class="label" data-i18n="about.label">Sobre mí</span>
+          <span class="label" data-num="02" data-i18n="about.label">Sobre mí</span>
           <div style="height:1rem"></div>
-          <h2 class="about-text" style="font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,3.2rem);font-weight:300;line-height:1.15;margin-bottom:1.5rem;">
-            <span data-i18n-html="about.title">Diseño con<br><em style="font-style:italic;color:var(--gold);">propósito</em><br>y alma.</span>
+          <h2 class="about-text serif" style="font-size:clamp(1.9rem,3.8vw,3rem);line-height:1.1;margin-bottom:1.5rem;">
+            <span data-i18n-html="about.title">Diseño con<br><em>propósito</em><br>y alma.</span>
           </h2>
-          <p style="color:var(--text-muted);line-height:1.8;margin-bottom:1rem;" data-i18n="about.p1">
+          <p class="about-p" data-i18n="about.p1">
             Soy Kevin Navarrete, diseñador gráfico y UX/UI con más de 5 años de experiencia creando identidades visuales, interfaces digitales y materiales e-learning que conectan marcas con sus audiencias.
           </p>
-          <p style="color:var(--text-muted);line-height:1.8;margin-bottom:1rem;" data-i18n="about.p2">
+          <p class="about-p" data-i18n="about.p2">
             He colaborado con empresas como BlueCaribu, Logyca, Lookers y H2A, liderando desde la conceptualización de sistemas de marca hasta el desarrollo técnico de interfaces con HTML, CSS y Figma. Integro la inteligencia artificial como herramienta estratégica en mi flujo de trabajo.
           </p>
-          <p style="color:var(--text-muted);line-height:1.8;margin-bottom:2.5rem;" data-i18n="about.p3">
+          <p class="about-p" data-i18n="about.p3">
             Me mueve el reto de transformar contenidos complejos en experiencias visuales claras, atractivas y funcionales. Cada proyecto es una oportunidad de impactar positivamente a las personas.
           </p>
 
@@ -217,9 +210,7 @@
   <section id="cv" style="background:var(--bg2);">
     <div class="container">
       <div class="divider reveal">
-        <div class="divider-line"></div>
-        <span class="label" data-i18n="cv.label">Trayectoria</span>
-        <div class="divider-line"></div>
+        <span class="label" data-num="03" data-i18n="cv.label">Trayectoria</span>
       </div>
 
       <div class="section-header reveal">
@@ -260,12 +251,12 @@
     <div class="container">
       <div class="contact-grid">
         <div class="reveal">
-          <span class="label" data-i18n="contact.label">Contacto</span>
+          <span class="label" data-num="04" data-i18n="contact.label">Contacto</span>
           <div style="height:1rem"></div>
-          <h2 class="contact-info" style="font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,3.2rem);font-weight:300;line-height:1.1;margin-bottom:1.5rem;">
-            <span data-i18n-html="contact.title">Trabajemos<br>juntos en algo<br><em style="font-style:italic;color:var(--gold);">memorable.</em></span>
+          <h2 class="contact-info serif" style="font-size:clamp(1.9rem,3.8vw,3rem);line-height:1.1;margin-bottom:1.5rem;">
+            <span data-i18n-html="contact.title">Trabajemos<br>juntos en algo<br><em>memorable.</em></span>
           </h2>
-          <p style="color:var(--text-muted);line-height:1.8;margin-bottom:2rem;" data-i18n="contact.sub">
+          <p class="about-p" data-i18n="contact.sub">
             ¿Tienes un proyecto en mente? Me encantaría escucharte. Estoy disponible para proyectos freelance, colaboraciones y consultoría.
           </p>
           <div class="contact-links">
@@ -335,7 +326,7 @@
   <footer>
     <div class="container">
       <div class="footer-inner">
-        <span class="footer-copy">© 2025 Kevin Julian Navarrete Rodríguez · <a href="https://www.linkedin.com/in/kevin-navarrrete/" target="_blank" style="color:var(--gold);opacity:0.7;">LinkedIn</a> · <a href="https://www.behance.net/kevinnavarrete1" target="_blank" style="color:var(--gold);opacity:0.7;">Behance</a></span>
+        <span class="footer-copy">© 2026 Kevin Julian Navarrete Rodríguez · <a href="https://www.linkedin.com/in/kevin-navarrrete/" target="_blank">LinkedIn</a> · <a href="https://www.behance.net/kevinnavarrete1" target="_blank">Behance</a></span>
         <div class="footer-links">
           <a href="#proyectos" data-i18n="nav.projects">Proyectos</a>
           <a href="#sobre-mi" data-i18n="nav.about">Sobre mí</a>

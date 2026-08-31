@@ -64,7 +64,7 @@ function openModal(p) {
 
   const tagsEl = document.getElementById('modal-tags');
   let tagsHtml = p.tags.map(t => `<span class="modal-tag">${t}</span>`).join('');
-  if (p.behanceUrl) tagsHtml += `<a href="${p.behanceUrl}" target="_blank" class="modal-tag" style="border-color:var(--gold);color:var(--gold);">Ver en Behance ↗</a>`;
+  if (p.behanceUrl) tagsHtml += `<a href="${p.behanceUrl}" target="_blank" class="modal-tag" style="border-color:var(--accent);color:var(--accent);">Ver en Behance ↗</a>`;
   tagsEl.innerHTML = tagsHtml;
 
   const figmaBlock = document.getElementById('modal-figma');
@@ -90,24 +90,44 @@ function renderProjects(filter = 'all') {
   const projects = getProjects();
   const grid = document.getElementById('projects-grid');
   grid.innerHTML = '';
-  projects.forEach(p => {
+  projects.forEach((p, i) => {
     const visible = filter === 'all' || p.category === filter;
-    const card = document.createElement('div');
-    card.className = `project-card ${p.col || 'col-6'}${visible ? '' : ' hidden'}`;
+    const title   = currentLang === 'en' && p.titleEn ? p.titleEn : p.title;
+    const num     = String(i + 1).padStart(2, '0');
+
+    const card = document.createElement('article');
+    card.className = `project-card${visible ? '' : ' hidden'}`;
+    // La tarjeta entera abre la ficha, así que tiene que ser alcanzable
+    // por teclado igual que un botón.
+    card.tabIndex = 0;
+    card.setAttribute('role', 'button');
+    card.setAttribute('aria-label', (currentLang === 'en' ? 'View project: ' : 'Ver proyecto: ') + title);
+
     const thumbHtml = p.thumb
-      ? `<img src="${p.thumb}" class="project-thumb-img" alt="${p.title}" loading="lazy" />`
-      : `<div class="project-thumb-placeholder">◈</div>`;
+      ? `<img src="${p.thumb}" class="project-thumb-img" alt="${title}" loading="lazy" />`
+      : `<div class="project-thumb-placeholder" aria-hidden="true">/</div>`;
+
     card.innerHTML = `
       <div class="project-thumb">
         ${thumbHtml}
-        <div class="project-overlay"><span class="project-overlay-link">Ver proyecto →</span></div>
+        <div class="project-overlay" aria-hidden="true">
+          <span class="project-overlay-link">${currentLang === 'en' ? 'View project' : 'Ver proyecto'} &rarr;</span>
+        </div>
       </div>
       <div class="project-info">
-        <div class="project-cat">${p.categoryLabel}</div>
-        <div class="project-title">${currentLang === 'en' && p.titleEn ? p.titleEn : p.title}</div>
-        <div class="project-desc">${(currentLang === 'en' && p.descriptionEn ? p.descriptionEn : p.description).slice(0,110)}...</div>
+        <span class="project-index" aria-hidden="true">${num}</span>
+        <h3 class="project-title">${title}</h3>
+        <div class="project-meta">
+          <span class="project-cat">${p.categoryLabel}</span>
+          <span class="project-year">${p.year || ''}</span>
+        </div>
       </div>`;
-    card.addEventListener('click', () => openModal(p));
+
+    const open = () => openModal(p);
+    card.addEventListener('click', open);
+    card.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); }
+    });
     grid.appendChild(card);
   });
 }
@@ -198,11 +218,18 @@ document.getElementById('lang-toggle').addEventListener('click', () => {
   applyTranslations();
 });
 
-document.getElementById('hamburger').addEventListener('click', () => {
-  document.getElementById('mobile-menu').classList.toggle('open');
+document.getElementById('hamburger').addEventListener('click', e => {
+  const open = document.getElementById('mobile-menu').classList.toggle('open');
+  e.currentTarget.classList.toggle('active', open);
+  e.currentTarget.setAttribute('aria-expanded', String(open));
 });
 document.querySelectorAll('#mobile-menu a').forEach(a => {
-  a.addEventListener('click', () => document.getElementById('mobile-menu').classList.remove('open'));
+  a.addEventListener('click', () => {
+    document.getElementById('mobile-menu').classList.remove('open');
+    const h = document.getElementById('hamburger');
+    h.classList.remove('active');
+    h.setAttribute('aria-expanded', 'false');
+  });
 });
 
 document.querySelectorAll('.filter-btn').forEach(btn => {

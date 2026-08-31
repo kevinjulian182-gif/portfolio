@@ -1,0 +1,16 @@
+# El sitio es estatico: no hay build, se publica la raiz tal cual.
+[build]
+  publish = "."
+  functions = "netlify/functions"
+
+# El panel no debe acabar indexado.
+[[headers]]
+  for = "/admin.html"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+
+# El HTML se revalida siempre; si no, un cambio publicado tarda en verse.
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"

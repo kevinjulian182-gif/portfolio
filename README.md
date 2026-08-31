@@ -2,7 +2,7 @@
 
 **Diseñador Gráfico & UX/UI** · Bogotá, Colombia
 
-🌐 [Ver sitio en vivo](https://kevinjulian182-gif.github.io/portfolio)
+🌐 [Ver sitio en vivo](https://kevinnavarrete.netlify.app)
 📧 kevinjulian182@gmail.com
 🎨 [Behance](https://www.behance.net/kevinnavarrete1) · [LinkedIn](https://www.linkedin.com/in/kevin-navarrrete/)
 
@@ -48,33 +48,29 @@ portfolio/
 
 ## Cómo editar el portafolio
 
-Todo se edita desde el panel: **https://kevinjulian182-gif.github.io/portfolio/admin.html**
+Entra en **https://kevinnavarrete.netlify.app/admin.html**, escribe tu contraseña, edita
+y pulsa **Guardar**. Ya está: el cambio queda publicado y cualquiera que recargue lo ve.
 
-La primera vez hay que conectarlo con GitHub (una sola vez por navegador):
+No hay tokens que generar, ni pasos de publicación, ni archivos que subir. Funciona igual
+desde el móvil.
 
-1. Crea un token *fine-grained* en
-   [github.com/settings/personal-access-tokens/new](https://github.com/settings/personal-access-tokens/new)
-2. **Repository access** → *Only select repositories* → `portfolio`
-3. **Permissions → Repository permissions → Contents** → *Read and write*
-4. Copia el token y pégalo en el panel, pestaña **Conexión** → *Probar conexión* → *Guardar*
+Puedes cambiar los proyectos y sus casos de estudio, subir imágenes desde el equipo,
+editar todos los textos del sitio en español e inglés, y actualizar tu retrato y tu CV.
 
-A partir de ahí: editas, pulsas **Publicar**, y el sitio se actualiza solo en un minuto.
-
-Se puede editar desde el móvil: el panel es responsive y el token se guarda por navegador.
-
-> El usuario y la contraseña del panel no son seguridad — están en el código.
-> Lo que protege el portafolio es el token: sin él no se puede guardar nada.
+> La contraseña vive en el servidor (variable `PANEL_PASS` en Netlify), no en el código.
+> Para cambiarla: `netlify env:set PANEL_PASS "la-nueva"` y volver a desplegar.
 
 ### Editar a mano (alternativa)
-Todos los datos viven en `js/data.js`. Si prefieres tocarlo directamente, edita los
-arrays `PROJECTS`, `SKILLS`, `EXPERIENCE`… o los objetos `i18n` y `SITE`, y haz push.
+Los valores por defecto están en `js/data.js`. Lo que se guarda desde el panel tiene
+prioridad sobre ese archivo.
 
-## Despliegue en GitHub Pages
+## Despliegue
 
-1. Sube los archivos a un repositorio público en GitHub
-2. Ve a **Settings → Pages → Branch: main → / (root) → Save**
-3. Tu sitio estará en `https://kevinjulian182-gif.github.io/portfolio/`
+El sitio vive en Netlify, que además ejecuta las funciones del panel:
 
-## Despliegue en Netlify
+```bash
+netlify deploy --prod --no-build
+```
 
-Arrastra la carpeta completa a [netlify.com/drop](https://app.netlify.com/drop) — listo en 30 segundos.
+No hay proceso de build: es HTML, CSS y JS plano. Las funciones de `netlify/functions/`
+se despliegan solas con el sitio.

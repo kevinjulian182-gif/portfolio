@@ -17,19 +17,15 @@
   <div id="login-screen">
     <div class="login-box">
       <div class="login-logo">KN<span>.</span></div>
-      <h1 class="login-title">Panel de administración</h1>
-      <p class="login-sub">Acceso restringido</p>
-      <form id="login-form">
+      <h1>Panel de administración</h1>
+      <p class="login-sub">La contraseña la comprueba el servidor. No está escrita en el código.</p>
+      <form id="login-form" autocomplete="off">
         <div class="field-group">
-          <label>Usuario</label>
-          <input type="text" id="login-user" autocomplete="username" placeholder="usuario" />
-        </div>
-        <div class="field-group">
-          <label>Contraseña</label>
+          <label for="login-pass">Contraseña</label>
           <input type="password" id="login-pass" autocomplete="current-password" placeholder="••••••••" />
         </div>
-        <div class="login-error" id="login-error">Usuario o contraseña incorrectos</div>
-        <button type="submit" class="btn-gold">Ingresar →</button>
+        <div class="login-error" id="login-error">Contraseña incorrecta</div>
+        <button type="submit" class="btn-gold" id="btn-login">Entrar</button>
       </form>
     </div>
   </div>
@@ -63,13 +59,9 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
           Textos del sitio
         </button>
-        <button class="nav-item" data-tab="conexion">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
-          Conexión
-        </button>
         <button class="nav-item" data-tab="export">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          Publicar
+          Ajustes
         </button>
       </nav>
       <div class="sidebar-footer">
@@ -207,103 +199,38 @@
         <div id="textos-editor"></div>
       </div>
 
-      <!-- ══════════════ TAB: CONEXIÓN ══════════════ -->
-      <div class="tab-panel" id="tab-conexion">
-        <div class="panel-header">
-          <div>
-            <h2>Conexión con GitHub</h2>
-            <p>Sin esto el panel guarda solo en este navegador. Con el token, publica de verdad.</p>
-          </div>
-          <div class="btn-row">
-            <button class="btn-outline" id="btn-probar-conexion">Probar conexión</button>
-            <button class="btn-gold" id="btn-guardar-conexion">Guardar</button>
-          </div>
-        </div>
-
-        <div class="card aviso-seguridad">
-          <h3 class="card-title">Lee esto una vez</h3>
-          <p>El usuario y la contraseña de este panel <strong>no son seguridad</strong>: están escritos en el código y cualquiera puede leerlos. Lo único que protege tu portafolio es el token — sin un token válido nadie puede guardar nada, aunque entre aquí.</p>
-          <p>El token se guarda solo en <strong>este navegador</strong> y únicamente viaja a <code>api.github.com</code>. En un equipo prestado, usa "Olvidar token" al terminar.</p>
-        </div>
-
-        <div class="card">
-          <div class="card-header-row"><h3 class="card-title">Cómo crear el token</h3></div>
-          <ol class="lista-pasos">
-            <li>Entra en <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">github.com/settings/personal-access-tokens/new</a> (token <em>fine-grained</em>).</li>
-            <li>En <strong>Repository access</strong> elige <strong>Only select repositories</strong> y marca únicamente <code>portfolio</code>.</li>
-            <li>En <strong>Permissions &rarr; Repository permissions</strong>, pon <strong>Contents</strong> en <strong>Read and write</strong>. No hace falta nada más.</li>
-            <li>Elige una caducidad (90 días es razonable) y genera el token.</li>
-            <li>Cópialo y pégalo abajo. GitHub solo te lo enseña una vez.</li>
-          </ol>
-          <p class="hint">Acotado así, si el token se filtrara solo daría acceso de escritura a este repositorio, a nada más de tu cuenta.</p>
-        </div>
-
-        <div class="card">
-          <div class="card-header-row"><h3 class="card-title">Datos de conexión</h3></div>
-          <div class="form-grid">
-            <div class="field-group">
-              <label for="gh-owner">Usuario de GitHub</label>
-              <input type="text" id="gh-owner" autocomplete="off" />
-            </div>
-            <div class="field-group">
-              <label for="gh-repo">Repositorio</label>
-              <input type="text" id="gh-repo" autocomplete="off" />
-            </div>
-            <div class="field-group">
-              <label for="gh-branch">Rama</label>
-              <input type="text" id="gh-branch" autocomplete="off" />
-            </div>
-            <div class="field-group">
-              <label for="gh-token">Token</label>
-              <input type="password" id="gh-token" placeholder="github_pat_..." autocomplete="off" spellcheck="false" />
-            </div>
-            <div class="field-group col-2">
-              <div class="btn-row">
-                <button type="button" class="btn-outline sm" id="btn-ver-token">Mostrar token</button>
-                <button type="button" class="btn-outline sm danger" id="btn-olvidar-token">Olvidar token</button>
-              </div>
-            </div>
-          </div>
-          <p class="estado-conexion" id="estado-conexion">Sin comprobar.</p>
-        </div>
-      </div>
-
-      <!-- ══════════════ TAB: PUBLICAR ══════════════ -->
+      <!-- ══════════════ TAB: AJUSTES ══════════════ -->
       <div class="tab-panel" id="tab-export">
         <div class="panel-header">
           <div>
-            <h2>Publicar</h2>
-            <p>Tus cambios viven en este navegador hasta que los publiques. Al publicar se escriben en el repositorio y el sitio se reconstruye solo en un minuto.</p>
+            <h2>Ajustes</h2>
+            <p>Los cambios se guardan solos al pulsar Guardar en cada sección. No hay nada más que publicar.</p>
           </div>
           <div class="btn-row">
-            <button class="btn-gold" id="btn-publicar">Publicar cambios</button>
+            <button class="btn-outline" id="btn-ver-sitio">Ver el sitio</button>
           </div>
         </div>
 
         <div class="card">
-          <div class="card-header-row"><h3 class="card-title">Estado</h3></div>
-          <div id="publicar-estado" class="publicar-estado">Comprobando…</div>
-          <div class="btn-row mt-1">
-            <button class="btn-outline sm" id="btn-ver-sitio">Ver el sitio publicado</button>
-            <button class="btn-outline sm danger" id="btn-descartar">Descartar cambios locales</button>
-          </div>
-          <p class="hint mt-05">Descartar borra lo que hay en este navegador y vuelve a mostrar lo que está publicado. No toca el repositorio.</p>
+          <div class="card-header-row"><h3 class="card-title">Cómo funciona ahora</h3></div>
+          <p>Cada vez que pulsas <strong>Guardar</strong> en una sección, el cambio viaja al servidor y queda publicado al instante. Basta con recargar el sitio para verlo.</p>
+          <p class="hint mt-05">No hay tokens que generar ni pasos intermedios. La contraseña de este panel vive en el servidor, no en el código, así que cambiarla no requiere tocar nada del sitio.</p>
         </div>
 
         <div class="card mt-2">
           <div class="card-header-row">
-            <h3 class="card-title">Copia manual</h3>
+            <h3 class="card-title">Copia de seguridad</h3>
             <div class="btn-row">
-              <button class="btn-outline sm" id="btn-generate-data">Generar data.js</button>
+              <button class="btn-outline sm" id="btn-generate-data">Generar</button>
               <button class="btn-outline sm" id="btn-copy-data" disabled>Copiar</button>
               <button class="btn-outline sm" id="btn-download-data" disabled>Descargar</button>
             </div>
           </div>
-          <p class="hint">Por si prefieres subirlo tú, o como respaldo antes de publicar.</p>
+          <p class="hint">Vuelca todo el contenido actual a un <code>data.js</code>. Guárdalo de vez en cuando: es tu red de seguridad si algo se borra.</p>
           <p class="export-status" id="export-status">Sin generar.</p>
           <textarea id="export-output" readonly spellcheck="false"
-            style="width:100%;min-height:240px;margin-top:1rem;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:12px;line-height:1.5;padding:1rem;border-radius:4px;border:1px solid rgba(201,169,110,.25);background:rgba(0,0,0,.25);color:inherit;resize:vertical;"
-            placeholder="// El contenido de data.js aparecerá aquí..."></textarea>
+            style="width:100%;min-height:220px;margin-top:1rem;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:12px;line-height:1.5;padding:1rem;border-radius:4px;border:1px solid var(--border);background:var(--bg);color:inherit;resize:vertical;"
+            placeholder="// El contenido aparecerá aquí..."></textarea>
         </div>
       </div>
 
@@ -466,8 +393,8 @@
     </div>
   </div>
 
+  <script src="js/remoto.js"></script>
   <script src="js/data.js"></script>
-  <script src="js/github.js"></script>
   <script src="js/admin.js"></script>
 </body>
 </html>

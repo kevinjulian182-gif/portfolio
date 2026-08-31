@@ -3,72 +3,66 @@
 ## Qué es este proyecto
 Portafolio profesional de Kevin Julian Navarrete Rodríguez, Diseñador Gráfico & UX/UI con +5 años de experiencia. Bogotá, Colombia.
 
+## Dónde vive
+- **Sitio y panel:** https://kevinnavarrete.netlify.app (Netlify, proyecto `kevinnavarrete`)
+- **Código:** https://github.com/kevinjulian182-gif/portfolio
+- **Trabajo local:** `~/Downloads/portfolio-v2`
+- Se despliega con `netlify deploy --prod --no-build` (sin build: el sitio es estático).
+
 ## Estructura de archivos
 ```
 portfolio/
-├── index.html       ← Portafolio público
-├── admin.html       ← Panel de administración (se publica; ver seguridad)
-├── css/
-│   ├── styles.css   ← Estilos del portafolio (editorial impresa, claro/oscuro)
-│   └── admin.css    ← Estilos del panel
+├── index.html              ← El portafolio
+├── admin.html              ← Panel de administración
+├── css/{styles,admin}.css
 ├── js/
-│   ├── data.js      ← FUENTE DE VERDAD: datos + i18n + SITE + getters
-│   ├── main.js      ← Lógica del portafolio
-│   ├── admin.js     ← Lógica del panel
-│   └── github.js    ← Publicación vía API de GitHub
-├── img/             ← Imágenes subidas desde el panel
-└── README.md
+│   ├── data.js             ← Valores por defecto + getters
+│   ├── remoto.js           ← Cliente del API (cargar, guardar, subir)
+│   ├── main.js             ← Lógica del portafolio
+│   └── admin.js            ← Lógica del panel
+├── netlify/functions/
+│   ├── datos.mjs           ← GET/POST del contenido  → /api/datos
+│   └── imagen.mjs          ← Subir y servir imágenes → /api/imagen
+├── netlify.toml
+└── package.json            ← Solo @netlify/blobs, para las funciones
 ```
 
 ## Arquitectura de datos
-- `js/data.js` contiene los DEFAULTS (`PROJECTS`, `SKILLS`, `TOOLS`, `EXPERIENCE`,
-  `EDUCATION`, `CERTIFICATIONS`, `i18n`, `SITE`) y los getters
-  `getProjects()`, `getI18n()`, `getSite()`, etc.
-- Cada getter lee primero `localStorage` y cae a los defaults del archivo.
-  Claves: `kn_projects`, `kn_skills`, `kn_tools`, `kn_experience`, `kn_education`,
-  `kn_certs`, `kn_i18n`, `kn_site`.
-- El panel escribe en `localStorage` (borrador local) y al **Publicar** regenera
-  `js/data.js` entero y lo sube al repositorio. Tras publicar borra las claves
-  locales, para que el panel vuelva a leer lo publicado y no arrastre divergencias.
 
-### El ciclo completo
+**El servidor manda.** `js/data.js` solo tiene los valores por defecto; lo guardado
+vive en Netlify Blobs y tiene prioridad.
+
 ```
-editar en el panel  →  localStorage (solo este navegador)
-       ↓ Publicar
-regenera js/data.js  →  PUT a la API de GitHub  →  commit en main
-       ↓
-GitHub Pages reconstruye (~1 min)  →  el cambio es visible para todos
+El visitante abre el sitio
+  → main.js llama a cargarRemoto()  →  GET /api/datos
+  → setRemoto(datos)                →  los getters ya devuelven lo guardado
+  → pintarTodo()                    →  se pinta una sola vez, sin parpadeo
+
+Kevin pulsa Guardar en el panel
+  → saveSection(clave, valor)       →  POST /api/datos  (con la contraseña)
+  → queda escrito en Blobs          →  cualquiera que recargue lo ve
 ```
 
-### Cómo se regenera data.js
-`buildDataJsFromSource()` descarga el `js/data.js` actual y **sustituye solo los
-bloques `const`** que el panel gestiona, dejando intactos los comentarios y los
-getters. `EXPORT_SECTIONS` lista cada bloque con su terminador, porque los arrays
-cierran con `];` y `i18n`/`SITE` cierran con `};`. Si añades un bloque nuevo a
-`data.js` y quieres que el panel lo publique, hay que registrarlo ahí.
+No hay borrador, ni localStorage, ni paso de publicación. Guardar es publicar.
 
-Si la descarga falla (por ejemplo abriendo el panel con `file://`), cae a
-`buildDataJsFromMemory()`, que reconstruye el archivo entero: sigue siendo válido
-pero pierde los comentarios.
+Si `/api/datos` falla (sin red, o el archivo abierto con `file://`), `cargarRemoto()`
+devuelve `{}` y la página se pinta con los valores por defecto. Nunca se queda en blanco.
 
-## Seguridad del panel (léelo antes de cambiar nada)
+### Secciones que el panel puede escribir
+`projects`, `skills`, `tools`, `experience`, `education`, `certs`, `i18n`, `site`.
+La lista está también en `netlify/functions/datos.mjs` como lista blanca: si añades una
+sección nueva hay que registrarla ahí, o el servidor la rechaza. Es a propósito — evita
+que una petición manipulada escriba claves arbitrarias.
 
-El panel **se publica** junto al sitio, en `/admin.html`.
+## Seguridad del panel
 
-- `ADMIN_USER` / `ADMIN_PASS` (`js/admin.js`) **no son seguridad**: están en un
-  archivo público que cualquiera puede leer. Son un timbre, no una cerradura.
-  Nunca pongas ahí una contraseña que uses en otro sitio.
-- Lo que de verdad protege el portafolio es el **token de GitHub**. Sin un token
-  con permiso de escritura, entrar al panel no permite modificar nada: la API
-  rechaza la petición. El sitio es estático, no hay backend que engañar.
-- El token lo introduce el usuario en la pestaña **Conexión** y se guarda en
-  `localStorage` de ese navegador. Solo viaja a `api.github.com`.
-- Se recomienda un token **fine-grained** limitado a este repositorio y con
-  `Contents: Read and write` como único permiso: si se filtrara, no daría acceso
-  a nada más de la cuenta.
-- `admin.html` lleva `<meta name="robots" content="noindex, nofollow">`.
-
-Credenciales actuales del timbre: `kevin` / `panel-kn`.
+- La contraseña vive en la variable de entorno **`PANEL_PASS`** de Netlify, no en el
+  código. Se cambia con `netlify env:set PANEL_PASS "nueva"` y un redespliegue, sin
+  tocar un solo archivo del sitio.
+- El panel manda esa contraseña en cada escritura; el servidor la valida. Leer el código
+  fuente no sirve de nada: ya no hay credenciales dentro.
+- La contraseña se guarda en `sessionStorage`, así que se olvida al cerrar la pestaña.
+- `admin.html` lleva `noindex` por meta y por cabecera (`netlify.toml`).
 
 ## Diseño / estética
 - Dirección: **editorial impresa**. Papel y tinta, filetes (1px) en vez de cajas y sombras,
@@ -101,20 +95,19 @@ lanzar ningún error en consola.
 
 ## Funcionalidades implementadas
 **Portafolio**
-- 12 proyectos con galería y ficha detallada
+- 12 proyectos con galería (imágenes reales de Behance) y ficha detallada
 - Casos de estudio (reto / proceso / resultado) por proyecto, bilingües y opcionales
-- Filtros por categoría, galería con teclado, modo claro/oscuro, ES/EN
+- Filtros, galería con teclado, modo claro/oscuro, ES/EN
 - Trayectoria, certificaciones, formulario de contacto, WhatsApp
+- Sistema de movimiento propio (CSS + IntersectionObserver), con reduced-motion
 
 **Panel (`/admin.html`)**
 - Proyectos: crear, editar, eliminar, reordenar, con caso de estudio
-- Subida de imágenes desde el equipo directamente a `img/` del repositorio
+- Subida de imágenes desde el equipo, servidas desde `/api/imagen`
 - Habilidades, herramientas, experiencia, formación y certificaciones
-- **Textos del sitio**: edita el objeto `i18n` completo, ES/EN en paralelo, con buscador
-- **Retrato y CV**: rutas editables (`SITE`), con subida de la foto
-- **Conexión**: configuración y prueba del token
-- **Publicar**: escribe `js/data.js` en el repositorio y dispara la reconstrucción
-- Copia manual de `data.js` (copiar/descargar) como respaldo
+- Textos del sitio: el objeto `i18n` completo, ES/EN en paralelo, con buscador
+- Retrato y CV editables (`SITE`)
+- Copia de seguridad: vuelca todo a un `data.js` descargable
 
 ## Contacto real del cliente
 - Email: kevinjulian182@gmail.com

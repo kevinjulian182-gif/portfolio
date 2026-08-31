@@ -5,3 +5,7 @@
 # usuario, así que sin token no se puede modificar nada aunque se entre.
 # El usuario y la contraseña del panel no son un secreto — son un timbre,
 # no una cerradura. No pongas ahí una contraseña que uses en otro sitio.
+
+# Dependencias de las funciones: se instalan en el despliegue.
+node_modules/
+.netlify/

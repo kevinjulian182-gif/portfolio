@@ -1,6 +1,7 @@
 /* ============================================================
    data.js — Fuente de datos compartida (portafolio + admin)
-   Editar defaults aquí; el admin sobreescribe en localStorage.
+   Estos son los valores por defecto. El panel guarda en el servidor
+   (Netlify Blobs) y lo guardado tiene prioridad sobre esto.
 ============================================================ */
 
 /* ============================================================
@@ -540,20 +541,30 @@ const i18n = {
 };
 
 /* ============================================================
-   Runtime — lee localStorage si existe, si no usa defaults
+   Runtime — lo guardado en el servidor manda; si no hay nada,
+   valen los valores por defecto de arriba.
 ============================================================ */
-function getProjects()      { try { const s = localStorage.getItem('kn_projects');      return s ? JSON.parse(s) : PROJECTS;      } catch(e){ return PROJECTS; } }
-function getSkills()        { try { const s = localStorage.getItem('kn_skills');        return s ? JSON.parse(s) : SKILLS;        } catch(e){ return SKILLS; } }
-function getTools()         { try { const s = localStorage.getItem('kn_tools');         return s ? JSON.parse(s) : TOOLS;         } catch(e){ return TOOLS; } }
-function getExperience()    { try { const s = localStorage.getItem('kn_experience');    return s ? JSON.parse(s) : EXPERIENCE;    } catch(e){ return EXPERIENCE; } }
-function getEducation()     { try { const s = localStorage.getItem('kn_education');     return s ? JSON.parse(s) : EDUCATION;     } catch(e){ return EDUCATION; } }
-function getCertifications(){ try { const s = localStorage.getItem('kn_certs');         return s ? JSON.parse(s) : CERTIFICATIONS;} catch(e){ return CERTIFICATIONS; } }
-function getI18n()          { try { const s = localStorage.getItem('kn_i18n');          return s ? JSON.parse(s) : i18n;           } catch(e){ return i18n; } }
-function getSite()          { try { const s = localStorage.getItem('kn_site');          return Object.assign({}, SITE, s ? JSON.parse(s) : {}); } catch(e){ return SITE; } }
 
-function saveSection(key, value) {
-  localStorage.setItem('kn_' + key, JSON.stringify(value));
-}
-function resetSection(key) {
-  localStorage.removeItem('kn_' + key);
+/* Lo rellena setRemoto() antes de pintar. Se mantiene en memoria y
+   no en localStorage: así todos los visitantes ven lo mismo, que era
+   justo lo que fallaba antes. */
+let REMOTO = {};
+
+function setRemoto(datos) { REMOTO = datos || {}; }
+
+function getProjects()      { return REMOTO.projects   || PROJECTS; }
+function getSkills()        { return REMOTO.skills     || SKILLS; }
+function getTools()         { return REMOTO.tools      || TOOLS; }
+function getExperience()    { return REMOTO.experience || EXPERIENCE; }
+function getEducation()     { return REMOTO.education  || EDUCATION; }
+function getCertifications(){ return REMOTO.certs      || CERTIFICATIONS; }
+function getI18n()          { return REMOTO.i18n       || i18n; }
+function getSite()          { return Object.assign({}, SITE, REMOTO.site || {}); }
+
+/* Guarda de inmediato: no hay borrador ni paso de publicación.
+   Se actualiza primero en memoria para que la interfaz responda ya,
+   y si el servidor rechaza, quien llama muestra el error. */
+async function saveSection(key, value) {
+  REMOTO[key] = value;
+  return guardarRemoto(key, value);
 }

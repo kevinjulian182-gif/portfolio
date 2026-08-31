@@ -1,24 +1,27 @@
 /* ============================================================
-   admin.js — Lógica del panel de administración
+   admin.js — Panel de administración
 
-   OJO CON ESTAS CREDENCIALES: este archivo se publica, así que
-   cualquiera puede leerlas. No son seguridad, son un timbre para
-   que nadie entre por accidente. Lo que de verdad protege el
-   portafolio es el token de GitHub (pestaña Conexión): sin token
-   válido no se puede guardar nada, por mucho que se entre aquí.
+   Ya no hay credenciales en este archivo. La contraseña vive como
+   variable de entorno en el servidor (PANEL_PASS) y se comprueba
+   allí: aunque alguien lea este código, no encuentra nada con lo
+   que entrar.
 
-   Por eso NO pongas aquí una contraseña que uses en otro sitio.
+   Guardar es inmediato — cada Guardar escribe en el servidor y el
+   sitio queda actualizado. No hay borrador ni paso de publicación.
 ============================================================ */
 
-const ADMIN_USER = 'kevin';
-const ADMIN_PASS = 'panel-kn';   // público a propósito; cámbialo si quieres
-
 /* ── Session check ─────────────────────────────────────────── */
-function isLoggedIn() { return sessionStorage.getItem('kn_admin') === '1'; }
-function login()      { sessionStorage.setItem('kn_admin', '1'); }
-function logout()     { sessionStorage.removeItem('kn_admin'); location.reload(); }
+function isLoggedIn() { return Boolean(claveGuardada()); }
+function logout()     { olvidarClave(); location.reload(); }
 
 /* ── Toast ─────────────────────────────────────────────────── */
+/* saveSection ahora escribe en el servidor y puede fallar. Esto
+   envuelve las llamadas para que el error se vea en pantalla en vez
+   de perderse en la consola. */
+function guardar(promesa) {
+  Promise.resolve(promesa).catch(err => showToast('✗ No se pudo guardar: ' + err.message));
+}
+
 function showToast(msg = '✓ Cambios guardados') {
   const t = document.getElementById('toast');
   t.textContent = msg;
@@ -45,20 +48,30 @@ document.getElementById('confirm-ok').addEventListener('click', () => {
    LOGIN
 ══════════════════════════════════════════════════════════════ */
 function initLogin() {
-  if (isLoggedIn()) {
-    showPanel();
-    return;
-  }
+  if (isLoggedIn()) { showPanel(); return; }
+
   document.getElementById('login-screen').style.display = 'flex';
-  document.getElementById('login-form').addEventListener('submit', e => {
+
+  const form  = document.getElementById('login-form');
+  const campo = document.getElementById('login-pass');
+  const error = document.getElementById('login-error');
+  const boton = document.getElementById('btn-login');
+
+  form.addEventListener('submit', async e => {
     e.preventDefault();
-    const u = document.getElementById('login-user').value.trim();
-    const p = document.getElementById('login-pass').value;
-    if (u === ADMIN_USER && p === ADMIN_PASS) {
-      login(); showPanel();
-    } else {
-      document.getElementById('login-error').classList.add('show');
+    error.classList.remove('show');
+    boton.disabled = true;
+    boton.textContent = 'Comprobando…';
+    try {
+      await comprobarClave(campo.value);
+      showPanel();
+    } catch (err) {
+      error.textContent = err.message;
+      error.classList.add('show');
+      campo.select();
     }
+    boton.disabled = false;
+    boton.textContent = 'Entrar';
   });
 }
 
@@ -80,7 +93,6 @@ function initPanel() {
       document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
       btn.classList.add('active');
       document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
-      if (typeof actualizarEstadoPublicar === 'function') actualizarEstadoPublicar();
     });
   });
   renderProjectsList();
@@ -89,8 +101,7 @@ function initPanel() {
   renderEducationEditor();
   initExport();
   initTextos();
-  initConexion();
-  initPublicar();
+  initAjustes();
   initSubidaImagenes();
 }
 
@@ -134,7 +145,7 @@ function moveProject(id, dir) {
   const target = idx + dir;
   if (target < 0 || target >= projects.length) return;
   [projects[idx], projects[target]] = [projects[target], projects[idx]];
-  saveSection('projects', projects);
+  guardar(saveSection('projects', projects));
   renderProjectsList();
   showToast('Orden actualizado');
 }
@@ -142,7 +153,7 @@ function moveProject(id, dir) {
 function deleteProject(id) {
   confirmDelete(() => {
     const projects = getProjects().filter(p => p.id !== id);
-    saveSection('projects', projects);
+    guardar(saveSection('projects', projects));
     renderProjectsList();
     showToast('Proyecto eliminado');
   });
@@ -268,7 +279,7 @@ document.getElementById('btn-save-project').addEventListener('click', () => {
   } else {
     projects.push(projectData);
   }
-  saveSection('projects', projects);
+  guardar(saveSection('projects', projects));
   renderProjectsList();
   closeProjectModal();
   showToast(editingProjectId ? '✓ Proyecto actualizado' : '✓ Proyecto agregado');
@@ -345,8 +356,8 @@ document.getElementById('btn-save-skills').addEventListener('click', () => {
   const tools = document.getElementById('tools-editor').value
     .split('\n').map(s => s.trim()).filter(Boolean);
 
-  saveSection('skills', skills);
-  saveSection('tools',  tools);
+  guardar(saveSection('skills', skills));
+  guardar(saveSection('tools',  tools));
   showToast('✓ Habilidades y herramientas guardadas');
 });
 
@@ -401,7 +412,7 @@ document.getElementById('btn-save-exp').addEventListener('click', () => {
     company: el.querySelector('.te-company').value.trim(),
     desc:    el.querySelector('.te-desc').value.trim(),
   })).filter(e => e.title);
-  saveSection('experience', items);
+  guardar(saveSection('experience', items));
   showToast('✓ Experiencia guardada');
 });
 
@@ -474,17 +485,17 @@ document.getElementById('btn-save-edu').addEventListener('click', () => {
     year:     el.querySelector('.cert-year-inp').value.trim(),
   })).filter(c => c.name);
 
-  saveSection('education', edu);
-  saveSection('certs', certs);
+  guardar(saveSection('education', edu));
+  guardar(saveSection('certs', certs));
   showToast('✓ Formación y certificaciones guardadas');
 });
 
 /* ══════════════════════════════════════════════════════════════
    PUBLICAR — regenera js/data.js con lo que hay en el panel
 
-   El panel guarda en localStorage, que solo ve este navegador.
-   Para que un cambio llegue a los visitantes hay que volcarlo al
-   archivo js/data.js y subirlo con git. Esto genera ese archivo.
+   Vuelca todo el contenido actual a un data.js completo. Ya no hace
+   falta para publicar -- eso es inmediato -- pero sirve de copia de
+   seguridad y para reconstruir el sitio si algo se pierde.
 ══════════════════════════════════════════════════════════════ */
 
 const EXPORT_SECTIONS = [
@@ -548,20 +559,24 @@ function buildDataJsFromMemory() {
   }
   out.push(
     '/* ============================================================',
-    '   Runtime — lee localStorage si existe, si no usa defaults',
+    '   Runtime — lo guardado en el servidor manda; si no hay nada,',
+    '   valen los valores por defecto de arriba.',
     '============================================================ */',
-    "function getProjects()      { try { const s = localStorage.getItem('kn_projects');   return s ? JSON.parse(s) : PROJECTS;       } catch(e){ return PROJECTS; } }",
-    "function getSkills()        { try { const s = localStorage.getItem('kn_skills');     return s ? JSON.parse(s) : SKILLS;         } catch(e){ return SKILLS; } }",
-    "function getTools()         { try { const s = localStorage.getItem('kn_tools');      return s ? JSON.parse(s) : TOOLS;          } catch(e){ return TOOLS; } }",
-    "function getExperience()    { try { const s = localStorage.getItem('kn_experience'); return s ? JSON.parse(s) : EXPERIENCE;     } catch(e){ return EXPERIENCE; } }",
-    "function getEducation()     { try { const s = localStorage.getItem('kn_education');  return s ? JSON.parse(s) : EDUCATION;      } catch(e){ return EDUCATION; } }",
-    "function getCertifications(){ try { const s = localStorage.getItem('kn_certs');      return s ? JSON.parse(s) : CERTIFICATIONS; } catch(e){ return CERTIFICATIONS; } }",
+    'let REMOTO = {};',
+    'function setRemoto(datos) { REMOTO = datos || {}; }',
     '',
-    'function saveSection(key, value) {',
-    "  localStorage.setItem('kn_' + key, JSON.stringify(value));",
-    '}',
-    'function resetSection(key) {',
-    "  localStorage.removeItem('kn_' + key);",
+    'function getProjects()      { return REMOTO.projects   || PROJECTS; }',
+    'function getSkills()        { return REMOTO.skills     || SKILLS; }',
+    'function getTools()         { return REMOTO.tools      || TOOLS; }',
+    'function getExperience()    { return REMOTO.experience || EXPERIENCE; }',
+    'function getEducation()     { return REMOTO.education  || EDUCATION; }',
+    'function getCertifications(){ return REMOTO.certs      || CERTIFICATIONS; }',
+    'function getI18n()          { return REMOTO.i18n       || i18n; }',
+    'function getSite()          { return Object.assign({}, SITE, REMOTO.site || {}); }',
+    '',
+    'async function saveSection(key, value) {',
+    '  REMOTO[key] = value;',
+    '  return guardarRemoto(key, value);',
     '}',
     ''
   );
@@ -719,8 +734,8 @@ function escaparHtml(s) {
 
 function initTextos() {
   const filtro = document.getElementById('textos-filtro');
-  const guardar = document.getElementById('btn-save-textos');
-  if (!guardar) return;
+  const botonGuardar = document.getElementById('btn-save-textos');
+  if (!botonGuardar) return;
 
   renderTextosEditor('');
 
@@ -737,21 +752,20 @@ function initTextos() {
     });
   }
 
-  guardar.addEventListener('click', () => {
+  botonGuardar.addEventListener('click', () => {
     const datos = textosActuales();
     datos.en = datos.en || {};
     document.querySelectorAll('.texto-input').forEach(inp => {
       datos[inp.dataset.idioma][inp.dataset.clave] = inp.value;
     });
-    saveSection('i18n', datos);
+    guardar(saveSection('i18n', datos));
 
-    saveSection('site', Object.assign({}, getSite(), {
+    guardar(saveSection('site', Object.assign({}, getSite(), {
       portrait: document.getElementById('site-portrait').value.trim(),
       cvUrl:    document.getElementById('site-cv').value.trim(),
-    }));
+    })));
 
     showToast('✓ Textos y archivos guardados');
-    marcarCambiosSinPublicar();
   });
 }
 
@@ -767,11 +781,6 @@ function initSubidaRetrato() {
   boton.dataset.listo = '1';
 
   boton.addEventListener('click', () => {
-    if (!ghIsConfigured()) {
-      estado.className = 'hint error';
-      estado.textContent = 'Configura el token en Conexión para poder subir la foto.';
-      return;
-    }
     input.click();
   });
 
@@ -781,7 +790,7 @@ function initSubidaRetrato() {
     boton.disabled = true;
     estado.className = 'hint';
     try {
-      campo.value = await ghSubirImagen(file, msg => { estado.textContent = msg; });
+      campo.value = await subirImagenRemota(file, msg => { estado.textContent = msg; });
       estado.className = 'hint ok';
       estado.textContent = 'Subida. Pulsa "Guardar textos" para aplicarla.';
     } catch (err) {
@@ -794,164 +803,11 @@ function initSubidaRetrato() {
 }
 
 /* ══════════════════════════════════════════════════════════════
-   CONEXIÓN CON GITHUB
+   AJUSTES
 ══════════════════════════════════════════════════════════════ */
-function initConexion() {
-  const owner  = document.getElementById('gh-owner');
-  const repo   = document.getElementById('gh-repo');
-  const branch = document.getElementById('gh-branch');
-  const token  = document.getElementById('gh-token');
-  const estado = document.getElementById('estado-conexion');
-  if (!owner) return;
-
-  const cfg = ghGetConfig();
-  owner.value  = cfg.owner;
-  repo.value   = cfg.repo;
-  branch.value = cfg.branch;
-  token.value  = cfg.token;
-
-  if (cfg.token) estado.textContent = 'Hay un token guardado en este navegador. Pulsa "Probar conexión" para confirmar que sigue siendo válido.';
-
-  document.getElementById('btn-guardar-conexion').addEventListener('click', () => {
-    ghSaveConfig({
-      owner:  owner.value.trim(),
-      repo:   repo.value.trim(),
-      branch: branch.value.trim() || 'main',
-      token:  token.value.trim(),
-    });
-    showToast('✓ Conexión guardada');
-    estado.textContent = 'Guardado. Conviene probar la conexión antes de publicar.';
-    actualizarEstadoPublicar();
-  });
-
-  document.getElementById('btn-probar-conexion').addEventListener('click', async e => {
-    const btn = e.currentTarget;
-    btn.disabled = true;
-    estado.textContent = 'Comprobando…';
-    estado.className = 'estado-conexion';
-    // Probamos con lo que hay escrito, no con lo último guardado.
-    ghSaveConfig({
-      owner: owner.value.trim(), repo: repo.value.trim(),
-      branch: branch.value.trim() || 'main', token: token.value.trim(),
-    });
-    try {
-      const r = await ghTestConnection();
-      estado.textContent = 'Conectado a ' + r.nombre + ' (rama ' + r.rama + '). El token puede escribir.';
-      estado.className = 'estado-conexion ok';
-    } catch (err) {
-      estado.textContent = err.message;
-      estado.className = 'estado-conexion error';
-    }
-    btn.disabled = false;
-    actualizarEstadoPublicar();
-  });
-
-  document.getElementById('btn-ver-token').addEventListener('click', e => {
-    const oculto = token.type === 'password';
-    token.type = oculto ? 'text' : 'password';
-    e.currentTarget.textContent = oculto ? 'Ocultar token' : 'Mostrar token';
-  });
-
-  document.getElementById('btn-olvidar-token').addEventListener('click', () => {
-    confirmDelete(() => {
-      ghForgetToken();
-      token.value = '';
-      estado.textContent = 'Token borrado de este navegador.';
-      estado.className = 'estado-conexion';
-      showToast('✓ Token olvidado');
-      actualizarEstadoPublicar();
-    });
-  });
-}
-
-/* ══════════════════════════════════════════════════════════════
-   PUBLICAR
-══════════════════════════════════════════════════════════════ */
-const CLAVES_LOCALES = ['kn_projects', 'kn_skills', 'kn_tools', 'kn_experience',
-                        'kn_education', 'kn_certs', 'kn_i18n', 'kn_site'];
-
-function hayCambiosSinPublicar() {
-  return CLAVES_LOCALES.some(k => localStorage.getItem(k) !== null);
-}
-
-function marcarCambiosSinPublicar() {
-  actualizarEstadoPublicar();
-}
-
-function actualizarEstadoPublicar() {
-  const box = document.getElementById('publicar-estado');
-  if (!box) return;
-
-  const cambios = hayCambiosSinPublicar();
-  const conectado = ghIsConfigured();
-  const btn = document.getElementById('btn-publicar');
-
-  let html = '';
-  html += cambios
-    ? '<p class="estado-linea pendiente">Tienes cambios sin publicar en este navegador.</p>'
-    : '<p class="estado-linea ok">No hay cambios pendientes: lo que ves es lo que está publicado.</p>';
-  html += conectado
-    ? '<p class="estado-linea ok">Token configurado.</p>'
-    : '<p class="estado-linea error">Falta el token. Ve a <strong>Conexión</strong> para poder publicar.</p>';
-
-  box.innerHTML = html;
-  if (btn) btn.disabled = !conectado;
-}
-
-function initPublicar() {
-  const btn = document.getElementById('btn-publicar');
-  if (!btn) return;
-
-  actualizarEstadoPublicar();
-
-  btn.addEventListener('click', async () => {
-    if (!ghIsConfigured()) {
-      showToast('Falta configurar el token');
-      return;
-    }
-    const box = document.getElementById('publicar-estado');
-    btn.disabled = true;
-    box.innerHTML = '<p class="estado-linea">Generando data.js…</p>';
-
-    try {
-      let texto;
-      try {
-        texto = await buildDataJsFromSource();
-      } catch (e) {
-        texto = buildDataJsFromMemory();
-      }
-
-      box.innerHTML = '<p class="estado-linea">Subiendo a GitHub…</p>';
-      const r = await ghPublicarDatos(texto);
-
-      // Publicado: lo local ya es igual que lo remoto, así que
-      // dejamos de arrastrar overrides que luego confunden.
-      CLAVES_LOCALES.forEach(k => localStorage.removeItem(k));
-
-      box.innerHTML =
-        '<p class="estado-linea ok">Publicado. Commit <code>' + r.commit + '</code>.</p>' +
-        '<p class="estado-linea">GitHub Pages tarda alrededor de un minuto en reconstruir. Recarga el sitio pasado ese tiempo.</p>';
-      showToast('✓ Cambios publicados');
-      setTimeout(() => location.reload(), 2500);
-    } catch (err) {
-      box.innerHTML = '<p class="estado-linea error">' + escaparHtml(err.message) + '</p>';
-      showToast('No se pudo publicar');
-      btn.disabled = false;
-    }
-  });
-
-  document.getElementById('btn-ver-sitio').addEventListener('click', () => {
-    const cfg = ghGetConfig();
-    window.open('https://' + cfg.owner + '.github.io/' + cfg.repo + '/', '_blank', 'noopener');
-  });
-
-  document.getElementById('btn-descartar').addEventListener('click', () => {
-    confirmDelete(() => {
-      CLAVES_LOCALES.forEach(k => localStorage.removeItem(k));
-      showToast('✓ Cambios locales descartados');
-      setTimeout(() => location.reload(), 700);
-    });
-  });
+function initAjustes() {
+  const ver = document.getElementById('btn-ver-sitio');
+  if (ver) ver.addEventListener('click', () => window.open('/', '_blank', 'noopener'));
 }
 
 /* ══════════════════════════════════════════════════════════════
@@ -965,12 +821,7 @@ function initSubidaImagenes() {
   if (!boton) return;
 
   boton.addEventListener('click', () => {
-    if (!ghIsConfigured()) {
-      estado.textContent = 'Configura el token en la pestaña Conexión para poder subir imágenes.';
-      estado.className = 'hint error';
-      return;
-    }
-    input.click();
+input.click();
   });
 
   input.addEventListener('change', async () => {
@@ -985,7 +836,7 @@ function initSubidaImagenes() {
       estado.className = 'hint';
       estado.textContent = `(${i + 1}/${archivos.length}) ` + archivos[i].name;
       try {
-        const ruta = await ghSubirImagen(archivos[i], msg => { estado.textContent = `(${i + 1}/${archivos.length}) ` + msg; });
+        const ruta = await subirImagenRemota(archivos[i], msg => { estado.textContent = `(${i + 1}/${archivos.length}) ` + msg; });
         rutas.push(ruta);
       } catch (err) {
         fallos.push(archivos[i].name + ': ' + err.message);

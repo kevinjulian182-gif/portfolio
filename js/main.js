@@ -403,15 +403,25 @@ document.getElementById('cv-download-btn').addEventListener('click', e => {
   window.open('https://www.behance.net/kevinnavarrete1', '_blank');
 });
 
-/* ── Init ────────────────────────────────────────────────── */
-renderProjects();
-renderSkills();
-renderTools();
-renderTimeline('timeline-exp', getExperience());
-renderTimeline('timeline-edu', getEducation());
-renderCerts();
-applyTranslations();
-applySiteSettings();
-initReveal();
-initSkillBars();
-initEntradaPortada();
+/* ── Init ──────────────────────────────────────────────────
+   Primero se pide al servidor lo guardado y solo después se pinta:
+   si se pintara antes, se vería un parpadeo del contenido viejo al
+   nuevo cada vez que Kevin cambia algo. */
+function pintarTodo() {
+  renderProjects();
+  renderSkills();
+  renderTools();
+  renderTimeline('timeline-exp', getExperience());
+  renderTimeline('timeline-edu', getEducation());
+  renderCerts();
+  applyTranslations();
+  applySiteSettings();
+  initReveal();
+  initSkillBars();
+  initEntradaPortada();
+}
+
+cargarRemoto()
+  .then(setRemoto)
+  .catch(() => {})          // sin red, se pinta con los valores por defecto
+  .then(pintarTodo);

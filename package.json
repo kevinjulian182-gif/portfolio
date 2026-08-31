@@ -1,0 +1,9 @@
+{
+  "name": "portafolio-kevin",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Portafolio de Kevin Navarrete. Sitio estatico + funciones de Netlify para el panel.",
+  "dependencies": {
+    "@netlify/blobs": "^8.1.0"
+  }
+}

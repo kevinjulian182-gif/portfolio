@@ -566,41 +566,6 @@ const i18n = {
 };
 
 /* ============================================================
-   RENDER FUNCTIONS
-============================================================ */
-
-let currentLang = 'es';
-let currentFilter = 'all';
-
-function renderProjects(filter = 'all') {
-  const grid = document.getElementById('projects-grid');
-  grid.innerHTML = '';
-  PROJECTS.forEach((p) => {
-    const visible = filter === 'all' || p.category === filter;
-    const card = document.createElement('div');
-    card.className = `project-card ${p.col}${visible ? '' : ' hidden'}`;
-    const thumbHtml = p.thumb
-      ? `<img src="${p.thumb}" class="project-thumb-img" alt="${p.title}" loading="lazy" />`
-      : `<div class="project-thumb-placeholder" style="background:${p.color||'#1A1A17'}">${p.icon||'◈'}</div>`;
-    card.innerHTML = `
-      <div class="project-thumb">
-        ${thumbHtml}
-        <div class="project-overlay">
-          <span class="project-overlay-link">Ver proyecto →</span>
-        </div>
-      </div>
-      <div class="project-info">
-        <div class="project-cat">${p.categoryLabel}</div>
-        <div class="project-title">${currentLang === 'en' && p.titleEn ? p.titleEn : p.title}</div>
-        <div class="project-desc">${(currentLang === 'en' && p.descriptionEn ? p.descriptionEn : p.description).slice(0,110)+'...'}</div>
-      </div>
-    `;
-    card.addEventListener('click', () => openModal(p));
-    grid.appendChild(card);
-  });
-}
-
-/* ============================================================
    Runtime — lee localStorage si existe, si no usa defaults
 ============================================================ */
 function getProjects()      { try { const s = localStorage.getItem('kn_projects');      return s ? JSON.parse(s) : PROJECTS;      } catch(e){ return PROJECTS; } }

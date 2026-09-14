@@ -7,7 +7,9 @@ Portafolio profesional de Kevin Julian Navarrete Rodríguez, Diseñador Gráfico
 - **Sitio y panel:** https://kevinnavarrete.netlify.app (Netlify, proyecto `kevinnavarrete`)
 - **Código:** https://github.com/kevinjulian182-gif/portfolio
 - **Trabajo local:** `~/Downloads/portfolio-v2`
-- Se despliega con `netlify deploy --prod --no-build` (sin build: el sitio es estático).
+- **Desplegar = push a `main`.** Netlify está vinculado al repo desde el 2026-09-14 y publica cada push, también desde una sesión en la nube. `netlify deploy --prod --no-build` desde el PC sigue funcionando para urgencias.
+- `PANEL_PASS` vive en Netlify y los datos del panel en Netlify Blobs (almacén `portafolio`, de todo el sitio): un despliegue nuevo no los borra.
+- `netlify.toml` devuelve 404 para `CLAUDE.md`, `README.md`, `package*` y `netlify/*`, porque se publica la raíz. Si se agrega otro archivo interno en la raíz, sumarlo ahí.
 
 ## Estructura de archivos
 ```

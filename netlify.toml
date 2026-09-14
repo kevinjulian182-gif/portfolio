@@ -3,6 +3,32 @@
   publish = "."
   functions = "netlify/functions"
 
+# Al publicar la raíz también saldrían los archivos internos del repo. No se
+# sirven: 404 aunque existan.
+[[redirects]]
+  from = "/CLAUDE.md"
+  to = "/404"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/README.md"
+  to = "/404"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/package*"
+  to = "/404"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/netlify/*"
+  to = "/404"
+  status = 404
+  force = true
+
 # El panel no debe acabar indexado.
 [[headers]]
   for = "/admin.html"

@@ -68,8 +68,9 @@ que una petición manipulada escriba claves arbitrarias.
 - Dirección: **editorial impresa**. Papel y tinta, filetes (1px) en vez de cajas y sombras,
   retícula uniforme, un solo acento. La interfaz se aparta para que el color lo pongan
   las piezas del portafolio.
-- Tipografía: **Newsreader** (display serif, con itálica real) + **Archivo** (UI/texto)
-  + mono del sistema para metadatos (índices, años, etiquetas).
+- Tipografía: **Fraunces** (display, con los ejes WONK y SOFT activados) + **Instrument Sans**
+  (UI/texto) + mono del sistema para metadatos (índices, años, etiquetas). Sustituyeron a
+  Newsreader + Archivo, que eran correctas pero neutras.
 - Paleta clara (por defecto): papel `#F4F1EA`, tinta `#1B1A16`, filete `#D6D0C2`,
   acento vermellón `#B23A1E`.
 - Paleta oscura: fondo `#121210`, texto `#E9E5DA`, filete `#302E28`, acento `#E0714E`.
@@ -121,6 +122,6 @@ lanzar ningún error en consola.
 - Agregar URLs reales de prototipos Figma en cada proyecto UX/UI
 - Conectar formulario de contacto a Formspree
 - **Subir el CV en PDF** y poner su ruta en Textos del sitio → Retrato y CV
-- **Reemplazar las imágenes de galería de Unsplash**: en la mayoría de proyectos solo la portada es obra real; las otras 9 son fotos de stock
+- ~~Reemplazar las imágenes de Unsplash~~: hecho. Las galerías son las 12 de Behance (59 imágenes reales), filtradas por el id de galería que va en el nombre de archivo del CDN, para que no se cuelen los proyectos «relacionados». Si hay que volver a descargarlas, hacerlo desde Bash: `curl` lanzado desde Python devolvía un stub de 3,7 KB.
 - **Revisar los 3 casos de estudio en borrador** (Pineda Martínez, Colegio Virtual, Logyca): son reconstrucciones a partir de las descripciones, no relatos verificados. Salen marcados como borrador en la ficha hasta que quites la marca.
 - Escribir casos de estudio para el resto de proyectos

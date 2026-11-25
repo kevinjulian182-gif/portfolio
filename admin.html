@@ -55,6 +55,11 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
           Formación & Certs
         </button>
+        <button class="nav-item" data-tab="mensajes">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-10 6L2 7"/></svg>
+          Mensajes
+          <span class="nav-badge" id="badge-mensajes" hidden></span>
+        </button>
         <button class="nav-item" data-tab="textos">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
           Textos del sitio
@@ -154,6 +159,21 @@
         </div>
       </div>
 
+
+
+      <!-- ══════════════ TAB: MENSAJES ══════════════ -->
+      <div class="tab-panel" id="tab-mensajes">
+        <div class="panel-header">
+          <div>
+            <h2>Mensajes</h2>
+            <p>Lo que llega por el formulario del sitio. Se guarda aquí aunque falle el correo.</p>
+          </div>
+          <div class="btn-row">
+            <button class="btn-outline" id="btn-recargar-mensajes">Actualizar</button>
+          </div>
+        </div>
+        <div id="mensajes-lista"></div>
+      </div>
 
       <!-- ══════════════ TAB: TEXTOS DEL SITIO ══════════════ -->
       <div class="tab-panel" id="tab-textos">

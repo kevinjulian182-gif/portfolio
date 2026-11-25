@@ -102,6 +102,7 @@ function initPanel() {
   renderEducationEditor();
   initExport();
   initTextos();
+  initMensajes();
   initAjustes();
   initSubidaImagenes();
 }
@@ -892,6 +893,75 @@ function avisoBorradores() {
     'Son reconstrucciones a partir de tus descripciones, no relatos verificados: ' +
     pendientes.map(p => escaparHtml(p.title)).join(', ') +
     '. Revísalos y desmarca «borrador» en cada uno.';
+}
+
+
+/* ══════════════════════════════════════════════════════════════
+   MENSAJES DEL FORMULARIO
+══════════════════════════════════════════════════════════════ */
+const MOTIVOS = {
+  empleo: 'Oferta de empleo',
+  freelance: 'Proyecto freelance',
+  colaboracion: 'Colaboración',
+  otro: 'Otro',
+};
+
+function fechaCorta(iso) {
+  try {
+    return new Date(iso).toLocaleString('es-CO',
+      { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+  } catch (e) { return iso; }
+}
+
+async function cargarMensajes() {
+  const caja = document.getElementById('mensajes-lista');
+  if (!caja) return;
+  caja.innerHTML = '<p class="hint">Cargando…</p>';
+
+  try {
+    const res = await fetch('/api/contacto?clave=' + encodeURIComponent(claveGuardada()));
+    if (!res.ok) throw new Error((await res.json()).error || 'HTTP ' + res.status);
+    const { mensajes } = await res.json();
+
+    const badge = document.getElementById('badge-mensajes');
+    if (badge) {
+      badge.textContent = mensajes.length;
+      badge.hidden = mensajes.length === 0;
+    }
+
+    if (!mensajes.length) {
+      caja.innerHTML = '<div class="card"><p class="hint">Todavía no hay mensajes. Cuando alguien escriba desde el sitio, aparece aquí.</p></div>';
+      return;
+    }
+
+    caja.innerHTML = mensajes.map(m => `
+      <div class="card mt-2 mensaje${m.motivo === 'empleo' ? ' mensaje-empleo' : ''}">
+        <div class="mensaje-cab">
+          <div>
+            <strong>${escaparHtml(m.nombre)}</strong>
+            <a href="mailto:${escaparHtml(m.correo)}" class="mensaje-correo">${escaparHtml(m.correo)}</a>
+          </div>
+          <div class="mensaje-meta">
+            <span class="mensaje-motivo">${escaparHtml(MOTIVOS[m.motivo] || m.motivo)}</span>
+            <span class="hint">${escaparHtml(fechaCorta(m.fecha))}</span>
+          </div>
+        </div>
+        <p class="mensaje-texto">${escaparHtml(m.mensaje)}</p>
+        <div class="btn-row mt-05">
+          <a class="btn-outline sm" href="mailto:${escaparHtml(m.correo)}?subject=Re%3A%20tu%20mensaje%20desde%20el%20portafolio">Responder</a>
+        </div>
+      </div>`).join('');
+  } catch (err) {
+    caja.innerHTML = '<div class="card"><p class="hint error">' + escaparHtml(err.message) + '</p></div>';
+  }
+}
+
+function initMensajes() {
+  const boton = document.getElementById('btn-recargar-mensajes');
+  if (!boton || boton.dataset.listo) return;
+  boton.dataset.listo = '1';
+  boton.addEventListener('click', cargarMensajes);
+  cargarMensajes();
 }
 
 /* ══════════════════════════════════════════════════════════════

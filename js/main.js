@@ -474,13 +474,26 @@ form.addEventListener('submit', async e => {
   aviso.textContent = '';
 
   try {
-    const datos = new URLSearchParams(new FormData(form));
-    const res = await fetch('/', {
+    /* Va a /api/contacto y no directo a Netlify Forms: los envios
+       hechos con fetch desde el navegador se perdian, mientras el
+       mismo POST desde el servidor si entraba. La funcion guarda el
+       mensaje primero y despues avisa por correo. */
+    const res = await fetch('/api/contacto', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: datos.toString(),
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        nombre:  document.getElementById('name').value.trim(),
+        correo:  document.getElementById('email').value.trim(),
+        motivo:  document.getElementById('subject').value,
+        mensaje: document.getElementById('message').value.trim(),
+        website: (document.querySelector('[name="bot-field"]') || {}).value || '',
+      }),
     });
-    if (!res.ok) throw new Error('HTTP ' + res.status);
+    if (!res.ok) {
+      let detalle = '';
+      try { detalle = (await res.json()).error || ''; } catch (e) {}
+      throw new Error(detalle || ('HTTP ' + res.status));
+    }
 
     aviso.className = 'form-success show';
     aviso.textContent = t['contact.success'] || 'Mensaje enviado. Te respondo pronto.';

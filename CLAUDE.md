@@ -15,8 +15,9 @@ Portafolio profesional de Kevin Julian Navarrete Rodríguez, Diseñador Gráfico
 ```
 portfolio/
 ├── index.html              ← El portafolio
+├── cv.html                 ← Hoja de vida, se pinta con los mismos datos
 ├── admin.html              ← Panel de administración
-├── css/{styles,admin}.css
+├── css/{styles,admin,cv}.css
 ├── js/
 │   ├── data.js             ← Valores por defecto + getters
 │   ├── remoto.js           ← Cliente del API (cargar, guardar, subir)
@@ -91,7 +92,22 @@ que una petición manipulada escriba claves arbitrarias.
 - **Ojo con los ornamentos simétricos** (filete–etiqueta–filete) y las versalitas muy
   espaciadas: son el tic visual más reconocible de las plantillas generadas por IA.
 
+### Decisiones orientadas a que lo contraten
+Research: NN/g (204 hiring managers) y UXfolio 2026. Lo que mandó el diseño:
+- **Trabajo real primero.** `PROJECTS` va ordenado con los encargos de cliente antes que
+  los conceptos; el trabajo hipotético pesa menos para quien contrata.
+- **Etiquetas honestas.** El proyecto de Yanbal figuraba con cliente «Yanbal» cuando en
+  Behance se titula «Concepto Campaña…». Corregido a «Proyecto de concepto»: si un
+  reclutador cruza las dos fuentes, no puede encontrar una contradicción.
+- **El sello de «borrador» no se muestra al visitante.** A un reclutador le decía «esto
+  está a medias». La marca sigue en los datos y el panel avisa de cuáles faltan.
+- **La IA se demuestra, no se declara.** Prácticas concretas con herramientas nombradas y
+  un bloque explícito de dónde no se usa; eso es lo que distingue según la investigación.
+
 ### Ojo al tocar el CSS
+`styles.css` da a toda `<section>` un `padding-block` de 6rem. `cv.html` usa `<section>`
+para sus apartados, así que `cv.css` lo pone a 0; si no, salen huecos enormes.
+
 El JS conmuta la clase **`open`** (no `active`) en `#modal-overlay` y en `#mobile-menu`.
 Si renombras esas clases en el CSS, el modal y el menú móvil dejan de aparecer sin
 lanzar ningún error en consola.
@@ -101,7 +117,14 @@ lanzar ningún error en consola.
 - 12 proyectos con galería (imágenes reales de Behance) y ficha detallada
 - Casos de estudio (reto / proceso / resultado) por proyecto, bilingües y opcionales
 - Filtros, galería con teclado, modo claro/oscuro, ES/EN
-- Trayectoria, certificaciones, formulario de contacto, WhatsApp
+- Trayectoria, certificaciones, WhatsApp
+- **Sección «Cómo trabajo con IA»**: prácticas concretas, herramientas y, sobre todo,
+  dónde Kevin NO delega. Vive en `SITE.aiPractices` / `aiTools` / `aiLimit`, bilingüe.
+- **Formulario de contacto real** (Netlify Forms): valida, envía de verdad y, si falla,
+  ofrece el correo directo en vez de fingir que se envió
+- **`/cv.html`**: hoja de vida generada desde `EXPERIENCE`, `EDUCATION`, `CERTIFICATIONS`
+  y `TOOLS`, con hoja de impresión A4. El botón del sitio lleva ahí; si Kevin sube su
+  propio PDF (`SITE.cvUrl`), ese tiene prioridad.
 - Sistema de movimiento propio (CSS + IntersectionObserver), con reduced-motion
 
 **Panel (`/admin.html`)**
@@ -110,6 +133,8 @@ lanzar ningún error en consola.
 - Habilidades, herramientas, experiencia, formación y certificaciones
 - Textos del sitio: el objeto `i18n` completo, ES/EN en paralelo, con buscador
 - Retrato y CV editables (`SITE`)
+- Editor de la sección de IA (prácticas, herramientas y límite, ES/EN)
+- Aviso de qué casos de estudio siguen marcados como borrador
 - Copia de seguridad: vuelca todo a un `data.js` descargable
 
 ## Contacto real del cliente
@@ -120,10 +145,13 @@ lanzar ningún error en consola.
 - GitHub: kevinjulian182-gif
 
 ## Pendientes / próximas mejoras sugeridas
+- **Activar el aviso por correo de Netlify Forms** (Site configuration → Forms →
+  Form notifications). Sin eso los mensajes quedan solo en el panel de Netlify.
+- Hay ~9 proyectos más en Behance que no están en el sitio (LeBron escritorio y móvil,
+  My Dog Heal, Politécnico, Cariñositos, lata El Bosque, Kyrie Irving, jugo natural,
+  INNOVA). Se dejaron fuera a propósito: la recomendación es mostrar 8–12 bien elegidos.
 - **Subir el retrato** desde el panel (Textos del sitio → Retrato y CV). Hasta entonces se ve el marco con la nota.
 - Agregar URLs reales de prototipos Figma en cada proyecto UX/UI
-- Conectar formulario de contacto a Formspree
-- **Subir el CV en PDF** y poner su ruta en Textos del sitio → Retrato y CV
 - ~~Reemplazar las imágenes de Unsplash~~: hecho. Las galerías son las 12 de Behance (59 imágenes reales), filtradas por el id de galería que va en el nombre de archivo del CDN, para que no se cuelen los proyectos «relacionados». Si hay que volver a descargarlas, hacerlo desde Bash: `curl` lanzado desde Python devolvía un stub de 3,7 KB.
 - **Revisar los 3 casos de estudio en borrador** (Pineda Martínez, Colegio Virtual, Logyca): son reconstrucciones a partir de las descripciones, no relatos verificados. Salen marcados como borrador en la ficha hasta que quites la marca.
 - Escribir casos de estudio para el resto de proyectos

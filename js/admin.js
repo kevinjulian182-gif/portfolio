@@ -96,6 +96,7 @@ function initPanel() {
     });
   });
   renderProjectsList();
+  avisoBorradores();
   renderSkillsEditor();
   renderExperienceEditor();
   renderEducationEditor();
@@ -743,6 +744,7 @@ function initTextos() {
   document.getElementById('site-portrait').value = site.portrait || '';
   document.getElementById('site-cv').value       = site.cvUrl || '';
   initSubidaRetrato();
+  initIA();
 
   if (filtro) {
     let t;
@@ -763,7 +765,7 @@ function initTextos() {
     guardar(saveSection('site', Object.assign({}, getSite(), {
       portrait: document.getElementById('site-portrait').value.trim(),
       cvUrl:    document.getElementById('site-cv').value.trim(),
-    })));
+    }, leerIA())));
 
     showToast('✓ Textos y archivos guardados');
   });
@@ -800,6 +802,96 @@ function initSubidaRetrato() {
     boton.disabled = false;
     input.value = '';
   });
+}
+
+
+/* ── Sección de IA ─────────────────────────────────────────────
+   Va en SITE, que ya está en la lista blanca del servidor, así que
+   no hace falta registrar una sección nueva en datos.mjs. */
+function filaIA(i, p) {
+  return `
+    <div class="ia-fila" data-idx="${i}">
+      <div class="ia-fila-cab">
+        <code class="texto-clave">práctica ${String(i + 1).padStart(2, '0')}</code>
+        <button type="button" class="btn-icon-sm del" title="Eliminar"
+          onclick="confirmDelete(()=>{this.closest('.ia-fila').remove()})">✕</button>
+      </div>
+      <div class="texto-campos">
+        <div class="field-group">
+          <label>Título (ES)</label>
+          <input type="text" class="ia-inp" data-campo="titulo" value="${escaparHtml(p.titulo || '')}" />
+        </div>
+        <div class="field-group">
+          <label>Title (EN)</label>
+          <input type="text" class="ia-inp" data-campo="tituloEn" value="${escaparHtml(p.tituloEn || '')}" />
+        </div>
+        <div class="field-group">
+          <label>Texto (ES)</label>
+          <textarea class="ia-inp" data-campo="texto" rows="3">${escaparHtml(p.texto || '')}</textarea>
+        </div>
+        <div class="field-group">
+          <label>Text (EN)</label>
+          <textarea class="ia-inp" data-campo="textoEn" rows="3">${escaparHtml(p.textoEn || '')}</textarea>
+        </div>
+      </div>
+    </div>`;
+}
+
+function renderIAEditor() {
+  const cont = document.getElementById('ia-practicas-editor');
+  if (!cont) return;
+  const s = getSite();
+  cont.innerHTML = (s.aiPractices || []).map((p, i) => filaIA(i, p)).join('');
+}
+
+function leerIA() {
+  const practicas = [...document.querySelectorAll('#ia-practicas-editor .ia-fila')].map(fila => {
+    const o = {};
+    fila.querySelectorAll('.ia-inp').forEach(inp => { o[inp.dataset.campo] = inp.value.trim(); });
+    return o;
+  }).filter(p => p.titulo || p.texto);
+
+  return {
+    aiTools: document.getElementById('ia-tools-inp').value
+      .split(',').map(s => s.trim()).filter(Boolean),
+    aiPractices: practicas,
+    aiLimit:   document.getElementById('ia-limite-es').value.trim(),
+    aiLimitEn: document.getElementById('ia-limite-en').value.trim(),
+  };
+}
+
+function initIA() {
+  const boton = document.getElementById('btn-add-ia');
+  if (!boton || boton.dataset.listo) return;
+  boton.dataset.listo = '1';
+
+  const s = getSite();
+  document.getElementById('ia-tools-inp').value = (s.aiTools || []).join(', ');
+  document.getElementById('ia-limite-es').value = s.aiLimit || '';
+  document.getElementById('ia-limite-en').value = s.aiLimitEn || '';
+  renderIAEditor();
+
+  boton.addEventListener('click', () => {
+    const cont = document.getElementById('ia-practicas-editor');
+    cont.insertAdjacentHTML('beforeend',
+      filaIA(cont.querySelectorAll('.ia-fila').length, {}));
+  });
+}
+
+/* ── Casos de estudio sin revisar ──────────────────────────────
+   Ya no se marcan en el sitio público, así que el aviso tiene que
+   estar aquí o se olvidan para siempre. */
+function avisoBorradores() {
+  const caja = document.getElementById('aviso-borradores');
+  if (!caja) return;
+  const pendientes = getProjects().filter(p => p.caseStudy && p.caseStudy.draft);
+  if (!pendientes.length) { caja.hidden = true; return; }
+  caja.hidden = false;
+  caja.innerHTML =
+    '<strong>' + pendientes.length + ' caso(s) de estudio sin revisar.</strong> ' +
+    'Son reconstrucciones a partir de tus descripciones, no relatos verificados: ' +
+    pendientes.map(p => escaparHtml(p.title)).join(', ') +
+    '. Revísalos y desmarca «borrador» en cada uno.';
 }
 
 /* ══════════════════════════════════════════════════════════════

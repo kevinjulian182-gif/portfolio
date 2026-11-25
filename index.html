@@ -32,6 +32,7 @@
       <ul class="nav-links">
         <li><a href="#proyectos" data-i18n="nav.projects">Proyectos</a></li>
         <li><a href="#sobre-mi" data-i18n="nav.about">Sobre mí</a></li>
+        <li><a href="#ia" data-i18n="nav.ia">IA</a></li>
         <li><a href="#cv" data-i18n="nav.cv">CV</a></li>
         <li><a href="#contacto" data-i18n="nav.contact">Contacto</a></li>
       </ul>
@@ -56,6 +57,7 @@
   <div class="mobile-menu" id="mobile-menu">
     <a href="#proyectos" data-i18n="nav.projects">Proyectos</a>
     <a href="#sobre-mi" data-i18n="nav.about">Sobre mí</a>
+    <a href="#ia" data-i18n="nav.ia">IA</a>
     <a href="#cv" data-i18n="nav.cv">CV</a>
     <a href="#contacto" data-i18n="nav.contact">Contacto</a>
   </div>
@@ -215,11 +217,39 @@
     </div>
   </section>
 
+
+  <!-- ===== CÓMO TRABAJO CON IA ===== -->
+  <section id="ia">
+    <div class="container">
+      <div class="divider reveal">
+        <span class="label" data-num="03" data-i18n="ia.label">Cómo trabajo con IA</span>
+      </div>
+
+      <div class="section-header reveal">
+        <h2 data-i18n-html="ia.title">La IA me quita trabajo mecánico,<br>no <em>criterio</em>.</h2>
+        <p data-i18n="ia.sub">Llevo dos años con estas herramientas dentro del flujo diario. Esto es lo que hacen por mí y lo que sigo decidiendo yo.</p>
+      </div>
+
+      <ul class="ia-practicas reveal reveal-delay-1" id="ia-practicas"></ul>
+
+      <div class="ia-pie reveal">
+        <div class="ia-herramientas">
+          <span class="label" data-i18n="ia.tools">Herramientas</span>
+          <p id="ia-tools"></p>
+        </div>
+        <div class="ia-limite">
+          <span class="label" data-i18n="ia.limit_label">Dónde no la uso</span>
+          <p id="ia-limite"></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ===== CV ===== -->
   <section id="cv" style="background:var(--bg2);">
     <div class="container">
       <div class="divider reveal">
-        <span class="label" data-num="03" data-i18n="cv.label">Trayectoria</span>
+        <span class="label" data-num="04" data-i18n="cv.label">Trayectoria</span>
       </div>
 
       <div class="section-header reveal">
@@ -245,7 +275,7 @@
       </div>
 
       <div style="text-align:center;margin-top:4rem;" class="reveal">
-        <a href="#" class="cv-download" id="cv-download-btn" data-i18n="cv.download">
+        <a href="cv.html" class="cv-download" id="cv-download-btn" data-i18n="cv.download">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
             <path d="M12 15V3m0 12l-4-4m4 4l4-4M2 17l.621 2.485A2 2 0 004.561 21h14.878a2 2 0 001.94-1.515L22 17"/>
           </svg>
@@ -260,7 +290,7 @@
     <div class="container">
       <div class="contact-grid">
         <div class="reveal">
-          <span class="label" data-num="04" data-i18n="contact.label">Contacto</span>
+          <span class="label" data-num="05" data-i18n="contact.label">Contacto</span>
           <div style="height:1rem"></div>
           <h2 class="contact-info serif" style="font-size:clamp(1.9rem,3.8vw,3rem);line-height:1.1;margin-bottom:1.5rem;">
             <span data-i18n-html="contact.title">Trabajemos<br>juntos en algo<br><em>memorable.</em></span>
@@ -293,37 +323,58 @@
         </div>
 
         <div class="reveal reveal-delay-1">
-          <form class="contact-form" id="contact-form" novalidate>
+          <!-- Formulario nativo de Netlify: los campos name="" son lo que
+               llega al correo, asi que no se tocan a la ligera. El honeypot
+               descarta bots sin molestar a las personas. -->
+          <form class="contact-form" id="contact-form"
+                name="contacto" method="POST"
+                data-netlify="true" netlify-honeypot="bot-field" novalidate>
+            <input type="hidden" name="form-name" value="contacto" />
+            <p class="campo-trampa" aria-hidden="true">
+              <label>No rellenes esto <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
+            </p>
+
             <div class="form-row">
               <div class="form-group">
                 <label for="name" data-i18n="contact.name">Nombre</label>
-                <input type="text" id="name" name="name" required placeholder="Tu nombre" />
+                <input type="text" id="name" name="name" required
+                       autocomplete="name" placeholder="Tu nombre…"
+                       aria-describedby="err-name" />
+                <p class="form-error" id="err-name" hidden></p>
               </div>
               <div class="form-group">
                 <label for="email" data-i18n="contact.email_label">Correo</label>
-                <input type="email" id="email" name="email" required placeholder="tu@email.com" />
+                <input type="email" id="email" name="email" required
+                       autocomplete="email" inputmode="email" spellcheck="false"
+                       placeholder="tu@empresa.com" aria-describedby="err-email" />
+                <p class="form-error" id="err-email" hidden></p>
               </div>
             </div>
+
             <div class="form-group">
-              <label for="subject" data-i18n="contact.subject">Servicio de interés</label>
+              <label for="subject" data-i18n="contact.subject">Motivo</label>
               <select id="subject" name="subject">
-                <option value="" data-i18n="contact.select">Selecciona un servicio</option>
-                <option value="branding" data-i18n="contact.opt1">Branding / Identidad visual</option>
-                <option value="uxui" data-i18n="contact.opt2">Diseño UX/UI</option>
-                <option value="editorial" data-i18n="contact.opt3">Diseño editorial</option>
-                <option value="social" data-i18n="contact.opt4">Marketing digital / Social</option>
-                <option value="other" data-i18n="contact.opt5">Otro</option>
+                <option value="empleo" data-i18n="contact.opt_empleo">Oferta de empleo</option>
+                <option value="freelance" data-i18n="contact.opt_freelance">Proyecto freelance</option>
+                <option value="colaboracion" data-i18n="contact.opt_colab">Colaboración</option>
+                <option value="otro" data-i18n="contact.opt_otro">Otro</option>
               </select>
             </div>
+
             <div class="form-group">
               <label for="message" data-i18n="contact.message">Mensaje</label>
-              <textarea id="message" name="message" rows="5" placeholder="Cuéntame sobre tu proyecto..."></textarea>
+              <textarea id="message" name="message" rows="5" required
+                        placeholder="Cuéntame de qué se trata…"
+                        aria-describedby="err-message"></textarea>
+              <p class="form-error" id="err-message" hidden></p>
             </div>
-            <div class="form-success" id="form-success" data-i18n="contact.success">
-              ✓ Mensaje enviado. Te contactaré pronto.
-            </div>
-            <button type="submit" class="btn-primary" style="align-self:flex-start;" data-i18n="contact.send">
-              Enviar mensaje →
+
+            <!-- aria-live: quien use lector de pantalla tiene que enterarse
+                 de que el mensaje salio, no solo verlo. -->
+            <div class="form-success" id="form-success" role="status" aria-live="polite"></div>
+
+            <button type="submit" class="btn-primary" id="btn-enviar" data-i18n="contact.send">
+              Enviar mensaje &rarr;
             </button>
           </form>
         </div>

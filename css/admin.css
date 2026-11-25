@@ -504,3 +504,41 @@ textarea { resize: vertical; }
 @media (max-width: 720px) {
   .texto-campos { grid-template-columns: minmax(0, 1fr); }
 }
+
+/* ── Editor de la sección de IA ── */
+.ia-fila {
+  padding: 0.875rem 0;
+  border-top: 1px solid var(--border);
+}
+.ia-fila:first-of-type { border-top: none; }
+
+.ia-fila-cab {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.ia-inp {
+  width: 100%;
+  padding: 0.5rem 0.625rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: inherit;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  resize: vertical;
+}
+.ia-inp:focus { outline: none; border-color: var(--acento); }
+
+/* ── Aviso de casos sin revisar ── */
+.aviso-borradores {
+  padding: 0.875rem 1rem;
+  margin-bottom: 1rem;
+  border-left: 3px solid var(--acento);
+  background: rgba(224,113,78,0.08);
+  font-size: 0.875rem;
+  line-height: 1.6;
+}

@@ -1327,3 +1327,103 @@ footer {
   .project-thumb-img { opacity: 1 !important; }
   .hero-tag-line::after { animation: none !important; opacity: 0 !important; }
 }
+
+/* ===== FORMULARIO ===== */
+/* Trampa para bots: fuera de pantalla, no con display:none, porque
+   algunos bots detectan y saltan los campos ocultos de esa forma. */
+.campo-trampa {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.form-error {
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--accent);
+  margin-top: 0.25rem;
+}
+
+.form-group input[aria-invalid="true"],
+.form-group textarea[aria-invalid="true"] { border-color: var(--accent); }
+
+.form-success.error { border-left-color: var(--accent); }
+.form-success a { border-bottom: 1px solid var(--accent); color: var(--accent); }
+
+/* ===== CÓMO TRABAJO CON IA ===== */
+.ia-practicas {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-4) var(--space-5);
+  border-top: 1px solid var(--rule);
+  padding-top: var(--space-4);
+}
+
+.ia-practica {
+  display: grid;
+  grid-template-columns: 2.5rem minmax(0, 1fr);
+  gap: 0 0.75rem;
+  align-items: baseline;
+}
+
+.ia-num {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--accent);
+}
+
+.ia-practica-titulo {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 400;
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+  font-variation-settings: 'SOFT' 0, 'WONK' 1, 'opsz' 36;
+  text-wrap: balance;
+}
+
+.ia-practica-texto {
+  grid-column: 2;
+  margin-top: 0.5rem;
+  color: var(--ink-muted);
+  line-height: 1.7;
+  max-width: 46ch;
+}
+
+/* El límite se destaca: es lo que separa a quien usa IA con criterio
+   de quien solo la nombra. */
+.ia-pie {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+  gap: var(--space-4);
+  margin-top: var(--space-5);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--rule);
+}
+
+.ia-herramientas p {
+  font-family: var(--font-mono);
+  font-size: 0.9375rem;
+  margin-top: 0.5rem;
+  line-height: 1.7;
+}
+
+.ia-limite {
+  border-left: 2px solid var(--accent);
+  padding-left: var(--space-2);
+}
+
+.ia-limite p {
+  margin-top: 0.5rem;
+  line-height: 1.7;
+  color: var(--ink);
+  max-width: 54ch;
+}
+
+@media (max-width: 860px) {
+  .ia-practicas { grid-template-columns: minmax(0, 1fr); gap: var(--space-3); }
+  .ia-pie { grid-template-columns: minmax(0, 1fr); gap: var(--space-3); }
+}

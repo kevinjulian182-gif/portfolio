@@ -52,9 +52,10 @@ function renderCaseStudy(p, lang) {
        </div>`
     : '';
 
-  box.innerHTML =
-    (cs.draft ? `<p class="case-draft">${t.draft}</p>` : '') +
-    bloque('challenge') + bloque('process') + bloque('outcome');
+  /* El sello de borrador ya no se muestra al visitante: a un reclutador
+     le decia "esto esta a medias". La marca sigue en los datos y el panel
+     la destaca, para que Kevin sepa cuales le faltan por revisar. */
+  box.innerHTML = bloque('challenge') + bloque('process') + bloque('outcome');
   box.hidden = false;
 }
 
@@ -282,6 +283,31 @@ function observarTarjetas() {
   tarjetas.forEach(t => obs.observe(t));
 }
 
+
+/* ── Cómo trabajo con IA ───────────────────────────────────────
+   Va en datos y no en el HTML para que Kevin pueda corregirlo desde
+   el panel: es lo que más rápido se queda viejo. */
+function renderIA() {
+  const s    = getSite();
+  const en   = currentLang === 'en';
+  const lista = document.getElementById('ia-practicas');
+  if (!lista) return;
+
+  const practicas = s.aiPractices || [];
+  lista.innerHTML = practicas.map((p, i) => `
+    <li class="ia-practica" style="--i:${i}">
+      <span class="ia-num" aria-hidden="true">${String(i + 1).padStart(2, '0')}</span>
+      <h3 class="ia-practica-titulo">${en && p.tituloEn ? p.tituloEn : p.titulo}</h3>
+      <p class="ia-practica-texto">${en && p.textoEn ? p.textoEn : p.texto}</p>
+    </li>`).join('');
+
+  const tools = document.getElementById('ia-tools');
+  if (tools) tools.textContent = (s.aiTools || []).join(' · ');
+
+  const limite = document.getElementById('ia-limite');
+  if (limite) limite.textContent = (en && s.aiLimitEn) ? s.aiLimitEn : (s.aiLimit || '');
+}
+
 /* ── Ajustes del sitio ─────────────────────────────────────────
    Retrato y CV salen de los datos, no del HTML, para que se
    puedan cambiar desde el panel sin tocar código. */
@@ -296,10 +322,12 @@ function applySiteSettings() {
   }
 
   const cv = document.getElementById('cv-download-btn');
-  if (cv && s.cvUrl) {
-    cv.href = s.cvUrl;
-    cv.setAttribute('target', '_blank');
-    cv.setAttribute('rel', 'noopener');
+  if (cv) {
+    cv.href = s.cvUrl || 'cv.html';
+    if (s.cvUrl) {
+      cv.setAttribute('target', '_blank');
+      cv.setAttribute('rel', 'noopener');
+    }
   }
 }
 
@@ -349,6 +377,7 @@ document.getElementById('lang-toggle').addEventListener('click', () => {
   currentLang = currentLang === 'es' ? 'en' : 'es';
   document.documentElement.setAttribute('lang', currentLang);
   applyTranslations();
+  renderIA();
 });
 
 document.getElementById('hamburger').addEventListener('click', e => {
@@ -387,21 +416,90 @@ document.addEventListener('keydown', e => {
 document.getElementById('img-prev').addEventListener('click', () => { if (galleryIndex > 0) setGalleryImage(galleryIndex - 1); });
 document.getElementById('img-next').addEventListener('click', () => { if (galleryIndex < galleryImages.length - 1) setGalleryImage(galleryIndex + 1); });
 
-document.getElementById('contact-form').addEventListener('submit', e => {
+/* ── Formulario de contacto ───────────────────────────────────
+   Antes esto fingia: un setTimeout de 1.2s y un "mensaje enviado"
+   que no enviaba nada. Ahora publica contra Netlify Forms, que
+   guarda el mensaje y lo reenvia por correo. */
+const form = document.getElementById('contact-form');
+
+function mostrarError(id, texto) {
+  const campo = document.getElementById(id);
+  const error = document.getElementById('err-' + id);
+  if (!error) return;
+  if (texto) {
+    error.textContent = texto;
+    error.hidden = false;
+    campo.setAttribute('aria-invalid', 'true');
+  } else {
+    error.hidden = true;
+    campo.removeAttribute('aria-invalid');
+  }
+}
+
+function validarFormulario() {
+  const t = getI18n()[currentLang] || i18n[currentLang];
+  const requerido = t['contact.required'] || 'Este campo es obligatorio.';
+  const correoMal  = t['contact.bademail'] || 'Revisa el correo: falta algo.';
+  let primero = null;
+
+  [['name', requerido], ['message', requerido]].forEach(([id, msg]) => {
+    const v = document.getElementById(id).value.trim();
+    mostrarError(id, v ? '' : msg);
+    if (!v && !primero) primero = id;
+  });
+
+  const correo = document.getElementById('email').value.trim();
+  const correoOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correo);
+  mostrarError('email', correoOk ? '' : (correo ? correoMal : requerido));
+  if (!correoOk && !primero) primero = 'email';
+
+  // El foco va al primer campo con problema: si no, en movil el error
+  // queda fuera de pantalla y parece que el boton no hace nada.
+  if (primero) document.getElementById(primero).focus();
+  return !primero;
+}
+
+form.addEventListener('submit', async e => {
   e.preventDefault();
-  const btn = e.target.querySelector('[type="submit"]');
-  btn.textContent = '...';
-  setTimeout(() => {
-    document.getElementById('form-success').classList.add('show');
-    e.target.reset();
-    btn.textContent = i18n[currentLang]['contact.send'];
-  }, 1200);
+  const t      = getI18n()[currentLang] || i18n[currentLang];
+  const aviso  = document.getElementById('form-success');
+  const boton  = document.getElementById('btn-enviar');
+  const textoBoton = boton.textContent;
+
+  if (!validarFormulario()) return;
+
+  boton.disabled = true;
+  boton.textContent = t['contact.sending'] || 'Enviando…';
+  aviso.className = 'form-success';
+  aviso.textContent = '';
+
+  try {
+    const datos = new URLSearchParams(new FormData(form));
+    const res = await fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: datos.toString(),
+    });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+
+    aviso.className = 'form-success show';
+    aviso.textContent = t['contact.success'] || 'Mensaje enviado. Te respondo pronto.';
+    form.reset();
+  } catch (err) {
+    // Si falla, no se finge exito: se da una salida que si funciona.
+    aviso.className = 'form-success show error';
+    aviso.innerHTML = (t['contact.failed'] || 'No se pudo enviar. Escríbeme directamente a') +
+      ' <a href="mailto:kevinjulian182@gmail.com">kevinjulian182@gmail.com</a>.';
+  }
+
+  boton.disabled = false;
+  boton.textContent = textoBoton;
 });
 
-document.getElementById('cv-download-btn').addEventListener('click', e => {
-  e.preventDefault();
-  window.open('https://www.behance.net/kevinnavarrete1', '_blank');
-});
+/* El boton del CV abria Behance, que no es un CV. Ahora lleva a
+   /cv.html, que se pinta con los mismos datos del sitio y se puede
+   guardar como PDF desde el navegador. Si Kevin sube su propio PDF
+   al panel (SITE.cvUrl), ese tiene prioridad. */
 
 /* ── Init ──────────────────────────────────────────────────
    Primero se pide al servidor lo guardado y solo después se pinta:
@@ -416,6 +514,7 @@ function pintarTodo() {
   renderCerts();
   applyTranslations();
   applySiteSettings();
+  renderIA();
   initReveal();
   initSkillBars();
   initEntradaPortada();

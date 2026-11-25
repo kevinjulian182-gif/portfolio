@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CV — Kevin Navarrete · Diseñador gráfico y UX/UI</title>
+  <meta name="description" content="Currículum de Kevin Julian Navarrete Rodríguez. Diseñador gráfico y UX/UI con más de 5 años de experiencia. Bogotá, Colombia. Disponible para trabajo remoto." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1;1,9..144,300..700,0..100,0..1&family=Instrument+Sans:ital,wdth,wght@0,75..100,400..700;1,75..100,400..700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/cv.css" />
+</head>
+<body class="pagina-cv">
+
+  <!-- Barra de acciones: no se imprime -->
+  <div class="cv-barra no-imprimir">
+    <a href="/" class="cv-volver">&larr; Volver al portafolio</a>
+    <div class="cv-acciones">
+      <button type="button" class="btn-outline" id="btn-imprimir">Descargar en PDF</button>
+    </div>
+  </div>
+
+  <main class="cv-hoja" id="cv">
+    <header class="cv-cabecera">
+      <div>
+        <h1 class="cv-nombre">Kevin Julian Navarrete Rodríguez</h1>
+        <p class="cv-rol">Diseñador gráfico y UX/UI</p>
+      </div>
+      <ul class="cv-contacto">
+        <li><a href="mailto:kevinjulian182@gmail.com">kevinjulian182@gmail.com</a></li>
+        <li><a href="tel:+573138089302">+57 313 808 9302</a></li>
+        <li>Bogotá, Colombia · GMT-5</li>
+        <li><a href="https://kevinnavarrete.netlify.app">kevinnavarrete.netlify.app</a></li>
+        <li><a href="https://www.behance.net/kevinnavarrete1">behance.net/kevinnavarrete1</a></li>
+        <li><a href="https://www.linkedin.com/in/kevin-navarrrete/">linkedin.com/in/kevin-navarrrete</a></li>
+      </ul>
+    </header>
+
+    <section class="cv-bloque">
+      <h2>Perfil</h2>
+      <p class="cv-perfil" id="cv-perfil"></p>
+    </section>
+
+    <section class="cv-bloque">
+      <h2>Experiencia</h2>
+      <div id="cv-experiencia"></div>
+    </section>
+
+    <section class="cv-bloque cv-dos">
+      <div>
+        <h2>Formación</h2>
+        <div id="cv-formacion"></div>
+      </div>
+      <div>
+        <h2>Certificaciones</h2>
+        <ul class="cv-lista" id="cv-certificaciones"></ul>
+      </div>
+    </section>
+
+    <section class="cv-bloque cv-dos">
+      <div>
+        <h2>Herramientas</h2>
+        <p class="cv-herramientas" id="cv-herramientas"></p>
+      </div>
+      <div>
+        <h2>Inteligencia artificial</h2>
+        <p class="cv-herramientas" id="cv-ia"></p>
+      </div>
+    </section>
+
+    <section class="cv-bloque">
+      <h2>Idiomas</h2>
+      <p class="cv-herramientas">Español (nativo) · Inglés (lectura técnica y documentación)</p>
+    </section>
+  </main>
+
+  <script src="js/remoto.js"></script>
+  <script src="js/data.js"></script>
+  <script>
+  /* El CV se pinta desde los mismos datos que el portafolio: lo que
+     Kevin cambie en el panel aparece aquí sin tocar este archivo. */
+  function esc(s) {
+    return String(s == null ? '' : s)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
+  function pintarCV() {
+    const t = getI18n().es || i18n.es;
+
+    document.getElementById('cv-perfil').textContent =
+      t['hero.sub'] || '';
+
+    document.getElementById('cv-experiencia').innerHTML = getExperience().map(e => `
+      <article class="cv-item">
+        <div class="cv-item-cab">
+          <h3>${esc(e.title)}</h3>
+          <span class="cv-periodo">${esc(e.period)}</span>
+        </div>
+        <p class="cv-empresa">${esc(e.company)}</p>
+        ${e.desc ? `<p class="cv-desc">${esc(e.desc)}</p>` : ''}
+      </article>`).join('');
+
+    document.getElementById('cv-formacion').innerHTML = getEducation().map(e => `
+      <article class="cv-item">
+        <div class="cv-item-cab">
+          <h3>${esc(e.title)}</h3>
+          <span class="cv-periodo">${esc(e.period)}</span>
+        </div>
+        <p class="cv-empresa">${esc(e.company)}</p>
+      </article>`).join('');
+
+    document.getElementById('cv-certificaciones').innerHTML = getCertifications().map(c => `
+      <li><strong>${esc(c.name)}</strong> — ${esc(c.platform)}, ${esc(c.year)}</li>`).join('');
+
+    // La IA va aparte de las demás herramientas: mezclarla en la misma
+    // lista la deja como un icono más y es justo lo que hay que evitar.
+    const herramientas = getTools().filter(x => !/^IA\b|inteligencia artificial/i.test(x));
+    document.getElementById('cv-herramientas').textContent = herramientas.join(' · ');
+
+    const ia = (getSite().aiTools && getSite().aiTools.length)
+      ? getSite().aiTools
+      : ['Claude', 'ChatGPT', 'Gemini'];
+    document.getElementById('cv-ia').textContent =
+      ia.join(' · ') + ' — integradas en el flujo de trabajo diario: exploración de concepto, redacción de microcopy, maquetación asistida y revisión de accesibilidad.';
+  }
+
+  document.getElementById('btn-imprimir').addEventListener('click', () => window.print());
+
+  cargarRemoto().then(setRemoto).catch(() => {}).then(pintarCV);
+  </script>
+</body>
+</html>

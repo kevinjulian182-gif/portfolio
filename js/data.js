@@ -21,316 +21,376 @@
 // figmaUrl: (solo UX/UI) link embed de Figma. Pega aquí tu URL de prototipo.
 // col: "col-8" | "col-4" | "col-6" | "col-12"
 const PROJECTS = [
-  {
-    id: 1,
-    title: "Manual de Marca Pineda Martínez Odontología",
-    titleEn: "Brand Manual — Pineda Martínez Dentistry",
-    category: "branding",
-    categoryLabel: "Branding",
-    thumb: "https://mir-s3-cdn-cf.behance.net/projects/404/e5c3be219375339.Y3JvcCw5MjAsNzIwLDE4MCww.jpg",
-    images: [
-      "https://mir-s3-cdn-cf.behance.net/project_modules/fs_webp/862e42219375339.67b11a48865e6.jpg",
-      "https://mir-s3-cdn-cf.behance.net/project_modules/fs_webp/e25fbf219375339.67b11a4886be9.jpg",
-      "https://mir-s3-cdn-cf.behance.net/project_modules/fs_webp/a26cc6219375339.67b11a4885cee.jpg",
-      "https://mir-s3-cdn-cf.behance.net/project_modules/fs_webp/bcdb7c219375339.67b11a48829d2.jpg",
-      "https://mir-s3-cdn-cf.behance.net/project_modules/fs_webp/3d7359219375339.67b11a48840c7.jpg",
-      "https://mir-s3-cdn-cf.behance.net/project_modules/fs_webp/7ccfa2219375339.67b11a4883545.jpg",
-      "https://mir-s3-cdn-cf.behance.net/project_modules/fs_webp/b91572219375339.67b11a48809bd.jpg",
-      "https://mir-s3-cdn-cf.behance.net/project_modules/fs_webp/872970219375339.67b11a488106a.jpg",
-      "https://mir-s3-cdn-cf.behance.net/project_modules/fs_webp/df6255219375339.67b11a48802d2.jpg",
-      "https://mir-s3-cdn-cf.behance.net/project_modules/fs_webp/0a18ce219375339.67b11a4882331.jpg",
-      "https://mir-s3-cdn-cf.behance.net/project_modules/fs_webp/f61b06219375339.67b11a48851dd.jpg",
-      "https://mir-s3-cdn-cf.behance.net/project_modules/fs_webp/575f1b219375339.67b11a488308d.jpg",
-      "https://mir-s3-cdn-cf.behance.net/project_modules/fs_webp/ad23db219375339.67b11a4884856.jpg",
-      "https://mir-s3-cdn-cf.behance.net/project_modules/fs_webp/8e155e219375339.67b11a4881e29.jpg",
-      "https://mir-s3-cdn-cf.behance.net/project_modules/fs_webp/ac6b3c219375339.67b11a4881749.jpg",
-      "https://mir-s3-cdn-cf.behance.net/project_modules/fs_webp/58c15c219375339.67b11a4883a4a.jpg"
-    ],
-    description: "Desarrollo del manual de marca completo para una clínica odontológica: logotipo, sistema de color, tipografía, iconografía, aplicaciones en redes sociales y papelería. Proyecto realizado en Adobe Illustrator y Photoshop.",
-    descriptionEn: "Complete brand manual development for a dental clinic: logo, color system, typography, iconography, social media and stationery applications. Project made in Adobe Illustrator and Photoshop.",
-    tags: ["Branding", "Logo Design", "Illustrator", "Visual Identity", "Social Media"],
-    client: "Pineda Martínez Odontología",
-    year: "2025",
-    role: "Diseñador de marca",
-    caseStudy: {
-      challenge: "Una clínica odontológica sin sistema de marca: cada pieza —redes, papelería, señalética— se resolvía por separado, sin criterio común de logotipo, color ni tipografía. El encargo fue construir ese criterio y dejarlo documentado para que el equipo pudiera aplicarlo sin un diseñador de por medio.",
-      challengeEn: "A dental clinic with no brand system: every piece — social, stationery, signage — was solved separately, with no shared criteria for logo, colour or type. The brief was to build that criteria and document it so the team could apply it without a designer in the loop.",
-      process: "Partí del logotipo y desde ahí derivé el sistema completo: paleta, jerarquía tipográfica e iconografía. Probé cada decisión contra las aplicaciones reales —redes sociales y papelería— antes de darla por buena, y recogí el resultado en un manual con usos correctos e incorrectos. Producción en Illustrator y Photoshop.",
-      processEn: "I started from the logo and derived the whole system from it: palette, type hierarchy and iconography. Every decision was tested against the real applications — social media and stationery — before being accepted, and the result was collected in a manual with correct and incorrect usage. Produced in Illustrator and Photoshop.",
-      outcome: "La clínica quedó con un manual completo y aplicaciones listas para producción: las piezas nuevas se generan a partir de reglas escritas y no del criterio de quien las haga ese día.",
-      outcomeEn: "The clinic ended up with a complete manual and production-ready applications: new pieces come from written rules rather than from whoever happens to make them that day.",
-      draft: true
+    {
+      "id": 1,
+      "title": "Manual de Marca Pineda Martínez Odontología",
+      "titleEn": "Brand Manual — Pineda Martínez Dentistry",
+      "category": "branding",
+      "categoryLabel": "Branding",
+      "thumb": "https://mir-s3-cdn-cf.behance.net/projects/404/e5c3be219375339.Y3JvcCw5MjAsNzIwLDE4MCww.jpg",
+      "images": [
+        "https://mir-s3-cdn-cf.behance.net/project_modules/fs_webp/862e42219375339.67b11a48865e6.jpg",
+        "https://mir-s3-cdn-cf.behance.net/project_modules/fs_webp/e25fbf219375339.67b11a4886be9.jpg",
+        "https://mir-s3-cdn-cf.behance.net/project_modules/fs_webp/a26cc6219375339.67b11a4885cee.jpg",
+        "https://mir-s3-cdn-cf.behance.net/project_modules/fs_webp/bcdb7c219375339.67b11a48829d2.jpg",
+        "https://mir-s3-cdn-cf.behance.net/project_modules/fs_webp/3d7359219375339.67b11a48840c7.jpg",
+        "https://mir-s3-cdn-cf.behance.net/project_modules/fs_webp/7ccfa2219375339.67b11a4883545.jpg",
+        "https://mir-s3-cdn-cf.behance.net/project_modules/fs_webp/b91572219375339.67b11a48809bd.jpg",
+        "https://mir-s3-cdn-cf.behance.net/project_modules/fs_webp/872970219375339.67b11a488106a.jpg",
+        "https://mir-s3-cdn-cf.behance.net/project_modules/fs_webp/df6255219375339.67b11a48802d2.jpg",
+        "https://mir-s3-cdn-cf.behance.net/project_modules/fs_webp/0a18ce219375339.67b11a4882331.jpg",
+        "https://mir-s3-cdn-cf.behance.net/project_modules/fs_webp/f61b06219375339.67b11a48851dd.jpg",
+        "https://mir-s3-cdn-cf.behance.net/project_modules/fs_webp/575f1b219375339.67b11a488308d.jpg",
+        "https://mir-s3-cdn-cf.behance.net/project_modules/fs_webp/ad23db219375339.67b11a4884856.jpg",
+        "https://mir-s3-cdn-cf.behance.net/project_modules/fs_webp/8e155e219375339.67b11a4881e29.jpg",
+        "https://mir-s3-cdn-cf.behance.net/project_modules/fs_webp/ac6b3c219375339.67b11a4881749.jpg",
+        "https://mir-s3-cdn-cf.behance.net/project_modules/fs_webp/58c15c219375339.67b11a4883a4a.jpg"
+      ],
+      "description": "Desarrollo del manual de marca completo para una clínica odontológica: logotipo, sistema de color, tipografía, iconografía, aplicaciones en redes sociales y papelería. Proyecto realizado en Adobe Illustrator y Photoshop.",
+      "descriptionEn": "Complete brand manual development for a dental clinic: logo, color system, typography, iconography, social media and stationery applications. Project made in Adobe Illustrator and Photoshop.",
+      "tags": [
+        "Branding",
+        "Logo Design",
+        "Illustrator",
+        "Visual Identity",
+        "Social Media"
+      ],
+      "client": "Pineda Martínez Odontología",
+      "year": "2025",
+      "role": "Diseñador de marca",
+      "caseStudy": {
+        "challenge": "Una clínica odontológica sin sistema de marca: cada pieza —redes, papelería, señalética— se resolvía por separado, sin criterio común de logotipo, color ni tipografía. El encargo fue construir ese criterio y dejarlo documentado para que el equipo pudiera aplicarlo sin un diseñador de por medio.",
+        "challengeEn": "A dental clinic with no brand system: every piece — social, stationery, signage — was solved separately, with no shared criteria for logo, colour or type. The brief was to build that criteria and document it so the team could apply it without a designer in the loop.",
+        "process": "Partí del logotipo y desde ahí derivé el sistema completo: paleta, jerarquía tipográfica e iconografía. Probé cada decisión contra las aplicaciones reales —redes sociales y papelería— antes de darla por buena, y recogí el resultado en un manual con usos correctos e incorrectos. Producción en Illustrator y Photoshop.",
+        "processEn": "I started from the logo and derived the whole system from it: palette, type hierarchy and iconography. Every decision was tested against the real applications — social media and stationery — before being accepted, and the result was collected in a manual with correct and incorrect usage. Produced in Illustrator and Photoshop.",
+        "outcome": "La clínica quedó con un manual completo y aplicaciones listas para producción: las piezas nuevas se generan a partir de reglas escritas y no del criterio de quien las haga ese día.",
+        "outcomeEn": "The clinic ended up with a complete manual and production-ready applications: new pieces come from written rules rather than from whoever happens to make them that day.",
+        "draft": true
+      },
+      "behanceUrl": "https://www.behance.net/gallery/219375339/Manual-de-Marca-Pineda-Martinez-Odontologia",
+      "col": "col-8"
     },
-    behanceUrl: "https://www.behance.net/gallery/219375339/Manual-de-Marca-Pineda-Martinez-Odontologia",
-    col: "col-8"
-  },
-  {
-    id: 2,
-    title: "Diseño Página Web Polaris",
-    titleEn: "Polaris Website Design",
-    category: "uxui",
-    categoryLabel: "UX/UI",
-    thumb: "https://mir-s3-cdn-cf.behance.net/projects/404/92a114192686175.Y3JvcCwxMzgwLDEwODAsMjcwLDA.jpg",
-    images: [
-      "https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/ca1df1192686175.65df7ac9d7931.jpg",
-      "https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/fdf584192686175.65df7ac9d9cd6.jpg",
-      "https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/59b7ee192686175.65df7ac9d8425.jpg",
-      "https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/f89f03192686175.65df7ac9d6dde.jpg",
-      "https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/334493192686175.65df7ac9d6004.jpg",
-      "https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/762ff8192686175.65df7ac9d91c0.jpg"
-    ],
-    description: "Diseño de página web para la marca Polaris. Concepto visual, wireframes y prototipo de alta fidelidad enfocado en la experiencia del usuario, estructura de contenido y jerarquía visual de marca.",
-    descriptionEn: "Website design for the Polaris brand. Visual concept, wireframes and high-fidelity prototype focused on user experience, content structure and brand visual hierarchy.",
-    tags: ["Web Design", "UX/UI", "Figma", "Prototipado"],
-    client: "Polaris",
-    year: "2024",
-    role: "UX/UI Designer",
-    behanceUrl: "https://www.behance.net/gallery/192686175/Diseno-Pagina-Web-Polaris",
-    // ── Reemplaza esta URL con tu link real de Figma ──────────
-    figmaUrl: "https://www.figma.com/proto/example-polaris",
-    col: "col-4"
-  },
-  {
-    id: 3,
-    title: "App para Adopción de Mascotas",
-    titleEn: "Pet Adoption App",
-    category: "uxui",
-    categoryLabel: "UX/UI",
-    thumb: "https://mir-s3-cdn-cf.behance.net/projects/404/489cf7138433671.Y3JvcCw4MDksNjMyLDAsMA.jpg",
-    images: [
-      "https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/2c93a8138433671.621da42bbf07a.jpg"
-    ],
-    description: "Diseño de aplicación móvil para adopción de mascotas. Investigación de usuarios, arquitectura de información, flujos de navegación y prototipo de alta fidelidad en Figma. Proyecto con 175 visualizaciones en Behance.",
-    descriptionEn: "Mobile app design for pet adoption. User research, information architecture, navigation flows and high-fidelity prototype in Figma. Behance project with 175 views.",
-    tags: ["Mobile Design", "Figma", "UX Research", "Prototipado"],
-    client: "Proyecto personal",
-    year: "2022",
-    role: "UX/UI Designer",
-    behanceUrl: "https://www.behance.net/gallery/138433671/App-para-Adopcion-de-Mascotas",
-    figmaUrl: "https://www.figma.com/proto/example-mascotas",
-    col: "col-4"
-  },
-  {
-    id: 4,
-    title: "Material de Diseño en Logyca",
-    titleEn: "Design Material at Logyca",
-    category: "branding",
-    categoryLabel: "Branding",
-    thumb: "https://mir-s3-cdn-cf.behance.net/projects/404/3bfd48192692797.Y3JvcCw4MDgsNjMyLDAsMA.jpg",
-    images: [
-      "https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/215b82192692797.65df8f23d1502.jpg",
-      "https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/03d881192692797.65df8f23d06b7.jpg",
-      "https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/2e5aa8192692797.65df8f23cf7bc.jpg"
-    ],
-    description: "Lideré la creación y el despliegue de la identidad visual para canales digitales, incluyendo redes sociales, campañas de email marketing y el diseño estratégico de landing pages. Mi gestión se centró en el desarrollo de piezas gráficas de alto impacto bajo estándares corporativos rigurosos, garantizando una estética profesional en cada punto de contacto. Logré potenciar la presencia digital de la marca mediante soluciones visuales atractivas que equilibraron la funcionalidad con una comunicación visual efectiva.",
-    descriptionEn: "Led the creation and deployment of visual identity for digital channels, including social media, email marketing campaigns and strategic landing page design. Focused on developing high-impact graphic pieces under rigorous corporate standards, ensuring professional aesthetics at every touchpoint.",
-    tags: ["Illustrator", "Social Media", "Email Marketing", "Landing Pages"],
-    client: "Logyca",
-    year: "2022",
-    role: "Diseñador Gráfico",
-    caseStudy: {
-      challenge: "Sostener una presencia digital coherente en varios canales a la vez —redes sociales, email marketing y landing pages— bajo estándares corporativos estrictos y con un ritmo de producción alto.",
-      challengeEn: "Sustaining a coherent digital presence across several channels at once — social media, email marketing and landing pages — under strict corporate standards and at a high production rate.",
-      process: "Asumí la creación y el despliegue de la identidad visual para esos canales. Trabajé cada pieza dentro del marco corporativo y coordiné los formatos entre social, email y landing, de modo que la marca se leyera igual en todos los puntos de contacto.",
-      processEn: "I took on the creation and rollout of the visual identity for those channels, working each piece within the corporate framework and coordinating formats across social, email and landing pages so the brand read the same at every touchpoint.",
-      outcome: "La marca ganó consistencia en todos sus puntos de contacto digitales, con piezas que cumplen el estándar corporativo sin quedarse en lo genérico.",
-      outcomeEn: "The brand gained consistency across every digital touchpoint, with pieces that meet the corporate standard without settling for the generic.",
-      draft: true
+    {
+      "id": 2,
+      "title": "Diseño Página Web Polaris",
+      "titleEn": "Polaris Website Design",
+      "category": "uxui",
+      "categoryLabel": "UX/UI",
+      "thumb": "https://mir-s3-cdn-cf.behance.net/projects/404/92a114192686175.Y3JvcCwxMzgwLDEwODAsMjcwLDA.jpg",
+      "images": [
+        "https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/ca1df1192686175.65df7ac9d7931.jpg",
+        "https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/fdf584192686175.65df7ac9d9cd6.jpg",
+        "https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/59b7ee192686175.65df7ac9d8425.jpg",
+        "https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/f89f03192686175.65df7ac9d6dde.jpg",
+        "https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/334493192686175.65df7ac9d6004.jpg",
+        "https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/762ff8192686175.65df7ac9d91c0.jpg"
+      ],
+      "description": "Diseño de página web para la marca Polaris. Concepto visual, wireframes y prototipo de alta fidelidad enfocado en la experiencia del usuario, estructura de contenido y jerarquía visual de marca.",
+      "descriptionEn": "Website design for the Polaris brand. Visual concept, wireframes and high-fidelity prototype focused on user experience, content structure and brand visual hierarchy.",
+      "tags": [
+        "Web Design",
+        "UX/UI",
+        "Figma",
+        "Prototipado"
+      ],
+      "client": "Polaris",
+      "year": "2024",
+      "role": "UX/UI Designer",
+      "behanceUrl": "https://www.behance.net/gallery/192686175/Diseno-Pagina-Web-Polaris",
+      "figmaUrl": "https://www.figma.com/proto/example-polaris",
+      "col": "col-4"
     },
-    behanceUrl: "https://www.behance.net/gallery/192692797/Material-de-Diseno-en-Logyca",
-    col: "col-4"
-  },
-  {
-    id: 5,
-    title: "Rediseño Página Web Colegio Virtual",
-    titleEn: "Virtual School Website Redesign",
-    category: "uxui",
-    categoryLabel: "UX/UI",
-    thumb: "https://mir-s3-cdn-cf.behance.net/projects/404/81f5be141231141.Y3JvcCwxMDA3LDc4OCwxOTcsMA.jpg",
-    images: [
-      "https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/5513e7141231141.65df781a0cc2e.jpg",
-      "https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/2543f6141231141.624faeb1026ec.jpg",
-      "https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/71ce1d141231141.624faeb0f3607.jpg",
-      "https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/be9df9141231141.624faeb0f3dac.jpg",
-      "https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/176b27141231141.624faeb103ec3.jpg",
-      "https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/180531141231141.624faeb1016b4.jpg",
-      "https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/d73357141231141.624faeb1037b2.jpg",
-      "https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/edfe3f141231141.624faeb100629.jpg",
-      "https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/07a145141231141.624faeb100ea1.jpg",
-      "https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/541b9a141231141.624faeb101ee8.jpg",
-      "https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/f05d60141231141.624faeb102e62.jpg"
-    ],
-    description: "Análisis de experiencia de usuario e implementación de rediseño completo para la plataforma web de un colegio virtual. Identificación de puntos de dolor, propuesta de nueva arquitectura de información y prototipado de alta fidelidad para mejorar la navegación y accesibilidad del sitio.",
-    descriptionEn: "User experience analysis and complete redesign implementation for a virtual school web platform. Pain point identification, new information architecture proposal and high-fidelity prototyping to improve site navigation and accessibility.",
-    tags: ["UX Research", "Web Design", "Rediseño", "Figma"],
-    client: "Colegio Virtual",
-    year: "2022",
-    role: "UX/UI Designer",
-    caseStudy: {
-      challenge: "La plataforma web del colegio había ido creciendo por acumulación: los contenidos estaban donde la institución los fue colocando, no donde los buscaban las familias y los estudiantes.",
-      challengeEn: "The school web platform had grown by accumulation: content sat where the institution had placed it over time, not where families and students were looking for it.",
-      process: "Empecé con un análisis de experiencia para localizar los puntos de dolor concretos, no los supuestos. Con eso propuse una arquitectura de información nueva y la llevé a prototipo de alta fidelidad en Figma, revisando en paralelo la accesibilidad del sitio.",
-      processEn: "I started with an experience analysis to locate the actual pain points rather than the assumed ones. From there I proposed a new information architecture and took it to a high-fidelity Figma prototype, reviewing site accessibility along the way.",
-      outcome: "El rediseño reordenó la navegación alrededor de las tareas reales de quien usa el sitio, y dejó un prototipo completo como base para la implementación.",
-      outcomeEn: "The redesign reorganised navigation around what people actually come to the site to do, and left a complete prototype as the basis for implementation.",
-      draft: true
+    {
+      "id": 4,
+      "title": "Material de Diseño en Logyca",
+      "titleEn": "Design Material at Logyca",
+      "category": "branding",
+      "categoryLabel": "Branding",
+      "thumb": "https://mir-s3-cdn-cf.behance.net/projects/404/3bfd48192692797.Y3JvcCw4MDgsNjMyLDAsMA.jpg",
+      "images": [
+        "https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/215b82192692797.65df8f23d1502.jpg",
+        "https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/03d881192692797.65df8f23d06b7.jpg",
+        "https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/2e5aa8192692797.65df8f23cf7bc.jpg"
+      ],
+      "description": "Lideré la creación y el despliegue de la identidad visual para canales digitales, incluyendo redes sociales, campañas de email marketing y el diseño estratégico de landing pages. Mi gestión se centró en el desarrollo de piezas gráficas de alto impacto bajo estándares corporativos rigurosos, garantizando una estética profesional en cada punto de contacto. Logré potenciar la presencia digital de la marca mediante soluciones visuales atractivas que equilibraron la funcionalidad con una comunicación visual efectiva.",
+      "descriptionEn": "Led the creation and deployment of visual identity for digital channels, including social media, email marketing campaigns and strategic landing page design. Focused on developing high-impact graphic pieces under rigorous corporate standards, ensuring professional aesthetics at every touchpoint.",
+      "tags": [
+        "Illustrator",
+        "Social Media",
+        "Email Marketing",
+        "Landing Pages"
+      ],
+      "client": "Logyca",
+      "year": "2022",
+      "role": "Diseñador Gráfico",
+      "caseStudy": {
+        "challenge": "Sostener una presencia digital coherente en varios canales a la vez —redes sociales, email marketing y landing pages— bajo estándares corporativos estrictos y con un ritmo de producción alto.",
+        "challengeEn": "Sustaining a coherent digital presence across several channels at once — social media, email marketing and landing pages — under strict corporate standards and at a high production rate.",
+        "process": "Asumí la creación y el despliegue de la identidad visual para esos canales. Trabajé cada pieza dentro del marco corporativo y coordiné los formatos entre social, email y landing, de modo que la marca se leyera igual en todos los puntos de contacto.",
+        "processEn": "I took on the creation and rollout of the visual identity for those channels, working each piece within the corporate framework and coordinating formats across social, email and landing pages so the brand read the same at every touchpoint.",
+        "outcome": "La marca ganó consistencia en todos sus puntos de contacto digitales, con piezas que cumplen el estándar corporativo sin quedarse en lo genérico.",
+        "outcomeEn": "The brand gained consistency across every digital touchpoint, with pieces that meet the corporate standard without settling for the generic.",
+        "draft": true
+      },
+      "behanceUrl": "https://www.behance.net/gallery/192692797/Material-de-Diseno-en-Logyca",
+      "col": "col-4"
     },
-    behanceUrl: "https://www.behance.net/gallery/141231141/Rediseno-Pagina-Web-Colegio-Virtual",
-    figmaUrl: "https://www.figma.com/proto/example-colegio",
-    col: "col-6"
-  },
-  {
-    id: 6,
-    title: "Prototipo — App Renta de Autos",
-    titleEn: "Prototype — Car Rental App",
-    category: "uxui",
-    categoryLabel: "UX/UI",
-    thumb: "https://mir-s3-cdn-cf.behance.net/projects/404/2f2016139346567.Y3JvcCw5MjAsNzIwLDE4MCww.jpg",
-    images: [
-      "https://mir-s3-cdn-cf.behance.net/project_modules/fs_webp/24e163139346567.622e456fae8d1.jpg",
-      "https://mir-s3-cdn-cf.behance.net/project_modules/fs_webp/f5985c139346567.622e456faef21.jpg",
-      "https://mir-s3-cdn-cf.behance.net/project_modules/fs_webp/ab89c1139346567.622e456faf537.jpg"
-    ],
-    description: "Prototipo de concepto para aplicación móvil de renta de autos. Flujos completos de usuario: búsqueda, selección de vehículo, reserva y pago. Diseño centrado en la simplicidad del proceso y la confianza del usuario en la transacción.",
-    descriptionEn: "Concept prototype for a car rental mobile app. Complete user flows: search, vehicle selection, booking and payment. Design centered on process simplicity and user trust in the transaction.",
-    tags: ["Mobile Design", "Figma", "Prototipado", "UX"],
-    client: "Proyecto de concepto",
-    year: "2022",
-    role: "UX/UI Designer",
-    behanceUrl: "https://www.behance.net/gallery/139346567/Prototipo-concepto-de-app-para-renta-de-autos",
-    figmaUrl: "https://www.figma.com/proto/example-autos",
-    col: "col-4"
-  },
-  {
-    id: 7,
-    title: "Prototipo Landing Page Red 5G",
-    titleEn: "5G Network Landing Page Prototype",
-    category: "uxui",
-    categoryLabel: "UX/UI",
-    thumb: "https://mir-s3-cdn-cf.behance.net/projects/404/53a58c142442963.Y3JvcCwxMjkyLDEwMTAsMCwzNQ.jpg",
-    images: [
-      "https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/4201a5142442963.62671e0619e8b.jpg",
-      "https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/9e93ad142442963.62671e061b23e.jpg",
-      "https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/c2cb42142442963.62671e061c620.jpg",
-      "https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/9d76be142442963.62671e061b9ce.jpg",
-      "https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/2b20aa142442963.62671e061aa82.jpg",
-      "https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/385a2a142442963.62671e061c0f8.jpg"
-    ],
-    description: "Prototipo de concepto para landing page de servicio de Red 5G. Diseño de interfaz moderna y tecnológica, con énfasis en la jerarquía de información, llamadas a la acción y una estética que transmite innovación y velocidad.",
-    descriptionEn: "Concept prototype for a 5G Network service landing page. Modern and technological interface design, with emphasis on information hierarchy, calls to action and an aesthetic that conveys innovation and speed.",
-    tags: ["Landing Page", "Web Design", "Figma", "UI"],
-    client: "Proyecto de concepto",
-    year: "2022",
-    role: "UX/UI Designer",
-    behanceUrl: "https://www.behance.net/gallery/142442963/Prototipo-Landing-Page-Red5G-concepto",
-    figmaUrl: "https://www.figma.com/proto/example-5g",
-    col: "col-4"
-  },
-  {
-    id: 8,
-    title: "Linio — Piezas Promocionales",
-    titleEn: "Linio — Promotional Pieces",
-    category: "branding",
-    categoryLabel: "Branding",
-    thumb: "https://mir-s3-cdn-cf.behance.net/projects/404/29e670192686691.Y3JvcCw4OTEsNjk3LDk5LDA.jpg",
-    images: [
-      "https://mir-s3-cdn-cf.behance.net/project_modules/disp_webp/bd4b62192686691.65df7c1e5006e.jpg",
-      "https://mir-s3-cdn-cf.behance.net/project_modules/disp_webp/7a9c3d192686691.65df7c1e4f2a6.jpg"
-    ],
-    description: "Diseño de piezas promocionales y publicitarias para Linio. Banners digitales, creatividades para redes sociales y materiales de campaña manteniendo coherencia con los estándares visuales de la marca.",
-    descriptionEn: "Design of promotional and advertising pieces for Linio. Digital banners, social media creatives and campaign materials maintaining consistency with the brand's visual standards.",
-    tags: ["Diseño publicitario", "Social Media", "Banners", "Illustrator"],
-    client: "Linio",
-    year: "2024",
-    role: "Diseñador Gráfico",
-    behanceUrl: "https://www.behance.net/gallery/192686691/Linio-Piezas-Promocionales",
-    col: "col-4"
-  },
-  {
-    id: 9,
-    title: "Campaña Redes Sociales Yanbal",
-    titleEn: "Yanbal Social Media Campaign",
-    category: "branding",
-    categoryLabel: "Branding",
-    thumb: "https://mir-s3-cdn-cf.behance.net/projects/404/35ed5b137863125.Y3JvcCwzNDY4LDI3MTMsNjAwOSww.jpg",
-    images: [
-      "https://mir-s3-cdn-cf.behance.net/project_modules/1400/f512b6137863125.621316436a891.jpg",
-      "https://mir-s3-cdn-cf.behance.net/project_modules/fs_webp/5d96d5137863125.621316436b07e.jpg",
-      "https://mir-s3-cdn-cf.behance.net/project_modules/fs_webp/d7cdcc137863125.6213164369a22.jpg",
-      "https://mir-s3-cdn-cf.behance.net/project_modules/fs_webp/ce9884137863125.621316436a228.jpg",
-      "https://mir-s3-cdn-cf.behance.net/project_modules/fs_webp/ba1901137863125.621316436b7bf.jpg"
-    ],
-    description: "Concepto de campaña para redes sociales de Yanbal. Desarrollo de línea gráfica, sistema de piezas para distintos formatos digitales y propuesta de storytelling visual coherente con la identidad de la marca de cosméticos y joyería.",
-    descriptionEn: "Campaign concept for Yanbal social media. Development of graphic line, pieces system for different digital formats and visual storytelling proposal consistent with the cosmetics and jewelry brand identity.",
-    tags: ["Social Media", "Campaña digital", "Branding", "Illustrator"],
-    client: "Yanbal",
-    year: "2022",
-    role: "Diseñador Gráfico",
-    behanceUrl: "https://www.behance.net/gallery/137863125/Concepto-Campana-de-Redes-Sociales-Yanbal",
-    col: "col-6"
-  },
-  {
-    id: 10,
-    title: "Prototipo Renovación App Picap",
-    titleEn: "Picap App Renewal Prototype",
-    category: "uxui",
-    categoryLabel: "UX/UI",
-    thumb: "https://mir-s3-cdn-cf.behance.net/projects/404/748a54140713837.Y3JvcCw5NjksNzU4LDIwNCww.jpg",
-    images: [
-      "https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/9115e1140713837.624639594490d.jpg"
-    ],
-    description: "Concepto de renovación de la aplicación móvil de Picap, plataforma de movilidad urbana en moto. Análisis de la app actual, identificación de oportunidades de mejora en UX y propuesta de rediseño de flujos principales con prototipo de alta fidelidad.",
-    descriptionEn: "Renewal concept for Picap's mobile app, an urban motorcycle mobility platform. Analysis of the current app, UX improvement opportunity identification and high-fidelity prototype redesign proposal for main flows.",
-    tags: ["Mobile Design", "Figma", "UX Research", "Rediseño"],
-    client: "Picap (concepto)",
-    year: "2022",
-    role: "UX/UI Designer",
-    behanceUrl: "https://www.behance.net/gallery/140713837/Prototipo-concepto-de-renovacion-app-picap",
-    figmaUrl: "https://www.figma.com/proto/example-picap",
-    col: "col-4"
-  },
-  {
-    id: 11,
-    title: "Flyer Promocional Jenesano Boyacá",
-    titleEn: "Jenesano Boyacá Promotional Flyer",
-    category: "branding",
-    categoryLabel: "Branding",
-    thumb: "https://mir-s3-cdn-cf.behance.net/projects/404/bc0cd9137862597.Y3JvcCw4MDgsNjMyLDAsMA.jpg",
-    images: [
-      "https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/7b4645137862597.621312bbb4818.jpg"
-    ],
-    description: "Diseño de flyer promocional para el municipio de Jenesano, Boyacá. Pieza publicitaria orientada al turismo local con identidad visual que resalta la cultura y el atractivo natural de la región.",
-    descriptionEn: "Promotional flyer design for the municipality of Jenesano, Boyacá. Advertising piece oriented to local tourism with visual identity that highlights the culture and natural appeal of the region.",
-    tags: ["Diseño editorial", "Turismo", "Illustrator", "Impresión"],
-    client: "Jenesano, Boyacá",
-    year: "2022",
-    role: "Diseñador Gráfico",
-    behanceUrl: "https://www.behance.net/gallery/137862597/Flyer-Promocional-Jenesano-Boyaca",
-    col: "col-4"
-  },
-  {
-    id: 12,
-    title: "Concepto Ambientador Chocolatina JET",
-    titleEn: "Chocolatina JET Air Freshener Concept",
-    category: "branding",
-    categoryLabel: "Branding",
-    thumb: "https://mir-s3-cdn-cf.behance.net/projects/404/c8d902137862461.Y3JvcCwxMDg0LDg0NywwLDExNQ.jpg",
-    images: [
-      "https://mir-s3-cdn-cf.behance.net/project_modules/hd/d7f05b137862461.621311c2a89ea.jpg",
-      "https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/d5801b137862461.621311c2a7ceb.jpg",
-      "https://mir-s3-cdn-cf.behance.net/project_modules/hd_webp/f63f59137862461.621311c2a82d3.jpg",
-      "https://mir-s3-cdn-cf.behance.net/project_modules/hd_webp/8eea55137862461.621311c2a909b.jpg"
-    ],
-    description: "Concepto creativo de producto: ambientador con olor a Chocolatina JET, icónica marca colombiana. Diseño de empaque, identidad del producto y presentación visual del concepto. 130 visualizaciones en Behance.",
-    descriptionEn: "Creative product concept: air freshener with Chocolatina JET scent, iconic Colombian brand. Package design, product identity and visual concept presentation. 130 views on Behance.",
-    tags: ["Packaging", "Branding", "Concepto creativo", "Illustrator"],
-    client: "Proyecto de concepto",
-    year: "2022",
-    role: "Diseñador Gráfico",
-    behanceUrl: "https://www.behance.net/gallery/137862461/Concepto-ambientador-olor-a-chocolatina-JET",
-    col: "col-4"
-  }
-];
+    {
+      "id": 5,
+      "title": "Rediseño Página Web Colegio Virtual",
+      "titleEn": "Virtual School Website Redesign",
+      "category": "uxui",
+      "categoryLabel": "UX/UI",
+      "thumb": "https://mir-s3-cdn-cf.behance.net/projects/404/81f5be141231141.Y3JvcCwxMDA3LDc4OCwxOTcsMA.jpg",
+      "images": [
+        "https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/5513e7141231141.65df781a0cc2e.jpg",
+        "https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/2543f6141231141.624faeb1026ec.jpg",
+        "https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/71ce1d141231141.624faeb0f3607.jpg",
+        "https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/be9df9141231141.624faeb0f3dac.jpg",
+        "https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/176b27141231141.624faeb103ec3.jpg",
+        "https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/180531141231141.624faeb1016b4.jpg",
+        "https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/d73357141231141.624faeb1037b2.jpg",
+        "https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/edfe3f141231141.624faeb100629.jpg",
+        "https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/07a145141231141.624faeb100ea1.jpg",
+        "https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/541b9a141231141.624faeb101ee8.jpg",
+        "https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/f05d60141231141.624faeb102e62.jpg"
+      ],
+      "description": "Análisis de experiencia de usuario e implementación de rediseño completo para la plataforma web de un colegio virtual. Identificación de puntos de dolor, propuesta de nueva arquitectura de información y prototipado de alta fidelidad para mejorar la navegación y accesibilidad del sitio.",
+      "descriptionEn": "User experience analysis and complete redesign implementation for a virtual school web platform. Pain point identification, new information architecture proposal and high-fidelity prototyping to improve site navigation and accessibility.",
+      "tags": [
+        "UX Research",
+        "Web Design",
+        "Rediseño",
+        "Figma"
+      ],
+      "client": "Colegio Virtual",
+      "year": "2022",
+      "role": "UX/UI Designer",
+      "caseStudy": {
+        "challenge": "La plataforma web del colegio había ido creciendo por acumulación: los contenidos estaban donde la institución los fue colocando, no donde los buscaban las familias y los estudiantes.",
+        "challengeEn": "The school web platform had grown by accumulation: content sat where the institution had placed it over time, not where families and students were looking for it.",
+        "process": "Empecé con un análisis de experiencia para localizar los puntos de dolor concretos, no los supuestos. Con eso propuse una arquitectura de información nueva y la llevé a prototipo de alta fidelidad en Figma, revisando en paralelo la accesibilidad del sitio.",
+        "processEn": "I started with an experience analysis to locate the actual pain points rather than the assumed ones. From there I proposed a new information architecture and took it to a high-fidelity Figma prototype, reviewing site accessibility along the way.",
+        "outcome": "El rediseño reordenó la navegación alrededor de las tareas reales de quien usa el sitio, y dejó un prototipo completo como base para la implementación.",
+        "outcomeEn": "The redesign reorganised navigation around what people actually come to the site to do, and left a complete prototype as the basis for implementation.",
+        "draft": true
+      },
+      "behanceUrl": "https://www.behance.net/gallery/141231141/Rediseno-Pagina-Web-Colegio-Virtual",
+      "figmaUrl": "https://www.figma.com/proto/example-colegio",
+      "col": "col-6"
+    },
+    {
+      "id": 8,
+      "title": "Linio — Piezas Promocionales",
+      "titleEn": "Linio — Promotional Pieces",
+      "category": "branding",
+      "categoryLabel": "Branding",
+      "thumb": "https://mir-s3-cdn-cf.behance.net/projects/404/29e670192686691.Y3JvcCw4OTEsNjk3LDk5LDA.jpg",
+      "images": [
+        "https://mir-s3-cdn-cf.behance.net/project_modules/disp_webp/bd4b62192686691.65df7c1e5006e.jpg",
+        "https://mir-s3-cdn-cf.behance.net/project_modules/disp_webp/7a9c3d192686691.65df7c1e4f2a6.jpg"
+      ],
+      "description": "Diseño de piezas promocionales y publicitarias para Linio. Banners digitales, creatividades para redes sociales y materiales de campaña manteniendo coherencia con los estándares visuales de la marca.",
+      "descriptionEn": "Design of promotional and advertising pieces for Linio. Digital banners, social media creatives and campaign materials maintaining consistency with the brand's visual standards.",
+      "tags": [
+        "Diseño publicitario",
+        "Social Media",
+        "Banners",
+        "Illustrator"
+      ],
+      "client": "Linio",
+      "year": "2024",
+      "role": "Diseñador Gráfico",
+      "behanceUrl": "https://www.behance.net/gallery/192686691/Linio-Piezas-Promocionales",
+      "col": "col-4"
+    },
+    {
+      "id": 11,
+      "title": "Flyer Promocional Jenesano Boyacá",
+      "titleEn": "Jenesano Boyacá Promotional Flyer",
+      "category": "branding",
+      "categoryLabel": "Branding",
+      "thumb": "https://mir-s3-cdn-cf.behance.net/projects/404/bc0cd9137862597.Y3JvcCw4MDgsNjMyLDAsMA.jpg",
+      "images": [
+        "https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/7b4645137862597.621312bbb4818.jpg"
+      ],
+      "description": "Diseño de flyer promocional para el municipio de Jenesano, Boyacá. Pieza publicitaria orientada al turismo local con identidad visual que resalta la cultura y el atractivo natural de la región.",
+      "descriptionEn": "Promotional flyer design for the municipality of Jenesano, Boyacá. Advertising piece oriented to local tourism with visual identity that highlights the culture and natural appeal of the region.",
+      "tags": [
+        "Diseño editorial",
+        "Turismo",
+        "Illustrator",
+        "Impresión"
+      ],
+      "client": "Jenesano, Boyacá",
+      "year": "2022",
+      "role": "Diseñador Gráfico",
+      "behanceUrl": "https://www.behance.net/gallery/137862597/Flyer-Promocional-Jenesano-Boyaca",
+      "col": "col-4"
+    },
+    {
+      "id": 3,
+      "title": "App para Adopción de Mascotas",
+      "titleEn": "Pet Adoption App",
+      "category": "uxui",
+      "categoryLabel": "UX/UI",
+      "thumb": "https://mir-s3-cdn-cf.behance.net/projects/404/489cf7138433671.Y3JvcCw4MDksNjMyLDAsMA.jpg",
+      "images": [
+        "https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/2c93a8138433671.621da42bbf07a.jpg"
+      ],
+      "description": "Diseño de aplicación móvil para adopción de mascotas. Investigación de usuarios, arquitectura de información, flujos de navegación y prototipo de alta fidelidad en Figma. Proyecto con 175 visualizaciones en Behance.",
+      "descriptionEn": "Mobile app design for pet adoption. User research, information architecture, navigation flows and high-fidelity prototype in Figma. Behance project with 175 views.",
+      "tags": [
+        "Mobile Design",
+        "Figma",
+        "UX Research",
+        "Prototipado"
+      ],
+      "client": "Proyecto personal",
+      "year": "2022",
+      "role": "UX/UI Designer",
+      "behanceUrl": "https://www.behance.net/gallery/138433671/App-para-Adopcion-de-Mascotas",
+      "figmaUrl": "https://www.figma.com/proto/example-mascotas",
+      "col": "col-4"
+    },
+    {
+      "id": 6,
+      "title": "Prototipo — App Renta de Autos",
+      "titleEn": "Prototype — Car Rental App",
+      "category": "uxui",
+      "categoryLabel": "UX/UI",
+      "thumb": "https://mir-s3-cdn-cf.behance.net/projects/404/2f2016139346567.Y3JvcCw5MjAsNzIwLDE4MCww.jpg",
+      "images": [
+        "https://mir-s3-cdn-cf.behance.net/project_modules/fs_webp/24e163139346567.622e456fae8d1.jpg",
+        "https://mir-s3-cdn-cf.behance.net/project_modules/fs_webp/f5985c139346567.622e456faef21.jpg",
+        "https://mir-s3-cdn-cf.behance.net/project_modules/fs_webp/ab89c1139346567.622e456faf537.jpg"
+      ],
+      "description": "Prototipo de concepto para aplicación móvil de renta de autos. Flujos completos de usuario: búsqueda, selección de vehículo, reserva y pago. Diseño centrado en la simplicidad del proceso y la confianza del usuario en la transacción.",
+      "descriptionEn": "Concept prototype for a car rental mobile app. Complete user flows: search, vehicle selection, booking and payment. Design centered on process simplicity and user trust in the transaction.",
+      "tags": [
+        "Mobile Design",
+        "Figma",
+        "Prototipado",
+        "UX"
+      ],
+      "client": "Proyecto de concepto",
+      "year": "2022",
+      "role": "UX/UI Designer",
+      "behanceUrl": "https://www.behance.net/gallery/139346567/Prototipo-concepto-de-app-para-renta-de-autos",
+      "figmaUrl": "https://www.figma.com/proto/example-autos",
+      "col": "col-4"
+    },
+    {
+      "id": 7,
+      "title": "Prototipo Landing Page Red 5G",
+      "titleEn": "5G Network Landing Page Prototype",
+      "category": "uxui",
+      "categoryLabel": "UX/UI",
+      "thumb": "https://mir-s3-cdn-cf.behance.net/projects/404/53a58c142442963.Y3JvcCwxMjkyLDEwMTAsMCwzNQ.jpg",
+      "images": [
+        "https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/4201a5142442963.62671e0619e8b.jpg",
+        "https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/9e93ad142442963.62671e061b23e.jpg",
+        "https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/c2cb42142442963.62671e061c620.jpg",
+        "https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/9d76be142442963.62671e061b9ce.jpg",
+        "https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/2b20aa142442963.62671e061aa82.jpg",
+        "https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/385a2a142442963.62671e061c0f8.jpg"
+      ],
+      "description": "Prototipo de concepto para landing page de servicio de Red 5G. Diseño de interfaz moderna y tecnológica, con énfasis en la jerarquía de información, llamadas a la acción y una estética que transmite innovación y velocidad.",
+      "descriptionEn": "Concept prototype for a 5G Network service landing page. Modern and technological interface design, with emphasis on information hierarchy, calls to action and an aesthetic that conveys innovation and speed.",
+      "tags": [
+        "Landing Page",
+        "Web Design",
+        "Figma",
+        "UI"
+      ],
+      "client": "Proyecto de concepto",
+      "year": "2022",
+      "role": "UX/UI Designer",
+      "behanceUrl": "https://www.behance.net/gallery/142442963/Prototipo-Landing-Page-Red5G-concepto",
+      "figmaUrl": "https://www.figma.com/proto/example-5g",
+      "col": "col-4"
+    },
+    {
+      "id": 9,
+      "title": "Campaña Redes Sociales Yanbal",
+      "titleEn": "Yanbal Social Media Campaign",
+      "category": "branding",
+      "categoryLabel": "Branding",
+      "thumb": "https://mir-s3-cdn-cf.behance.net/projects/404/35ed5b137863125.Y3JvcCwzNDY4LDI3MTMsNjAwOSww.jpg",
+      "images": [
+        "https://mir-s3-cdn-cf.behance.net/project_modules/1400/f512b6137863125.621316436a891.jpg",
+        "https://mir-s3-cdn-cf.behance.net/project_modules/fs_webp/5d96d5137863125.621316436b07e.jpg",
+        "https://mir-s3-cdn-cf.behance.net/project_modules/fs_webp/d7cdcc137863125.6213164369a22.jpg",
+        "https://mir-s3-cdn-cf.behance.net/project_modules/fs_webp/ce9884137863125.621316436a228.jpg",
+        "https://mir-s3-cdn-cf.behance.net/project_modules/fs_webp/ba1901137863125.621316436b7bf.jpg"
+      ],
+      "description": "Concepto de campaña para redes sociales de Yanbal. Desarrollo de línea gráfica, sistema de piezas para distintos formatos digitales y propuesta de storytelling visual coherente con la identidad de la marca de cosméticos y joyería.",
+      "descriptionEn": "Campaign concept for Yanbal social media. Development of graphic line, pieces system for different digital formats and visual storytelling proposal consistent with the cosmetics and jewelry brand identity.",
+      "tags": [
+        "Social Media",
+        "Campaña digital",
+        "Branding",
+        "Illustrator"
+      ],
+      "client": "Proyecto de concepto",
+      "year": "2022",
+      "role": "Diseñador Gráfico",
+      "behanceUrl": "https://www.behance.net/gallery/137863125/Concepto-Campana-de-Redes-Sociales-Yanbal",
+      "col": "col-6"
+    },
+    {
+      "id": 10,
+      "title": "Prototipo Renovación App Picap",
+      "titleEn": "Picap App Renewal Prototype",
+      "category": "uxui",
+      "categoryLabel": "UX/UI",
+      "thumb": "https://mir-s3-cdn-cf.behance.net/projects/404/748a54140713837.Y3JvcCw5NjksNzU4LDIwNCww.jpg",
+      "images": [
+        "https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/9115e1140713837.624639594490d.jpg"
+      ],
+      "description": "Concepto de renovación de la aplicación móvil de Picap, plataforma de movilidad urbana en moto. Análisis de la app actual, identificación de oportunidades de mejora en UX y propuesta de rediseño de flujos principales con prototipo de alta fidelidad.",
+      "descriptionEn": "Renewal concept for Picap's mobile app, an urban motorcycle mobility platform. Analysis of the current app, UX improvement opportunity identification and high-fidelity prototype redesign proposal for main flows.",
+      "tags": [
+        "Mobile Design",
+        "Figma",
+        "UX Research",
+        "Rediseño"
+      ],
+      "client": "Picap (concepto)",
+      "year": "2022",
+      "role": "UX/UI Designer",
+      "behanceUrl": "https://www.behance.net/gallery/140713837/Prototipo-concepto-de-renovacion-app-picap",
+      "figmaUrl": "https://www.figma.com/proto/example-picap",
+      "col": "col-4"
+    },
+    {
+      "id": 12,
+      "title": "Concepto Ambientador Chocolatina JET",
+      "titleEn": "Chocolatina JET Air Freshener Concept",
+      "category": "branding",
+      "categoryLabel": "Branding",
+      "thumb": "https://mir-s3-cdn-cf.behance.net/projects/404/c8d902137862461.Y3JvcCwxMDg0LDg0NywwLDExNQ.jpg",
+      "images": [
+        "https://mir-s3-cdn-cf.behance.net/project_modules/hd/d7f05b137862461.621311c2a89ea.jpg",
+        "https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/d5801b137862461.621311c2a7ceb.jpg",
+        "https://mir-s3-cdn-cf.behance.net/project_modules/hd_webp/f63f59137862461.621311c2a82d3.jpg",
+        "https://mir-s3-cdn-cf.behance.net/project_modules/hd_webp/8eea55137862461.621311c2a909b.jpg"
+      ],
+      "description": "Concepto creativo de producto: ambientador con olor a Chocolatina JET, icónica marca colombiana. Diseño de empaque, identidad del producto y presentación visual del concepto. 130 visualizaciones en Behance.",
+      "descriptionEn": "Creative product concept: air freshener with Chocolatina JET scent, iconic Colombian brand. Package design, product identity and visual concept presentation. 130 views on Behance.",
+      "tags": [
+        "Packaging",
+        "Branding",
+        "Concepto creativo",
+        "Illustrator"
+      ],
+      "client": "Proyecto de concepto",
+      "year": "2022",
+      "role": "Diseñador Gráfico",
+      "behanceUrl": "https://www.behance.net/gallery/137862461/Concepto-ambientador-olor-a-chocolatina-JET",
+      "col": "col-4"
+    }
+  ];
 
 const SKILLS = [
   { name: "Diseño Gráfico", level: 92 },
@@ -428,7 +488,43 @@ const CERTIFICATIONS = [
 const SITE = {
   portrait: "",
   portraitAlt: "Kevin Navarrete",
-  cvUrl: ""
+  cvUrl: "",
+
+  /* Sección "Cómo trabajo con IA".
+     Escrita a partir de lo que ya consta en la experiencia real —
+     en H2A integra IA en los flujos de trabajo, en BlueCaribu la usó
+     para generar código y acortar ciclos. Editable desde el panel. */
+  aiTools: ["Claude", "ChatGPT", "Gemini"],
+
+  aiPractices: [
+    {
+      titulo: "Explorar y descartar rápido",
+      tituloEn: "Explore and discard fast",
+      texto: "Genero variantes de concepto y las descarto en minutos, no en días. La dirección de arte la decido yo; la IA solo acelera llegar a la ruta que funciona.",
+      textoEn: "I generate concept variants and discard them in minutes rather than days. I make the art-direction call; AI only speeds up getting to the route that works."
+    },
+    {
+      titulo: "De Figma a código",
+      tituloEn: "From Figma to code",
+      texto: "Maqueto interfaces en HTML, CSS y Sass con apoyo de IA. En BlueCaribu eso acortó los ciclos de desarrollo de las plataformas internas de la compañía.",
+      textoEn: "I build interfaces in HTML, CSS and Sass with AI support. At BlueCaribu that shortened the development cycles of the company's internal platforms."
+    },
+    {
+      titulo: "Contenido complejo, material claro",
+      tituloEn: "Complex content, clear material",
+      texto: "En H2A convierto documentación densa en experiencias de aprendizaje interactivas. La IA ayuda a estructurar y redactar; el criterio pedagógico y la jerarquía visual son míos.",
+      textoEn: "At H2A I turn dense documentation into interactive learning experiences. AI helps structure and draft; the pedagogical judgement and the visual hierarchy are mine."
+    },
+    {
+      titulo: "Revisión, no sustitución",
+      tituloEn: "Review, not replacement",
+      texto: "La uso para revisar contrastes, textos alternativos y consistencia antes de entregar. Encuentra lo que se me pasa; decidir qué se corrige sigue siendo mi trabajo.",
+      textoEn: "I use it to review contrast, alt text and consistency before handing off. It catches what I miss; deciding what to fix is still my job."
+    }
+  ],
+
+  aiLimit: "No entrego imagen ni texto generado sin revisarlo. La identidad de una marca, las decisiones de accesibilidad y lo que se le promete a un usuario no se delegan.",
+  aiLimitEn: "I don't ship generated image or copy without reviewing it. A brand's identity, accessibility decisions and what gets promised to a user are not delegated."
 };
 
 const i18n = {
@@ -436,8 +532,14 @@ const i18n = {
     "nav.projects": "Proyectos",
     "nav.about": "Sobre mí",
     "nav.cv": "CV",
+    "nav.ia": "IA",
+    "ia.label": "Cómo trabajo con IA",
+    "ia.title": "La IA me quita trabajo mecánico,<br>no <em>criterio</em>.",
+    "ia.sub": "Llevo dos años con estas herramientas dentro del flujo diario. Esto es lo que hacen por mí y lo que sigo decidiendo yo.",
+    "ia.tools": "Herramientas",
+    "ia.limit_label": "Dónde no la uso",
     "nav.contact": "Contacto",
-    "hero.available": "Bogotá, Colombia · disponible para proyectos",
+    "hero.available": "Disponible para trabajo remoto · Bogotá, Colombia (GMT-5)",
     "hero.role": "Diseñador gráfico y UX/UI",
     "hero.sub": "Trabajo el sistema completo: del manual de marca al prototipo funcional. Cinco años construyendo identidades, interfaces y contenidos e-learning para equipos como BlueCaribu, Logyca, Lookers y H2A.",
     "hero.cta1": "Ver proyectos →",
@@ -463,11 +565,20 @@ const i18n = {
     "cv.experience": "Experiencia",
     "cv.education": "Formación",
     "cv.certs": "Certificaciones",
-    "cv.download": "Descargar CV en PDF",
+    "cv.download": "Ver CV completo",
     "contact.label": "Contacto",
     "contact.title": "Trabajemos<br>juntos en algo<br><em>memorable.</em>",
     "contact.sub": "¿Tienes un proyecto en mente? Me encantaría escucharte. Estoy disponible para proyectos freelance, colaboraciones y consultoría.",
     "contact.email": "Email",
+    "contact.subject": "Motivo",
+    "contact.opt_empleo": "Oferta de empleo",
+    "contact.opt_freelance": "Proyecto freelance",
+    "contact.opt_colab": "Colaboración",
+    "contact.opt_otro": "Otro",
+    "contact.required": "Este campo es obligatorio.",
+    "contact.bademail": "Revisa el correo: falta algo.",
+    "contact.sending": "Enviando…",
+    "contact.failed": "No se pudo enviar. Escríbeme directamente a",
     "contact.name": "Nombre",
     "contact.email_label": "Correo",
     "contact.subject": "Servicio de interés",
@@ -478,7 +589,7 @@ const i18n = {
     "contact.opt4": "Marketing digital / Social",
     "contact.opt5": "Otro",
     "contact.message": "Mensaje",
-    "contact.success": "✓ Mensaje enviado. Te contactaré pronto.",
+    "contact.success": "Mensaje enviado. Te respondo en menos de 24 horas.",
     "contact.send": "Enviar mensaje →",
     "modal.client": "Cliente",
     "modal.year": "Año",
@@ -489,8 +600,14 @@ const i18n = {
     "nav.projects": "Projects",
     "nav.about": "About",
     "nav.cv": "CV",
+    "nav.ia": "AI",
+    "ia.label": "How I work with AI",
+    "ia.title": "AI takes the mechanical work,<br>not the <em>judgement</em>.",
+    "ia.sub": "Two years with these tools inside my daily workflow. Here is what they do for me, and what I still decide myself.",
+    "ia.tools": "Tools",
+    "ia.limit_label": "Where I don't use it",
     "nav.contact": "Contact",
-    "hero.available": "Bogotá, Colombia · available for projects",
+    "hero.available": "Open to remote work · Bogotá, Colombia (GMT-5)",
     "hero.role": "Graphic and UX/UI designer",
     "hero.sub": "I work the whole system: from the brand manual to the working prototype. Five years building identities, interfaces and e-learning content for teams like BlueCaribu, Logyca, Lookers and H2A.",
     "hero.cta1": "View projects →",
@@ -516,11 +633,20 @@ const i18n = {
     "cv.experience": "Experience",
     "cv.education": "Education",
     "cv.certs": "Certifications",
-    "cv.download": "Download CV as PDF",
+    "cv.download": "View full CV",
     "contact.label": "Contact",
     "contact.title": "Let's work<br>on something<br><em>memorable.</em>",
     "contact.sub": "Have a project in mind? I'd love to hear about it. Available for freelance projects, collaborations and consulting.",
     "contact.email": "Email",
+    "contact.subject": "Reason",
+    "contact.opt_empleo": "Job opportunity",
+    "contact.opt_freelance": "Freelance project",
+    "contact.opt_colab": "Collaboration",
+    "contact.opt_otro": "Something else",
+    "contact.required": "This field is required.",
+    "contact.bademail": "Check the email address: something is missing.",
+    "contact.sending": "Sending…",
+    "contact.failed": "It could not be sent. Write to me directly at",
     "contact.name": "Name",
     "contact.email_label": "Email",
     "contact.subject": "Service of interest",

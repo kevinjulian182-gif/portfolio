@@ -92,6 +92,7 @@
           <button class="btn-gold" id="btn-new-project">+ Nuevo proyecto</button>
         </div>
 
+        <div class="aviso-borradores" id="aviso-borradores" hidden></div>
         <div class="projects-list" id="projects-list"></div>
       </div>
 
@@ -194,6 +195,33 @@
               <p class="hint">Sin esto, el botón "Descargar CV" no lleva a ninguna parte.</p>
             </div>
           </div>
+        </div>
+
+
+        <div class="card mt-2">
+          <div class="card-header-row"><h3 class="card-title">Cómo trabajo con IA</h3></div>
+          <p class="hint mb-05">Lo que aparece en la sección de IA del sitio. Está redactado a partir de tu experiencia real en H2A y BlueCaribu — corrígelo si no te representa.</p>
+
+          <div class="form-grid">
+            <div class="field-group col-2">
+              <label for="ia-tools-inp">Herramientas (separadas por coma)</label>
+              <input type="text" id="ia-tools-inp" placeholder="Claude, ChatGPT, Gemini" />
+            </div>
+            <div class="field-group">
+              <label for="ia-limite-es">Dónde no la uso (ES)</label>
+              <textarea id="ia-limite-es" rows="3"></textarea>
+            </div>
+            <div class="field-group">
+              <label for="ia-limite-en">Where I don't use it (EN)</label>
+              <textarea id="ia-limite-en" rows="3"></textarea>
+            </div>
+          </div>
+
+          <div class="card-header-row mt-1">
+            <h3 class="card-title">Prácticas</h3>
+            <button type="button" class="btn-outline sm" id="btn-add-ia">+ Agregar</button>
+          </div>
+          <div id="ia-practicas-editor"></div>
         </div>
 
         <div id="textos-editor"></div>

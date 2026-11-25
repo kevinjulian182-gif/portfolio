@@ -25,7 +25,8 @@ portfolio/
 │   └── admin.js            ← Lógica del panel
 ├── netlify/functions/
 │   ├── datos.mjs           ← GET/POST del contenido  → /api/datos
-│   └── imagen.mjs          ← Subir y servir imágenes → /api/imagen
+│   ├── imagen.mjs          ← Subir y servir imágenes → /api/imagen
+│   └── contacto.mjs        ← Mensajes del formulario → /api/contacto
 ├── netlify.toml
 └── package.json            ← Solo @netlify/blobs, para las funciones
 ```
@@ -56,6 +57,29 @@ devuelve `{}` y la página se pinta con los valores por defecto. Nunca se queda 
 La lista está también en `netlify/functions/datos.mjs` como lista blanca: si añades una
 sección nueva hay que registrarla ahí, o el servidor la rechaza. Es a propósito — evita
 que una petición manipulada escriba claves arbitrarias.
+
+## Formulario de contacto — por qué no publica directo a Netlify Forms
+
+Al verificar la entrega en producción apareció lo peor: la interfaz decía «mensaje
+enviado» y Netlify registraba **cero**. El mismo POST lanzado desde el servidor sí
+entraba, así que la tubería funcionaba y lo que se perdía era el envío hecho con
+`fetch` desde el navegador. No se dejó un formulario que entrega a veces.
+
+Flujo actual:
+```
+navegador → POST /api/contacto (JSON)
+  1. se guarda en Blobs (almacén `contacto`)   ← esto es lo que NO puede fallar
+  2. la función reenvía a Netlify Forms desde el servidor → correo a Kevin
+  Si el paso 2 falla, el mensaje ya está a salvo y la respuesta sigue siendo éxito.
+```
+
+- La bandeja vive en el panel, pestaña **Mensajes** (GET y DELETE con `PANEL_PASS`).
+- `ignore_html_forms` del sitio estaba en `true`: hubo que ponerlo en `false` para que
+  Netlify detectara el formulario.
+- El aviso por correo es un hook `email` / `submission_created` hacia
+  kevinjulian182@gmail.com, creado con `netlify api createHookBySiteId`.
+- Netlify reescribe el `<form>` al registrarlo y le quita `data-netlify`: no hay que
+  asustarse ni volver a añadirlo.
 
 ## Seguridad del panel
 
@@ -133,6 +157,7 @@ lanzar ningún error en consola.
 - Habilidades, herramientas, experiencia, formación y certificaciones
 - Textos del sitio: el objeto `i18n` completo, ES/EN en paralelo, con buscador
 - Retrato y CV editables (`SITE`)
+- **Mensajes**: bandeja del formulario, con contador, ofertas de empleo destacadas y borrado
 - Editor de la sección de IA (prácticas, herramientas y límite, ES/EN)
 - Aviso de qué casos de estudio siguen marcados como borrador
 - Copia de seguridad: vuelca todo a un `data.js` descargable
@@ -145,8 +170,6 @@ lanzar ningún error en consola.
 - GitHub: kevinjulian182-gif
 
 ## Pendientes / próximas mejoras sugeridas
-- **Activar el aviso por correo de Netlify Forms** (Site configuration → Forms →
-  Form notifications). Sin eso los mensajes quedan solo en el panel de Netlify.
 - Hay ~9 proyectos más en Behance que no están en el sitio (LeBron escritorio y móvil,
   My Dog Heal, Politécnico, Cariñositos, lata El Bosque, Kyrie Irving, jugo natural,
   INNOVA). Se dejaron fuera a propósito: la recomendación es mostrar 8–12 bien elegidos.

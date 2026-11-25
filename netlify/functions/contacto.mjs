@@ -70,6 +70,17 @@ export default async (req) => {
     return json({ mensajes: await leer() });
   }
 
+  /* ── Borrar uno (solo con la contraseña del panel) ── */
+  if (req.method === 'DELETE') {
+    const clave = url.searchParams.get('clave');
+    if (clave !== process.env.PANEL_PASS) return json({ error: 'Contraseña incorrecta.' }, 401);
+    const id = url.searchParams.get('id');
+    const lista = await leer();
+    const quedan = lista.filter(m => m.id !== id);
+    await almacen().setJSON(CLAVE, quedan);
+    return json({ ok: true, total: quedan.length });
+  }
+
   if (req.method !== 'POST') return json({ error: 'Método no permitido' }, 405);
 
   let datos;

@@ -949,11 +949,26 @@ async function cargarMensajes() {
         <p class="mensaje-texto">${escaparHtml(m.mensaje)}</p>
         <div class="btn-row mt-05">
           <a class="btn-outline sm" href="mailto:${escaparHtml(m.correo)}?subject=Re%3A%20tu%20mensaje%20desde%20el%20portafolio">Responder</a>
+          <button type="button" class="btn-outline sm danger" onclick="borrarMensaje('${escaparHtml(m.id)}')">Eliminar</button>
         </div>
       </div>`).join('');
   } catch (err) {
     caja.innerHTML = '<div class="card"><p class="hint error">' + escaparHtml(err.message) + '</p></div>';
   }
+}
+
+function borrarMensaje(id) {
+  confirmDelete(async () => {
+    try {
+      const res = await fetch('/api/contacto?clave=' + encodeURIComponent(claveGuardada()) +
+                              '&id=' + encodeURIComponent(id), { method: 'DELETE' });
+      if (!res.ok) throw new Error((await res.json()).error || 'HTTP ' + res.status);
+      showToast('✓ Mensaje eliminado');
+      cargarMensajes();
+    } catch (err) {
+      showToast('✗ ' + err.message);
+    }
+  });
 }
 
 function initMensajes() {
